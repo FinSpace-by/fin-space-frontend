@@ -7,6 +7,7 @@ import NotFound from '@components/notFound/NotFound';
 import MainPage from '@components/mainPage/MainPage';
 import MobileMenu from '@components/mobileMenu/MobileMenu';
 import NotAvailable from '@components/notAvailable/NotAvailable';
+import Authorization from '@components/authorization/Authorization';
 
 import './sass/index.scss';
 
@@ -38,7 +39,7 @@ function App() {
             <Routes>
               <Route path={ROUTER_ROUTES.NOT_FOUND} element={<NotFound />} />
               <Route path={ROUTER_ROUTES.ROOT}>
-                <Route index element={<NotFound />} />
+                <Route index element={<Authorization />} />
                 <Route
                   path={ROUTER_ROUTES.MOBILE_MENU}
                   element={<MobileMenu />}

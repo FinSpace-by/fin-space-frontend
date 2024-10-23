@@ -1,4 +1,9 @@
 body {
-  background: #fff;
+  background: #111111;
   margin: 0;
+}
+
+@font-face {
+  font-family: 'Gogh';
+  src: url('@assets/fonts/Gogh-Medium.ttf') format('opentype');
 }
