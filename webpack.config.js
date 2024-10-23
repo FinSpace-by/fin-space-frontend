@@ -33,12 +33,24 @@ module.exports = (env) => {
       ],
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      alias: {
+        '@src': path.resolve(__dirname, 'src'),
+        '@api': path.resolve(__dirname, 'src', 'api'),
+        '@components': path.resolve(__dirname, 'src', 'components'),
+        '@utils': path.resolve(__dirname, 'src', 'utils'),
+        '@assets': path.resolve(__dirname, 'src/assets'),
+        '@constants': path.resolve(__dirname, 'src', 'constants'),
+        '@sass': path.resolve(__dirname, 'src', 'sass'),
+        '@modules': path.resolve(__dirname, 'src', 'modules'),
+        '@node_modules': path.resolve(__dirname, 'node_modules'),
+      },
+      extensions: ['', '.js', '.jsx', '.scss'],
     },
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './public/index.html',
+        favicon: './public/icons/favicon.ico',
       }),
       ...(env.mode === 'production'
         ? [
@@ -60,7 +72,7 @@ module.exports = (env) => {
     devServer: {
       static: path.join(__dirname, 'dist'),
       compress: true,
-      port: 3000,
+      port: 9000,
       hot: true,
       historyApiFallback: true,
     },
