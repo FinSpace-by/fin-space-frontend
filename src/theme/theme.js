@@ -31,8 +31,8 @@ const theme = createTheme({
           borderRadius: '10vw',
         },
         input: {
-          color: '#000', // Цвет вводимого текста
-          backgroundColor: '#fff', // Цвет фона вводимого текста (если нужно)
+          color: '#000',
+          backgroundColor: '#fff',
           borderRadius: '10vw',
         },
       },
@@ -49,7 +49,7 @@ const theme = createTheme({
       styleOverrides: {
         input: {
           '&::placeholder': {
-            color: '#1C1C1C', // Цвет текста плейсхолдера
+            color: '#1C1C1C',
           },
         },
       },
@@ -57,7 +57,7 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          color: '#ffffff', // Цвет текста метки (label)
+          color: '#ffffff',
         },
       },
     },

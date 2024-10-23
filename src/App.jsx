@@ -8,6 +8,7 @@ import MainPage from '@components/mainPage/MainPage';
 import MobileMenu from '@components/mobileMenu/MobileMenu';
 import NotAvailable from '@components/notAvailable/NotAvailable';
 import Authorization from '@components/authorization/Authorization';
+import Registration from '@components/registration/Registration';
 
 import './sass/index.scss';
 
@@ -40,6 +41,10 @@ function App() {
               <Route path={ROUTER_ROUTES.NOT_FOUND} element={<NotFound />} />
               <Route path={ROUTER_ROUTES.ROOT}>
                 <Route index element={<Authorization />} />
+                <Route
+                  path={ROUTER_ROUTES.REGISTRATION}
+                  element={<Registration />}
+                />
                 <Route
                   path={ROUTER_ROUTES.MOBILE_MENU}
                   element={<MobileMenu />}

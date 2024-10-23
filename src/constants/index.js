@@ -3,6 +3,7 @@ export const ROUTER_ROUTES = {
   ROOT: '/',
   MOBILE_MENU: '',
   CARDS: 'cards',
+  REGISTRATION: 'register',
 };
 
 export const ROUTES = {
