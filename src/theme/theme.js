@@ -28,6 +28,12 @@ const theme = createTheme({
       fontSize: 24,
       fontFamily: 'GoghRegular, sans-serif',
     },
+    menu: {
+      color: '#fff',
+      fontSize: 20,
+      fontFamily: 'GoghRegular, sans-serif',
+      marginTop: '20px',
+    },
     cardText: {
       color: '#000',
       fontSize: '1rem',

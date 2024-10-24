@@ -11,6 +11,16 @@ function Profile() {
       <div className="profile__user-name">
         <Typography variant="header">Иван Иванов</Typography>
       </div>
+
+      <div className="profile__menu__container">
+        <Typography variant="menu">Личная информация</Typography>
+        <Typography variant="menu">Безопасность</Typography>
+        <Typography variant="menu">Программы лояльности</Typography>
+        <Typography variant="menu">Банки партнёры</Typography>
+        <Typography variant="menu">Служба поддержки</Typography>
+        <Typography variant="menu">Настройки</Typography>
+        <Typography variant="menu">Выйти</Typography>
+      </div>
     </>
   );
 }

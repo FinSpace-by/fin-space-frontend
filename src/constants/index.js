@@ -12,7 +12,7 @@ export const ROUTER_ROUTES = {
 export const ROUTES = {
   ROOT: { TITLE: 'Главная', PATH: '/' },
   REGISTRATION: { TITLE: 'Регистрация', PATH: '/registration' },
-  CARDS: { TITLE: 'Белкарты', PATH: '/cards' },
+  CARDS: { TITLE: 'Карты', PATH: '/cards' },
   ANALITIC: { TITLE: 'Аналитика', PATH: '/analitic' },
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
   FAMILY: { TITLE: 'Семья', PATH: '/family' },
