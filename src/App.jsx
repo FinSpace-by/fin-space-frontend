@@ -9,6 +9,7 @@ import MobileMenu from '@components/mobileMenu/MobileMenu';
 import NotAvailable from '@components/notAvailable/NotAvailable';
 import Authorization from '@components/authorization/Authorization';
 import Registration from '@components/registration/Registration';
+import Analitic from '@components/analitic/Analitic';
 
 import './sass/index.scss';
 
@@ -50,6 +51,7 @@ function App() {
                   element={<MobileMenu />}
                 >
                   <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
+                  <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
                 </Route>
               </Route>
             </Routes>

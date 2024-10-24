@@ -14,7 +14,7 @@ function MobileMenuNav({}) {
         </li>
         <li className="mobile-menu__nav__item">
           <NavLink
-            to={ROUTES.FAMILY.PATH}
+            to={ROUTES.ANALITIC.PATH}
             className="mobile-menu__link mobile-menu__link--analitic"
           />
         </li>

@@ -1,0 +1,43 @@
+.analitic {
+  &__container {
+    position: relative;
+    width: calc(100vw - 40px);
+    height: calc(62.66vw - 25.06px);
+    margin-left: 20px;
+    background-image: url('@assets/imgs/analiticBG.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 5vw;
+  }
+
+  &__cardName {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+
+  &__tabs {
+    &__container {
+      width: calc(100vw - 40px);
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+  }
+
+  &__tab1 {
+    width: 50%;
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 100%);
+    position: relative;
+  }
+
+  &__tab2 {
+    width: 50%;
+    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+    border-top-right-radius: 2vw;
+  }
+
+  &__tabContent {
+    background: #1c1c1c;
+    padding: 20px;
+  }
+}

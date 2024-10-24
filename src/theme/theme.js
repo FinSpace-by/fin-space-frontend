@@ -83,6 +83,25 @@ const theme = createTheme({
         },
       },
     },
+    MuiTabs: {
+      styleOverrides: {
+        root: {},
+        indicator: {
+          backgroundColor: '#1C1C1C', // Индикатор активной вкладки
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#fff', // Цвет текста неактивных вкладок
+          '&.Mui-selected': {
+            color: '#fff', // Цвет текста активной вкладки
+            backgroundColor: '#1C1C1C', // Фон активной вкладки
+          },
+        },
+      },
+    },
   },
 });
 

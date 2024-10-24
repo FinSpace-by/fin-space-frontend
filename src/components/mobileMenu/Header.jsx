@@ -4,13 +4,13 @@ import logo from '@assets/imgs/logo.png';
 import './sass/index.scss';
 import { Typography } from '@mui/material';
 
-function MobileMenu() {
+function Header({ pageTitle }) {
   return (
     <>
-      <Typography variant="header">Белкарт</Typography>
+      <Typography variant="header">{pageTitle}</Typography>
       <img src={logo} className="mobile-menu__header__img" />
     </>
   );
 }
 
-export default MobileMenu;
+export default Header;
