@@ -44,6 +44,21 @@ const theme = createTheme({
       fontSize: '0.8rem',
       fontFamily: 'GoghRegular, sans-serif',
     },
+    date: {
+      color: '#fff',
+      fontSize: '18px',
+      fontFamily: 'Gogh, sans-serif',
+    },
+    place: {
+      color: '#fff',
+      fontSize: '18px',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
+    time: {
+      color: '#fff',
+      fontSize: '16px',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
   },
   components: {
     MuiOutlinedInput: {
