@@ -5,6 +5,8 @@ export const ROUTER_ROUTES = {
   CARDS: 'cards',
   REGISTRATION: 'registration',
   ANALITIC: 'analitic',
+  FAMILY: 'family',
+  PROFILE: 'profile',
 };
 
 export const ROUTES = {

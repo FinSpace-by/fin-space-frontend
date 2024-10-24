@@ -10,6 +10,8 @@ import NotAvailable from '@components/notAvailable/NotAvailable';
 import Authorization from '@components/authorization/Authorization';
 import Registration from '@components/registration/Registration';
 import Analitic from '@components/analitic/Analitic';
+import Family from '@components/family/Family';
+import Profile from '@components/profile/Profile';
 
 import './sass/index.scss';
 
@@ -52,6 +54,8 @@ function App() {
                 >
                   <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
+                  <Route path={ROUTER_ROUTES.FAMILY} element={<Family />} />
+                  <Route path={ROUTER_ROUTES.PROFILE} element={<Profile />} />
                 </Route>
               </Route>
             </Routes>
