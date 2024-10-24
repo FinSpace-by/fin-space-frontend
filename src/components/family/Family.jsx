@@ -15,7 +15,7 @@ const membersData = [
         time: '13:00:23',
         place: 'Алми',
         card: '*1052',
-        sum: '100',
+        sum: '23',
       },
       {
         id: 2,
@@ -23,7 +23,7 @@ const membersData = [
         time: '13:00:45',
         place: 'OZON',
         card: '*1052',
-        sum: '100',
+        sum: '64',
       },
       {
         id: 3,
@@ -31,7 +31,7 @@ const membersData = [
         time: '13:00:23',
         place: 'Евроопт',
         card: '*1052',
-        sum: '100',
+        sum: '12',
       },
       {
         id: 4,
@@ -39,7 +39,7 @@ const membersData = [
         time: '13:00:45',
         place: 'Соседи',
         card: '*1052',
-        sum: '100',
+        sum: '32',
       },
       {
         id: 5,
@@ -47,7 +47,7 @@ const membersData = [
         time: '13:00:23',
         place: 'Wildberries',
         card: '*1052',
-        sum: '100',
+        sum: '3',
       },
       {
         id: 6,
@@ -55,7 +55,7 @@ const membersData = [
         time: '13:00:45',
         place: 'iStore',
         card: '*1052',
-        sum: '100',
+        sum: '1900',
       },
     ],
   },
@@ -69,7 +69,7 @@ const membersData = [
         time: '13:00:53',
         place: 'Золотое Яблоко',
         card: '*1052',
-        sum: '100',
+        sum: '704',
       },
       {
         id: 2,
@@ -77,7 +77,31 @@ const membersData = [
         time: '13:00:23',
         place: 'Wildberries',
         card: '*1052',
-        sum: '100',
+        sum: '943',
+      },
+      {
+        id: 3,
+        date: '29.11.2024',
+        time: '13:00:53',
+        place: 'Мила',
+        card: '*1052',
+        sum: '10',
+      },
+      {
+        id: 4,
+        date: '31.09.2024',
+        time: '13:00:23',
+        place: 'Хинкальня',
+        card: '*1052',
+        sum: '30',
+      },
+      {
+        id: 5,
+        date: '31.09.2024',
+        time: '13:00:23',
+        place: 'Hotfix',
+        card: '*1052',
+        sum: '5',
       },
     ],
   },
@@ -91,7 +115,7 @@ const membersData = [
         time: '13:00:10',
         place: 'Парк аттракционов',
         card: '*1052',
-        sum: '100',
+        sum: '5',
       },
       {
         id: 2,
@@ -99,7 +123,23 @@ const membersData = [
         time: '13:00:45',
         place: 'Соседи',
         card: '*1052',
-        sum: '100',
+        sum: '35',
+      },
+      {
+        id: 3,
+        date: '12.09.2024',
+        time: '13:00:10',
+        place: 'Cofix',
+        card: '*1052',
+        sum: '4',
+      },
+      {
+        id: 4,
+        date: '01.08.2024',
+        time: '13:00:45',
+        place: 'KFC',
+        card: '*1052',
+        sum: '20',
       },
     ],
   },
@@ -113,7 +153,7 @@ const membersData = [
         time: '13:00:10',
         place: 'Автозапчасти',
         card: '*1052',
-        sum: '100',
+        sum: '432',
       },
       {
         id: 2,
@@ -121,7 +161,39 @@ const membersData = [
         time: '13:00:45',
         place: 'Барбершоп',
         card: '*1052',
-        sum: '100',
+        sum: '30',
+      },
+      {
+        id: 3,
+        date: '30.11.2024',
+        time: '13:00:10',
+        place: 'Евроопт',
+        card: '*1052',
+        sum: '54',
+      },
+      {
+        id: 4,
+        date: '30.11.2024',
+        time: '13:00:45',
+        place: 'Cofix',
+        card: '*1052',
+        sum: '10',
+      },
+      {
+        id: 5,
+        date: '02.11.2024',
+        time: '13:00:10',
+        place: 'Wildberries',
+        card: '*1052',
+        sum: '63',
+      },
+      {
+        id: 6,
+        date: '30.11.2024',
+        time: '13:00:45',
+        place: 'Васильки',
+        card: '*1052',
+        sum: '98',
       },
     ],
   },
@@ -150,7 +222,10 @@ function Family() {
                 transition: 'max-height 0.3s ease',
               }}
             >
-              <div className="family__member__shortContainer">
+              <div
+                className="family__member__shortContainer"
+                onClick={() => handleViewClick(member.id)}
+              >
                 <div className="family__member__name">
                   <Typography variant="h5">{member.name}</Typography>
                 </div>
@@ -159,10 +234,7 @@ function Family() {
                   className="family__member__img"
                   alt="member"
                 />
-                <div
-                  className="family__member__viewcont"
-                  onClick={() => handleViewClick(member.id)}
-                >
+                <div className="family__member__viewcont">
                   <Typography variant="bankName">Просмотр</Typography>
                 </div>
               </div>

@@ -1,6 +1,5 @@
 .analitic {
   &__container {
-    position: relative;
     width: calc(100vw - 40px);
     height: calc(62.66vw - 25.06px);
     margin-left: 20px;
@@ -10,69 +9,49 @@
     border-radius: 5vw;
 
     &__place {
-      margin-left: 20px;
-      margin-top: 20px;
-      width: calc(100vw - 80px);
-      height: calc(55.5vw - 33.3px);
       display: flex;
-      position: relative;
+      width: calc(100% - 20px);
+      margin-left: 10px;
+      height: calc(40vw - 16px);
+      margin-top: 14px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      align-items: flex-end;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__item {
+      flex: 0 0 auto;
+      height: 100%;
+      width: 27px;
+      background: #7268e5;
+      border-radius: 5px;
+      margin-right: 10px;
+
+      &.active {
+        background: #fff; // Белый цвет для активного элемента
+      }
     }
 
     &__sum {
-      margin-top: 5px;
       display: flex;
-      width: calc(100% - 40px);
-      margin-left: 20px;
+      width: calc(100% - 20px);
+      margin-left: 10px;
       justify-content: space-between;
-    }
-
-    &__graphic {
-      &__item {
-        width: 10%;
-        height: calc(50% - 50px);
-        position: absolute;
-        border-radius: 2vw;
-        bottom: 0;
-        background-color: #7268e5;
-      }
-
-      &__item1 {
-        height: calc(80% - 50px);
-        left: calc(10% + 15px);
-      }
-
-      &__item2 {
-        height: 10px;
-        left: calc(20% + 30px);
-      }
-
-      &__item3 {
-        height: calc(50% - 50px);
-        left: calc(30% + 45px);
-      }
-
-      &__item4 {
-        height: calc(90% - 50px);
-        left: calc(40% + 60px);
-        background: #fff;
-      }
-
-      &__item5 {
-        height: calc(75% - 50px);
-        left: calc(50% + 75px);
-      }
-
-      &__item6 {
-        height: calc(40% - 50px);
-        left: calc(60% + 90px);
-      }
     }
   }
 
   &__cardName {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+    display: flex;
+    width: calc(100vw - 60px);
+    text-align: right;
+    height: 15%;
+    justify-content: right;
+    align-items: center;
   }
 
   &__tabs {
@@ -112,15 +91,60 @@
   &__planning {
     &__button {
       width: calc(100vw - 40px);
-      height: calc(16vw - 5px);
+      height: 55px;
+      max-height: 70vh;
       background: #5c4ce3;
       position: fixed;
       margin-left: 20px;
       bottom: 110px;
       border-radius: 15vw;
+      transition:
+        height 0.3s ease,
+        border-radius 0.3s ease;
+      overflow: hidden;
+
+      &__text {
+        width: 100%;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &__flex {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: top;
+    }
+
+    &__container {
+      width: 90%;
+      margin-left: 5%;
+      margin-bottom: 24px;
+    }
+
+    &__limits {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 5px !important;
+    }
+
+    &__limit-input {
+      width: 80px;
+
+      .css-7bxmeb-MuiInputBase-input-MuiOutlinedInput-input {
+        background-color: transparent;
+        color: #fff;
+      }
+    }
+
+    &__submit-button {
+      background-color: #fff !important;
+      color: #5c4ce3 !important;
+      width: 100% !important;
+      margin-top: 14px !important;
     }
   }
 }

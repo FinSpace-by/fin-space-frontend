@@ -4,6 +4,7 @@
     margin-left: 20px;
     height: calc(100vh - 100px);
     position: relative;
+    margin-bottom: 110px;
   }
 
   &__card {
@@ -46,15 +47,15 @@
   }
 
   &__add-card-button {
-    width: 10%;
-    height: 10vw;
+    top: 20px;
+    right: 70px;
+    width: 8%;
+    height: 8vw;
     border-radius: 100vw;
-    margin-top: 24px;
-    margin-left: 45%;
-    margin-bottom: 110px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #fff;
+    position: absolute;
   }
 }
