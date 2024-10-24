@@ -12,6 +12,7 @@
   }
 
   &__nav {
+    z-index: 999;
     background: #111111;
     margin: 0;
     width: 100%;
@@ -19,14 +20,14 @@
     display: block;
     bottom: 0;
     left: 0;
-    height: 50px;
+    height: 90px;
     padding-bottom: env(safe-area-inset-bottom);
 
     &__menu-list {
       display: flex;
       justify-content: space-around;
       margin: 0;
-      padding: 0;
+      padding: 8px 5% 0 5%;
     }
 
     &__item {
@@ -54,10 +55,6 @@
     background-repeat: no-repeat;
     position: relative;
 
-    &.active {
-      background-color: #e9b4ff;
-    }
-
     &:focus {
       outline: none;
     }
@@ -76,19 +73,35 @@
     }
 
     &--cards::before {
-      background-image: url('@assets/imgs/user.png');
+      background-image: url('@assets/imgs/cards.png');
     }
 
     &--analitic::before {
-      background-image: url('@assets/imgs/event.png');
+      background-image: url('@assets/imgs/analitic.png');
     }
 
     &--family::before {
-      background-image: url('@assets/imgs/judge.png');
+      background-image: url('@assets/imgs/family.png');
     }
 
     &--profile::before {
-      background-image: url('@assets/imgs/event.png');
+      background-image: url('@assets/imgs/profile.png');
+    }
+
+    &--cards.active::before {
+      background-image: url('@assets/imgs/cardsActive.png');
+    }
+
+    &--analitic.active::before {
+      background-image: url('@assets/imgs/analiticActive.png');
+    }
+
+    &--family.active::before {
+      background-image: url('@assets/imgs/familyActive.png');
+    }
+
+    &--profile.active::before {
+      background-image: url('@assets/imgs/profileActive.png');
     }
   }
 }
