@@ -45,10 +45,7 @@ function Cards() {
             className={`cards__card ${activeCard === index ? 'active' : ''}`}
             onClick={() => handleClick(index)}
             style={{
-              zIndex:
-                activeCard === index
-                  ? cardData.length
-                  : cardData.length - index,
+              zIndex: cardData.length - index,
               transform:
                 activeCard === index
                   ? `translateY(calc(-100vh + 50px + 62.66vw + 25.06px))`
