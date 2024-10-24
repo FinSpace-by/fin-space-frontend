@@ -1,4 +1,5 @@
 .mobile-menu {
+  z-index: 999;
   &__header {
     display: flex;
     justify-content: space-between;
@@ -11,6 +12,7 @@
   }
 
   &__nav {
+    background: #111111;
     margin: 0;
     width: 100%;
     position: fixed;

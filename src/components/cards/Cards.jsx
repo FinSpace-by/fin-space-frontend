@@ -28,7 +28,7 @@ function Cards() {
               activeCard === index ? cardData.length : cardData.length - index,
             transform:
               activeCard === index
-                ? `translateY(calc(-100vh + 100px + 62.66vw + 25.06px))`
+                ? `translateY(calc(-100vh + 150px + 62.66vw + 25.06px))`
                 : `translateY(${-index * 40}px)`,
           }}
         >
