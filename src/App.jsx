@@ -4,7 +4,7 @@ import { ROUTER_ROUTES } from '@constants';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme/theme';
 import NotFound from '@components/notFound/NotFound';
-import MainPage from '@components/mainPage/MainPage';
+import Cards from '@components/cards/Cards';
 import MobileMenu from '@components/mobileMenu/MobileMenu';
 import NotAvailable from '@components/notAvailable/NotAvailable';
 import Authorization from '@components/authorization/Authorization';
@@ -49,7 +49,7 @@ function App() {
                   path={ROUTER_ROUTES.MOBILE_MENU}
                   element={<MobileMenu />}
                 >
-                  <Route path={ROUTER_ROUTES.CARDS} element={<MainPage />} />
+                  <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
                 </Route>
               </Route>
             </Routes>

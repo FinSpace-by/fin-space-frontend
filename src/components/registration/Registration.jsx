@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@constants';
 import logo from '@assets/imgs/logo.png';
+
 import { TextField, Button, Box, Typography } from '@mui/material';
 
 import './sass/index.scss';
@@ -8,11 +11,11 @@ function Registration() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ phone: false, password: false });
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Проверка на обязательные поля
     const hasErrors = {
       phone: phone === '',
       password: password === '',
@@ -26,16 +29,16 @@ function Registration() {
   };
 
   return (
-    <Box className="authorization">
-      <div className="authorization__img-container">
+    <Box className="registration">
+      <div className="registration__img-container">
         <img
           src={logo}
           alt="Logo"
-          className="authorization__img-container__img"
+          className="registration__img-container__img"
         />
       </div>
 
-      <div className="authorization__text">
+      <div className="registration__text">
         <Typography variant="h5">
           Белкарт
           <br />
@@ -43,7 +46,7 @@ function Registration() {
         </Typography>
       </div>
 
-      <form className="authorization__form" onSubmit={handleSubmit}>
+      <form className="registration__form" onSubmit={handleSubmit}>
         <TextField
           placeholder="Номер телефона"
           variant="outlined"
@@ -57,7 +60,6 @@ function Registration() {
 
         <TextField
           placeholder="Пароль"
-          type="password"
           variant="outlined"
           fullWidth
           margin="normal"
@@ -72,13 +74,18 @@ function Registration() {
           variant="contained"
           color="primary"
           fullWidth
-          className="authorization__form__button"
+          className="registration__form__button"
         >
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
-      <div className="authorization__no-account">
-        <Typography variant="login_register">Нет аккаунта</Typography>
+      <div className="registration__no-account">
+        <Typography
+          variant="login_register"
+          onClick={() => navigate(ROUTES.ROOT.PATH)}
+        >
+          Есть аккаунт
+        </Typography>
       </div>
     </Box>
   );

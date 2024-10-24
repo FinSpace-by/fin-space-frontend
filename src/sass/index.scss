@@ -7,3 +7,15 @@ body {
   font-family: 'Gogh';
   src: url('@assets/fonts/Gogh-Medium.ttf') format('opentype');
 }
+
+@font-face {
+  font-family: 'GoghRegular';
+  src: url('@assets/fonts/Gogh-Regular.ttf') format('opentype');
+}
+
+input,
+textarea,
+select,
+button {
+  touch-action: manipulation;
+}

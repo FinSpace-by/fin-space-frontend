@@ -3,11 +3,12 @@ export const ROUTER_ROUTES = {
   ROOT: '/',
   MOBILE_MENU: '',
   CARDS: 'cards',
-  REGISTRATION: 'register',
+  REGISTRATION: 'registration',
 };
 
 export const ROUTES = {
   ROOT: { TITLE: 'Главная', PATH: '/' },
+  REGISTRATION: { TITLE: 'Регистрация', PATH: '/registration' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
   CARDS: { TITLE: 'Мои карты', PATH: '/cards' },
   FAMILY: { TITLE: 'Семья', PATH: '/family' },

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@constants';
 import logo from '@assets/imgs/logo.png';
 import { TextField, Button, Box, Typography } from '@mui/material';
 
@@ -8,11 +10,11 @@ function Authorization() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ phone: false, password: false });
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Проверка на обязательные поля
     const hasErrors = {
       phone: phone === '',
       password: password === '',
@@ -21,7 +23,7 @@ function Authorization() {
     setErrors(hasErrors);
 
     if (!hasErrors.phone && !hasErrors.password) {
-      console.log('Logged in:', { phone, password });
+      navigate(ROUTES.CARDS.PATH);
     }
   };
 
@@ -78,7 +80,12 @@ function Authorization() {
         </Button>
       </form>
       <div className="authorization__no-account">
-        <Typography variant="login_register">Нет аккаунта</Typography>
+        <Typography
+          variant="login_register"
+          onClick={() => navigate(ROUTES.REGISTRATION.PATH)}
+        >
+          Нет аккаунта
+        </Typography>
       </div>
     </Box>
   );

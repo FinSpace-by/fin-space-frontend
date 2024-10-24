@@ -23,6 +23,21 @@ const theme = createTheme({
       color: '#5C4CE3',
       fontFamily: 'Gogh, sans-serif',
     },
+    header: {
+      color: '#fff',
+      fontSize: 24,
+      fontFamily: 'GoghRegular, sans-serif',
+    },
+    cardText: {
+      color: '#000',
+      fontSize: '1rem',
+      fontFamily: 'Gogh, sans-serif',
+    },
+    bankName: {
+      color: '#fff',
+      fontSize: '0.8rem',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
   },
   components: {
     MuiOutlinedInput: {

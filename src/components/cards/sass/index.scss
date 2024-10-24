@@ -1,0 +1,41 @@
+.cards {
+  &__container {
+    width: calc(100vw - 40px);
+    margin-left: 20px;
+    height: calc(100vh - 150px);
+    position: relative;
+  }
+
+  &__card {
+    width: 100%;
+    height: calc(62.66vw - 25.06px);
+    border-radius: 5vw;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3);
+    background-image: url('@assets/imgs/card.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition:
+      transform 0.3s ease,
+      z-index 0.3s;
+    color: white;
+    padding: 10px 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__bank {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      color: #fff;
+    }
+
+    &.active {
+      background-image: url('@assets/imgs/cardActive.png');
+    }
+  }
+}
