@@ -59,6 +59,27 @@ const theme = createTheme({
       fontSize: '16px',
       fontFamily: 'GoghRegular, sans-serif',
     },
+    categoryAll: {
+      color: '#7268E5',
+      fontSize: '20px',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
+    category: {
+      color: '#fff',
+      fontSize: '20px',
+      fontFamily: 'GoghRegular, sans-serif',
+      marginTop: '16px',
+    },
+    plus: {
+      color: '#fff',
+      fontSize: '40px',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
+    graphic: {
+      color: '#000',
+      fontSize: '20px',
+      fontFamily: 'GoghRegular, sans-serif',
+    },
   },
   components: {
     MuiOutlinedInput: {

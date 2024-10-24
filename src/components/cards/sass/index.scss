@@ -34,8 +34,27 @@
       color: #fff;
     }
 
+    &__expiration {
+      position: absolute;
+      bottom: 10px;
+      right: 25px;
+    }
+
     &.active {
       background-image: url('@assets/imgs/cardActive.png');
     }
+  }
+
+  &__add-card-button {
+    width: 10%;
+    height: 10vw;
+    border-radius: 100vw;
+    margin-top: 24px;
+    margin-left: 45%;
+    margin-bottom: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
   }
 }

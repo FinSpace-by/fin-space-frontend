@@ -8,6 +8,65 @@
     background-size: contain;
     background-repeat: no-repeat;
     border-radius: 5vw;
+
+    &__place {
+      margin-left: 20px;
+      margin-top: 20px;
+      width: calc(100vw - 80px);
+      height: calc(55.5vw - 33.3px);
+      display: flex;
+      position: relative;
+    }
+
+    &__sum {
+      margin-top: 5px;
+      display: flex;
+      width: calc(100% - 40px);
+      margin-left: 20px;
+      justify-content: space-between;
+    }
+
+    &__graphic {
+      &__item {
+        width: 10%;
+        height: calc(50% - 50px);
+        position: absolute;
+        border-radius: 2vw;
+        bottom: 0;
+        background-color: #7268e5;
+      }
+
+      &__item1 {
+        height: calc(80% - 50px);
+        left: calc(10% + 15px);
+      }
+
+      &__item2 {
+        height: 10px;
+        left: calc(20% + 30px);
+      }
+
+      &__item3 {
+        height: calc(50% - 50px);
+        left: calc(30% + 45px);
+      }
+
+      &__item4 {
+        height: calc(90% - 50px);
+        left: calc(40% + 60px);
+        background: #fff;
+      }
+
+      &__item5 {
+        height: calc(75% - 50px);
+        left: calc(50% + 75px);
+      }
+
+      &__item6 {
+        height: calc(40% - 50px);
+        left: calc(60% + 90px);
+      }
+    }
   }
 
   &__cardName {
@@ -21,6 +80,15 @@
       width: calc(100vw - 40px);
       margin-left: 20px;
       margin-top: 20px;
+      margin-bottom: 180px;
+    }
+  }
+
+  &__tab {
+    &__category {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
@@ -39,5 +107,20 @@
   &__tabContent {
     background: #1c1c1c;
     padding: 20px;
+  }
+
+  &__planning {
+    &__button {
+      width: calc(100vw - 40px);
+      height: calc(16vw - 5px);
+      background: #5c4ce3;
+      position: fixed;
+      margin-left: 20px;
+      bottom: 110px;
+      border-radius: 15vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

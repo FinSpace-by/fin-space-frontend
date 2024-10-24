@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@constants';
 import logo from '@assets/imgs/logo.png';
-
+import { authApi } from '@api';
 import { TextField, Button, Box, Typography } from '@mui/material';
 
 import './sass/index.scss';
@@ -13,7 +13,7 @@ function Registration() {
   const [errors, setErrors] = useState({ phone: false, password: false });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const hasErrors = {
@@ -24,7 +24,17 @@ function Registration() {
     setErrors(hasErrors);
 
     if (!hasErrors.phone && !hasErrors.password) {
-      console.log('Logged in:', { phone, password });
+      const body = {
+        username: phone,
+        password: password,
+      };
+
+      // try {
+      //   await authApi.register(body);
+      navigate(ROUTES.CARDS.PATH);
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   };
 

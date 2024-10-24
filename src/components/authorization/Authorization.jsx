@@ -1,18 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@constants';
 import logo from '@assets/imgs/logo.png';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  Alert,
+} from '@mui/material';
+import { authApi, userApi } from '@api';
 
 import './sass/index.scss';
 
 function Authorization() {
+  const [isLoading, setIsLoading] = useState(true);
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ phone: false, password: false });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'info',
+  });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     userApi
+  //       .getProfile()
+  //       .then(() => navigate(ROUTES.EVENTS.PATH))
+  //       .catch(() => {
+  //         setIsLoading(false);
+  //         setSnackbar({
+  //           open: true,
+  //           message: 'Вы не авторизовались',
+  //           severity: 'info',
+  //         });
+  //       });
+  //   }
+  // }, [isLoading, navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const hasErrors = {
@@ -23,8 +53,35 @@ function Authorization() {
     setErrors(hasErrors);
 
     if (!hasErrors.phone && !hasErrors.password) {
+      // try {
+      //   const body = {
+      //     username: phone,
+      //     password: password,
+      //   };
+
+      //   await authApi.setLogin(body);
       navigate(ROUTES.CARDS.PATH);
+      // } catch {
+      //   setSnackbar({
+      //     open: true,
+      //     message: 'Неверный логин или пароль',
+      //     severity: 'warning',
+      //   });
+      // }
+    } else {
+      setSnackbar({
+        open: true,
+        message: 'Заполните все поля',
+        severity: 'warning',
+      });
     }
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar({ ...snackbar, open: false });
   };
 
   return (
@@ -87,6 +144,17 @@ function Authorization() {
           Нет аккаунта
         </Typography>
       </div>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

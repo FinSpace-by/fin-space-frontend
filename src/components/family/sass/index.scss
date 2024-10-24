@@ -2,7 +2,6 @@
   &__container {
     width: calc(100vw - 40px);
     margin-left: 20px;
-    margin-bottom: 120px;
   }
 
   &__history {
@@ -86,5 +85,18 @@
       bottom: -1px;
       clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%);
     }
+  }
+
+  &__add-card-button {
+    width: 10%;
+    height: 10vw;
+    border-radius: 100vw;
+    margin-top: 24px;
+    margin-left: 45%;
+    margin-bottom: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
   }
 }
