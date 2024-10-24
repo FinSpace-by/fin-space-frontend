@@ -3,7 +3,7 @@ import './sass/index.scss';
 import { Typography } from '@mui/material';
 
 function Cards() {
-  const [activeCard, setActiveCard] = useState(1);
+  const [activeCard, setActiveCard] = useState(0);
 
   const handleClick = (index) => {
     setActiveCard(index);
