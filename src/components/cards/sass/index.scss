@@ -90,10 +90,10 @@
       justify-content: space-between;
       align-items: center;
 
-      .css-yidbrm-MuiTypography-root {
-        margin: 0 !important;
-        font-size: 24px !important;
-      }
+      // .css-yidbrm-MuiTypography-root {
+      //   margin: 0 !important;
+      //   font-size: 24px !important;
+      // }
     }
 
     &__select {
@@ -102,31 +102,9 @@
       margin-top: 5px;
       border-radius: 3vw !important;
       border: 1px solid #fff;
-
-      .css-2iggm8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-        background: transparent;
-        color: #fff !important;
-      }
-
-      .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
-        color: #fff;
-      }
     }
 
     &__amount-input {
-      .css-1nwpw3i-MuiInputBase-root-MuiOutlinedInput-root {
-        color: #fff;
-        background-color: transparent;
-        border-radius: 3vw;
-        border: 0.5px solid #fff;
-      }
-
-      .css-1nep8c4-MuiInputBase-input-MuiOutlinedInput-input {
-        color: #fff;
-        background-color: transparent;
-        border-radius: 3vw;
-        border: 0.7px solid #fff;
-      }
     }
 
     &__flex {
@@ -154,11 +132,6 @@
 
     &__limit-input {
       width: 80px;
-
-      .css-7bxmeb-MuiInputBase-input-MuiOutlinedInput-input {
-        background-color: transparent;
-        color: #fff;
-      }
     }
 
     &__submit-button {
@@ -170,15 +143,4 @@
       padding-bottom: 10px !important;
     }
   }
-}
-
-.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
-  border-radius: 3vw !important;
-  background: #111111 !important;
-  color: #fff !important;
-}
-
-.css-vzmgw1-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-  background: #5c4ce3 !important;
-  border-radius: 2vw !important;
 }

@@ -144,6 +144,99 @@ const theme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          backgroundColor: 'transparent',
+          borderRadius: '3vw',
+          border: '0.5px solid #fff',
+          '& .MuiInputBase-input': {
+            color: '#fff',
+            backgroundColor: 'transparent',
+            borderRadius: '3vw',
+            border: '0.7px solid #fff',
+          },
+        },
+        input: {
+          color: '#fff',
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: '#fff',
+        },
+        select: {
+          backgroundColor: 'transparent',
+          color: '#fff !important',
+        },
+      },
+    },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '3vw !important',
+          background: '#111111 !important',
+          color: '#fff !important',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: '#5c4ce3 !important',
+            borderRadius: '2vw !important',
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          color: '#fff',
+          backgroundColor: 'transparent',
+          '&::placeholder': {
+            color: '#1C1C1C',
+          },
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#ffffff',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '10vw',
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#1C1C1C',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-selected': {
+            color: '#fff',
+            backgroundColor: '#1C1C1C',
+          },
+        },
+      },
+    },
   },
 });
 
