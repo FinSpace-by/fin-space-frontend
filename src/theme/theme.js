@@ -200,7 +200,7 @@ const theme = createTheme({
           color: '#fff',
           backgroundColor: 'transparent',
           '&::placeholder': {
-            color: '#1C1C1C',
+            color: '#717171',
           },
         },
       },
