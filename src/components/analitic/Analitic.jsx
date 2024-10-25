@@ -225,7 +225,7 @@ function Analitic() {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            onClick={() => setIsOpen(false)}
             className="analitic__planning__submit-button"
           >
             Сохранить
