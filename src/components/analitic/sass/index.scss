@@ -120,8 +120,11 @@
 
     &__container {
       width: 90%;
+      height: calc(70vh - 79px);
       margin-left: 5%;
       margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
     }
 
     &__limits {
@@ -144,7 +147,7 @@
       background-color: #fff !important;
       color: #5c4ce3 !important;
       width: 100% !important;
-      margin-top: 14px !important;
+      margin-top: auto !important;
       padding-top: 10px !important;
       padding-bottom: 10px !important;
     }

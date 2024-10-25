@@ -94,7 +94,7 @@ function Cards() {
           <div
             className="cards__planning__button"
             style={{
-              height: isOpen ? '60vh' : '55px',
+              height: isOpen ? '70vh' : '55px',
               borderRadius: isOpen ? '15px' : '15vw',
             }}
           >
@@ -108,7 +108,6 @@ function Cards() {
 
             <div class="cards__planning__container">
               <Typography variant="category">С карты</Typography>
-              <br />
               <Select
                 value={fromCard}
                 onChange={(e) => setFromCard(e.target.value)}
@@ -120,9 +119,7 @@ function Cards() {
                   </MenuItem>
                 ))}
               </Select>
-              <br />
               <Typography variant="category">На карту</Typography>
-              <br />
               <Select
                 value={toCard}
                 onChange={(e) => setToCard(e.target.value)}
@@ -135,9 +132,7 @@ function Cards() {
                 ))}
               </Select>
 
-              <br />
               <Typography variant="category">Сумма</Typography>
-              <br />
               <div className="cards__planning__flexbox">
                 <TextField
                   type="number"
