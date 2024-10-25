@@ -99,8 +99,8 @@
       bottom: 110px;
       border-radius: 15vw;
       transition:
-        height 0.3s ease,
-        border-radius 0.3s ease;
+        height 0.5s ease,
+        border-radius 0.5s ease;
       overflow: hidden;
 
       &__text {
@@ -145,6 +145,8 @@
       color: #5c4ce3 !important;
       width: 100% !important;
       margin-top: 14px !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
     }
   }
 }

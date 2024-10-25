@@ -19,3 +19,11 @@ select,
 button {
   touch-action: manipulation;
 }
+
+.loader {
+  width: 100%;
+  height: calc(100vh - 165px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
