@@ -50,7 +50,7 @@ function Registration() {
 
       <div className="registration__text">
         <Typography variant="h5">
-          Белкарт
+          Fin
           <br />
           Space
         </Typography>

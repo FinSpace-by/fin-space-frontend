@@ -1,10 +1,120 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
+import food from '@assets/icons/food.svg';
+import clothes from '@assets/icons/clothes.svg';
+import entertainments from '@assets/icons/entertainments.svg';
+import transport from '@assets/icons/transport.svg';
+import health from '@assets/icons/health.svg';
+import utility from '@assets/icons/utility.svg';
+import loan from '@assets/icons/loan.svg';
+import education from '@assets/icons/education.svg';
+import other from '@assets/icons/other.svg';
+
+import arrow from '@assets/icons/arrow.png';
 
 import './sass/index.scss';
 
+const CATEGORIES = [
+  {
+    icon: food,
+    title: 'Еда',
+  },
+  {
+    icon: clothes,
+    title: 'Одежда',
+  },
+  {
+    icon: entertainments,
+    title: 'Развлечения',
+  },
+  {
+    icon: transport,
+    title: 'Транспорт',
+  },
+  {
+    icon: health,
+    title: 'Здоровье',
+  },
+  {
+    icon: utility,
+    title: 'Коммунальные платежи',
+  },
+  {
+    icon: loan,
+    title: 'Платежи по кредиту',
+  },
+  {
+    icon: education,
+    title: 'Образование',
+  },
+  {
+    icon: other,
+    title: 'Прочие расходы',
+  },
+];
+
+const RESULTS = [
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: true,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+  {
+    time: '13:00',
+    date: '12.12.2025',
+    name: 'ООО БелБайБумБах',
+    currency: 'BYN',
+    sum: '1 249.99',
+    isPositive: false,
+  },
+];
+
 function Analitic() {
   const [activeTab, setActiveTab] = useState(0);
+  const [activeCard, setActiveCard] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [activeDate, setActiveDate] = useState('');
   const [activeSum, setActiveSum] = useState(null);
@@ -24,21 +134,14 @@ function Analitic() {
     { id: 13, sum: '156.99', date: '22.12.2024' },
     { id: 14, sum: '143.99', date: '23.12.2024' },
   ]);
-  const [categories, setCategories] = useState([
-    { id: 1, name: 'Одежда', spent: 120, limit: 300 },
-    { id: 2, name: 'Еда', spent: 50, limit: 300 },
-    { id: 3, name: 'Жильё', spent: 500, limit: 500 },
-    { id: 4, name: 'Транспорт', spent: 120, limit: 150 },
-    { id: 5, name: 'Налоги', spent: 80, limit: 95 },
-    { id: 6, name: 'Здоровье', spent: 8, limit: 100 },
-    { id: 7, name: 'Развлечения', spent: 300, limit: 700 },
-  ]);
+  const [categories, setCategories] = useState(CATEGORIES);
   const [limits, setLimits] = useState(
     categories.reduce((acc, category) => {
       acc[category.id] = category.limit;
       return acc;
     }, {})
   );
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
 
   useEffect(() => {
     try {
@@ -49,6 +152,18 @@ function Analitic() {
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
+  };
+
+  const handleCardChange = (event, newValue) => {
+    setActiveCard(newValue);
+  };
+
+  const handleOpenCategory = () => {
+    setIsOpenCategory(true);
+  };
+
+  const handleCloseCategory = () => {
+    setIsOpenCategory(false);
   };
 
   const totalSpent = (categories) =>
@@ -86,106 +201,166 @@ function Analitic() {
 
   return (
     <>
-      <div className="analitic__container">
-        <Typography variant="bankName" className="analitic__cardName">
-          Общая
-        </Typography>
-        <div className="analitic__container__place">
-          {transactions.map((transaction) => (
-            <div
-              key={transaction.id}
-              className={`analitic__container__item ${activeSum === transaction.sum ? 'active' : ''}`}
-              style={{ height: `${calculateHeight(transaction.sum)}%` }}
-              onClick={() => handleItemClick(transaction.sum, transaction.date)}
-            ></div>
-          ))}
-        </div>
-        <div className="analitic__container__sum">
-          <Typography variant="graphic">{activeDate || ''}</Typography>
-          <Typography variant="graphic">
-            {activeSum !== null ? `-${activeSum} BYN` : ''}
-          </Typography>
-        </div>
-      </div>
-      <div className="analitic__tabs__container">
-        <Tabs
-          value={activeTab}
-          onChange={handleTabChange}
-          aria-label="analitic tabs"
-        >
-          <Tab label="Категории" className="analitic__tab1" />
-          <Tab label="Рекомендации" className="analitic__tab2" />
-        </Tabs>
-        {activeTab === 0 && (
-          <div className="analitic__tabContent">
-            <div className="analitic__tab__category">
-              <Typography variant="categoryAll">Все</Typography>
-              <Typography variant="categoryAll">
-                {totalSpent(categories)} BYN
+      {!isOpenCategory ? (
+        <>
+          <div className="analitic__container">
+            <Typography variant="bankName" className="analitic__cardName">
+              Общая
+            </Typography>
+            <div className="analitic__container__place">
+              {transactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className={`analitic__container__item ${activeSum === transaction.sum ? 'active' : ''}`}
+                  style={{ height: `${calculateHeight(transaction.sum)}%` }}
+                  onClick={() =>
+                    handleItemClick(transaction.sum, transaction.date)
+                  }
+                ></div>
+              ))}
+            </div>
+            <div className="analitic__container__sum">
+              <Typography variant="graphic">{activeDate || ''}</Typography>
+              <Typography variant="graphic">
+                {activeSum !== null ? `-${activeSum} BYN` : ''}
               </Typography>
             </div>
-            {categories.map((category, index) => (
-              <div key={index} className="analitic__tab__category">
-                <Typography variant="category">{category.name}</Typography>
+          </div>
+          <div className="analitic__cardTabs">
+            <Tabs
+              value={activeCard}
+              onChange={handleCardChange}
+              TabIndicatorProps={{
+                style: { display: 'none' },
+              }}
+            >
+              <Tab
+                label="Все"
+                className={
+                  activeCard === 0 ? 'analitic__active' : 'analitic__notActive'
+                }
+              />
+              <Tab
+                label="Карта 1"
+                className={
+                  activeCard === 1 ? 'analitic__active' : 'analitic__notActive'
+                }
+              />
+              <Tab
+                label="Карта 2"
+                className={
+                  activeCard === 2 ? 'analitic__active' : 'analitic__notActive'
+                }
+              />
+            </Tabs>
+          </div>
+          <div className="analitic__tabs__container">
+            <Tabs
+              value={activeTab}
+              onChange={handleTabChange}
+              aria-label="analitic tabs"
+            >
+              <Tab label="Категории трат" className="analitic__tab1" />
+              <Tab label="Рекомендации" className="analitic__tab2" />
+            </Tabs>
+            {activeTab === 0 && (
+              <div className="analitic__tabContent">
+                {categories.map((category, index) => (
+                  <div
+                    key={index}
+                    className="analitic__tab__category"
+                    onClick={handleOpenCategory}
+                  >
+                    <div
+                      style={{ display: 'flex', alignItems: 'center', gap: 12 }}
+                    >
+                      <Typography
+                        variant="category"
+                        style={{ marginTop: 0, height: 45 }}
+                      >
+                        <img src={category.icon} />
+                      </Typography>
+                      <Typography
+                        variant="category"
+                        style={{ fontSize: 16, marginTop: 0 }}
+                      >
+                        {category.title}
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'end',
+                      }}
+                    >
+                      <span style={{ color: 'gray', fontSize: 17 }}>BYN</span>
+                      <Typography
+                        variant="category"
+                        style={{ marginTop: 0, fontSize: 18 }}
+                      >
+                        1 249.99
+                      </Typography>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeTab === 1 && (
+              <div className="analitic__tabContent">
                 <Typography variant="category">
-                  {category.spent}/{category.limit} BYN
+                  Внимание! Рекомендации сгенерированы искусственым интеллектом
+                  и могут содержать ошибки. Обязательно перепроверяйте важную
+                  информацию.
+                  <br />
+                  <br />
+                  1. Лимиты по категориям расходов: <br />- Одежда и еда имеют
+                  одинаковые лимиты (300 BYN), что может быть чрезмерно высоким
+                  для категории "Одежда". Возможно, есть возможность снизить
+                  этот лимит в пользу других, более приоритетных расходов, таких
+                  как здоровье или сбережения. <br />- Развлечения также имеют
+                  высокий лимит (700 BYN), что почти в два раза превышает
+                  расходы на жильё. Такой приоритет может негативно сказаться на
+                  долгосрочных целях. Возможно, стоит пересмотреть и уменьшить
+                  эту статью. <br />
+                  <br />
+                  2. Соотношение доходов и расходов:
+                  <br />- При ежемесячном доходе в 2000 BYN, твои лимиты на
+                  расходы составляют 2145 BYN. Это превышает доход, что может
+                  привести к дефициту бюджета или необходимости пользоваться
+                  кредитными средствами. Очень важно избегать превышения
+                  доходов, чтобы не попасть в долговую яму. <br />- Если ты уже
+                  не превышаешь лимиты или можешь найти возможность для
+                  экономии, обязательно создавай сбережения (рекомендуется
+                  откладывать хотя бы 10% от дохода). <br />
+                  <br />
+                  3. Налоги и здоровье:
+                  <br />- Лимиты на налоги и здоровье (95 BYN и 100 BYN
+                  соответственно) кажутся низкими по сравнению с такими
+                  категориями, как одежда или развлечения. Возможно, следует
+                  увеличить эти лимиты, так как эти категории являются
+                  обязательными расходами и могут непредвиденно увеличиться.{' '}
+                  <br />
+                  <br />
+                  4. Планирование расходов на месяц: <br />- Транзакции
+                  показывают активные расходы на протяжении второй половины
+                  месяца, но не указано, были ли учтены регулярные платежи
+                  (например, аренда жилья). Возможно, стоит начать планировать
+                  регулярные обязательные расходы в начале месяца. <br />
+                  <br />
+                  Рекомендации: <br />- Установи чёткие приоритеты в расходах:
+                  увеличь лимиты на жильё, здоровье и налоги, а также пересмотри
+                  траты на одежду и развлечения. <br />- Постарайся
+                  контролировать ежемесячные расходы так, чтобы они всегда были
+                  ниже дохода. Возможно, стоит начать откладывать на сбережения.{' '}
+                  <br />- Следи за регулярными платежами и старайся их
+                  оплачивать в начале месяца, чтобы избежать дефицита к его
+                  концу.
                 </Typography>
               </div>
-            ))}
+            )}
           </div>
-        )}
-        {activeTab === 1 && (
-          <div className="analitic__tabContent">
-            <Typography variant="category">
-              Внимание! Рекомендации сгенерированы искусственым интеллектом и
-              могут содержать ошибки. Обязательно перепроверяйте важную
-              информацию.
-              <br />
-              <br />
-              1. Лимиты по категориям расходов: <br />- Одежда и еда имеют
-              одинаковые лимиты (300 BYN), что может быть чрезмерно высоким для
-              категории "Одежда". Возможно, есть возможность снизить этот лимит
-              в пользу других, более приоритетных расходов, таких как здоровье
-              или сбережения. <br />- Развлечения также имеют высокий лимит (700
-              BYN), что почти в два раза превышает расходы на жильё. Такой
-              приоритет может негативно сказаться на долгосрочных целях.
-              Возможно, стоит пересмотреть и уменьшить эту статью. <br />
-              <br />
-              2. Соотношение доходов и расходов:
-              <br />- При ежемесячном доходе в 2000 BYN, твои лимиты на расходы
-              составляют 2145 BYN. Это превышает доход, что может привести к
-              дефициту бюджета или необходимости пользоваться кредитными
-              средствами. Очень важно избегать превышения доходов, чтобы не
-              попасть в долговую яму. <br />- Если ты уже не превышаешь лимиты
-              или можешь найти возможность для экономии, обязательно создавай
-              сбережения (рекомендуется откладывать хотя бы 10% от дохода).{' '}
-              <br />
-              <br />
-              3. Налоги и здоровье:
-              <br />- Лимиты на налоги и здоровье (95 BYN и 100 BYN
-              соответственно) кажутся низкими по сравнению с такими категориями,
-              как одежда или развлечения. Возможно, следует увеличить эти
-              лимиты, так как эти категории являются обязательными расходами и
-              могут непредвиденно увеличиться. <br />
-              <br />
-              4. Планирование расходов на месяц: <br />- Транзакции показывают
-              активные расходы на протяжении второй половины месяца, но не
-              указано, были ли учтены регулярные платежи (например, аренда
-              жилья). Возможно, стоит начать планировать регулярные обязательные
-              расходы в начале месяца. <br />
-              <br />
-              Рекомендации: <br />- Установи чёткие приоритеты в расходах:
-              увеличь лимиты на жильё, здоровье и налоги, а также пересмотри
-              траты на одежду и развлечения. <br />- Постарайся контролировать
-              ежемесячные расходы так, чтобы они всегда были ниже дохода.
-              Возможно, стоит начать откладывать на сбережения. <br />- Следи за
-              регулярными платежами и старайся их оплачивать в начале месяца,
-              чтобы избежать дефицита к его концу.
-            </Typography>
-          </div>
-        )}
-      </div>
-      <div
+          {/* <div
         className="analitic__planning__button"
         style={{
           height: isOpen ? '80vh' : '55px',
@@ -231,7 +406,48 @@ function Analitic() {
             Сохранить
           </Button>
         </div>
-      </div>
+      </div> */}{' '}
+        </>
+      ) : (
+        <div className="category">
+          <div className="category_titleWrapper">
+            <img
+              src={arrow}
+              className="category_arrow"
+              onClick={handleCloseCategory}
+            />
+            <div className="category_title">Еда</div>
+          </div>
+          <div className="category_body">
+            {RESULTS.map((item) => {
+              const { currency, date, isPositive, name, sum, time } = item;
+
+              return (
+                <div className="category_item">
+                  <div>
+                    <div className="category_date">
+                      {time}, {date}
+                    </div>
+                    <div className="category_name">{name}</div>
+                  </div>
+                  <div className="category_finance">
+                    <div className="category_currency">{currency}</div>
+                    <div
+                      className={
+                        (isPositive
+                          ? 'category_positive'
+                          : 'category_negative') + ' category_sum'
+                      }
+                    >
+                      {isPositive ? '+' : '-'} {sum}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </>
   );
 }

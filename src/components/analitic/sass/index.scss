@@ -1,3 +1,10 @@
+.analitic__cardTabs,
+.analitic__tabs__container {
+  .MuiButtonBase-root {
+    text-transform: none;
+  }
+}
+
 .analitic {
   &__container {
     width: calc(100vw - 40px);
@@ -54,33 +61,102 @@
     align-items: center;
   }
 
+  &__cardTabs {
+    margin: 20px;
+  }
+
   &__tabs {
     &__container {
-      width: calc(100vw - 40px);
-      margin-left: 20px;
-      margin-top: 20px;
-      margin-bottom: 180px;
+      width: 100vw;
+      margin-bottom: 100px;
     }
   }
 
   &__tab {
     &__category {
+      margin: 12px 0px;
+      font-family: GoghRegular, sans-serif;
       width: 100%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__cardTabs {
+    .MuiTabs-flexContainer {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  //   &__all {
+  //     display: inline-block !important;
+  //     border: 1px dashed gray !important;
+  //     border-radius: 30px !important;
+  //     padding: 0 20px !important;
+  //     height: 45px !important;
+  //     background: none !important;
+
+  //     &::before {
+  //         margin-bottom: -6px;
+  //         margin-right: 10px;
+  //         display: inline-block !important;
+  //         width: 25px;
+  //         height: 25px;
+  //         content: '';
+  //         background-image: url('@assets/icons/allCards.svg');
+  //     }
+  //   }
+
+  &__notActive {
+    display: inline-block !important;
+    border: 1px dashed gray !important;
+    border-radius: 30px !important;
+    padding: 0 20px !important;
+    height: 45px !important;
+    background: none !important;
+
+    &::before {
+      margin-bottom: -6px;
+      margin-right: 10px;
+      display: inline-block !important;
+      width: 25px;
+      height: 25px;
+      content: '';
+      background-image: url('@assets/icons/notActiveCard.svg');
+    }
+  }
+
+  &__active {
+    display: inline-block !important;
+    border-radius: 30px !important;
+    padding: 0 20px !important;
+    height: 45px !important;
+    background: #7160ff !important;
+
+    &::before {
+      margin-bottom: -6px;
+      margin-right: 10px;
+      display: inline-block !important;
+      width: 25px;
+      height: 25px;
+      content: '';
+      background-image: url('@assets/icons/notActiveCard.svg');
     }
   }
 
   &__tab1 {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
     width: 50%;
-    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 100%);
     position: relative;
   }
 
   &__tab2 {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
     width: 50%;
-    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
-    border-top-right-radius: 2vw;
   }
 
   &__tabContent {
@@ -146,5 +222,75 @@
       padding-top: 10px !important;
       padding-bottom: 10px !important;
     }
+  }
+}
+
+.category {
+  padding: 16px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: GoghRegular, sans-serif;
+  background: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &_titleWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &_arrow {
+    position: absolute;
+    top: 4px;
+    left: 12px;
+  }
+
+  &_title {
+    font-size: 24px;
+    color: #fff;
+  }
+
+  &_body {
+    margin: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &_item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_date {
+    font-size: 16px;
+    color: gray;
+  }
+
+  &_name {
+    font-size: 16px;
+    color: white;
+  }
+
+  &_finance {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  &_currency {
+    font-size: 16px;
+    color: gray;
+  }
+
+  &_sum {
+    font-size: 16px;
+    color: white;
+  }
+
+  &_positive {
+    color: #3bff69;
   }
 }
