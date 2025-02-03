@@ -43,6 +43,7 @@ module.exports = (env) => {
         '@sass': path.resolve(__dirname, 'src', 'sass'),
         '@modules': path.resolve(__dirname, 'src', 'modules'),
         '@node_modules': path.resolve(__dirname, 'node_modules'),
+        '@config': path.resolve(__dirname, 'src', 'config'),
       },
       extensions: ['', '.js', '.jsx', '.scss'],
     },
