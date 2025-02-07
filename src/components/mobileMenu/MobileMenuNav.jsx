@@ -6,17 +6,31 @@ function MobileMenuNav() {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState('');
 
+  const ACTIVE_ITEMS = {
+    CARDS: 'cards',
+    ANALITIC: 'analitic',
+    FAMILY: 'family',
+    PROFILE: 'profile',
+  };
+  
   useEffect(() => {
-    // Устанавливаем активный элемент в зависимости от текущего маршрута
     const currentPath = location.pathname;
-    if (currentPath === ROUTES.CARDS.PATH) {
-      setActiveItem('cards');
-    } else if (currentPath === ROUTES.ANALITIC.PATH) {
-      setActiveItem('analitic');
-    } else if (currentPath === ROUTES.FAMILY.PATH) {
-      setActiveItem('family');
-    } else if (currentPath === ROUTES.PROFILE.PATH) {
-      setActiveItem('profile');
+  
+    switch (currentPath) {
+      case ROUTES.CARDS.PATH:
+        setActiveItem(ACTIVE_ITEMS.CARDS);
+        break;
+      case ROUTES.ANALITIC.PATH:
+        setActiveItem(ACTIVE_ITEMS.ANALITIC);
+        break;
+      case ROUTES.FAMILY.PATH:
+        setActiveItem(ACTIVE_ITEMS.FAMILY);
+        break;
+      case ROUTES.PROFILE.PATH:
+        setActiveItem(ACTIVE_ITEMS.PROFILE);
+        break;
+      //default:
+        //setActiveItem(null);
     }
   }, [location]);
 
@@ -24,55 +38,36 @@ function MobileMenuNav() {
     setActiveItem(item);
   };
 
+  const menuItems = [
+  { path: ROUTES.CARDS.PATH, label: 'Карты', key: 'cards' },
+  { path: ROUTES.ANALITIC.PATH, label: 'Аналитика', key: 'analitic' },
+  { className: 'icon-container', isIcon: true }, // Пункт для иконки
+  { path: ROUTES.FAMILY.PATH, label: 'Семья', key: 'family' },
+  { path: ROUTES.PROFILE.PATH, label: 'Профиль', key: 'profile' },
+  ];
+
   return (
     <nav className="mobile-menu__nav">
       <ul className="mobile-menu__nav__menu-list">
-        <li className="mobile-menu__nav__item">
-          <NavLink
-            to={ROUTES.CARDS.PATH}
-            className="mobile-menu__link mobile-menu__link--cards"
-            onClick={() => handleIconClick('cards')}
-            style={{ color: activeItem === 'cards' ? '#7268e5' : '#999999' }}
-          >
-            Карты
-          </NavLink>
-        </li>
-        <li className="mobile-menu__nav__item">
-          <NavLink
-            to={ROUTES.ANALITIC.PATH}
-            className="mobile-menu__link mobile-menu__link--analitic"
-            onClick={() => handleIconClick('analitic')}
-            style={{ color: activeItem === 'analitic' ? '#7268e5' : '#999999' }}
-          >
-            Аналитика
-          </NavLink>
-        </li>
-        <li className="mobile-menu__nav__item">
-          <div className="icon-container"></div>
-        </li>
-        <li className="mobile-menu__nav__item">
-          <NavLink
-            to={ROUTES.FAMILY.PATH}
-            className="mobile-menu__link mobile-menu__link--family"
-            onClick={() => handleIconClick('family')}
-            style={{ color: activeItem === 'family' ? '#7268e5' : '#999999' }}
-          >
-            Семья
-          </NavLink>
-        </li>
-        <li className="mobile-menu__nav__item">
-          <NavLink
-            to={ROUTES.PROFILE.PATH}
-            className="mobile-menu__link mobile-menu__link--profile"
-            onClick={() => handleIconClick('profile')}
-            style={{ color: activeItem === 'profile' ? '#7268e5' : '#999999' }}
-          >
-            Профиль
-          </NavLink>
-        </li>
+        {menuItems.map(({ path, label, key, className, isIcon }) => (
+          <li className="mobile-menu__nav__item" key={key || className}>
+            {isIcon ? (
+              <div className={className}></div>
+            ) : (
+              <NavLink
+                to={path}
+                className={`mobile-menu__link mobile-menu__link--${key}`}
+                onClick={() => handleIconClick(key)}
+                style={{ color: activeItem === key ? '#7268e5' : '#999999' }}
+              >
+                {label}
+              </NavLink>
+            )}
+          </li>
+        ))}
       </ul>
     </nav>
-  );
+  );  
 }
 
 export default MobileMenuNav;
