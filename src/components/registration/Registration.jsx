@@ -4,13 +4,14 @@ import { ROUTES } from '@constants';
 import logo from '@assets/imgs/logo.png';
 import { authApi } from '@api';
 import { TextField, Button, Box, Typography } from '@mui/material';
-
 import './sass/index.scss';
 
 function Registration() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ phone: false, password: false });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [errors, setErrors] = useState({ phone: false, password: false, firstName: false, lastName: false });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,22 +20,27 @@ function Registration() {
     const hasErrors = {
       phone: phone === '',
       password: password === '',
+      firstName: firstName === '',
+      lastName: lastName === '',
     };
 
     setErrors(hasErrors);
 
-    if (!hasErrors.phone && !hasErrors.password) {
+    if (!hasErrors.phone && !hasErrors.password && !hasErrors.firstName && !hasErrors.lastName) {
       const body = {
         username: phone,
         password: password,
+        firstName: firstName,
+        lastName: lastName,
       };
 
-      // try {
-      //   await authApi.register(body);
-      navigate(ROUTES.CARDS.PATH);
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      try {
+        await authApi.register(body);
+        console.log("Успешная регистрация");
+        navigate(ROUTES.CARDS.PATH);
+      } catch (error) {
+        console.error("Ошибка при регистрации", error.response?.data || error.message);
+      }
     }
   };
 
@@ -66,6 +72,28 @@ function Registration() {
           onChange={(e) => setPhone(e.target.value)}
           error={errors.phone}
           helperText={errors.phone ? 'Это поле обязательно' : ''}
+        />
+
+        <TextField
+          placeholder="Имя"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          error={errors.firstName}
+          helperText={errors.firstName ? 'Это поле обязательно' : ''}
+        />
+
+        <TextField
+          placeholder="Фамилия"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          error={errors.lastName}
+          helperText={errors.lastName ? 'Это поле обязательно' : ''}
         />
 
         <TextField
