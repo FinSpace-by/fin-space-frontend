@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Gogh-Regular';
-  src: url('@assets/fonts/Gogh-Regular.ttf') format('truetype');
+  font-family: 'SFProText-Regular';
+  src: url('@assets/fonts/SFProText-Regular.ttf') format('truetype');
 }
 
 .mobile-menu {
@@ -19,7 +19,7 @@
 
   &__nav {
     z-index: 999;
-    background: rgba(17, 17, 17, 0.9);
+    background: rgba(17, 17, 17, 0.95);
     margin: 0;
     width: 100%;
     position: fixed;
@@ -47,20 +47,20 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-family: 'Gogh-Regular', sans-serif;
+      font-family: 'SFProText-Regular', sans-serif;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .icon-container {
-      width: 76px;
-      height: 76px;
+      width: 66px;
+      height: 66px;
       background-color: #7268e5;
       background-image: url('@assets/imgs/plus_icon.png');
-      background-size: 40px 40px;
+      background-size: 40px;
       background-position: center;
       background-repeat: no-repeat;
-      margin-top: -30px;
+      margin-top: -34px;
       border-radius: 38px;
     }
 
@@ -88,44 +88,53 @@
 
     &::before {
       content: '';
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      margin-bottom: 4px;
+      margin-bottom: 0;
     }
 
     &--cards::before {
-      background-image: url('@assets/imgs/card_icon.png');
+      background-image: url('@assets/imgs/cardicon.png');
     }
 
     &--analitic::before {
-      background-image: url('@assets/imgs/stats_icon.png');
+      background-image: url('@assets/imgs/stats.png');
     }
 
     &--family::before {
-      background-image: url('@assets/imgs/family_icon.png');
+      background-image: url('@assets/imgs/family.png');
     }
 
     &--profile::before {
-      background-image: url('@assets/imgs/profile_icon.png');
+      background-image: url('@assets/imgs/profileicon.png');
     }
 
     &--cards.active::before {
-      background-image: url('@assets/imgs/card_active_icon.png');
+      background-image: url('@assets/imgs/cardactiveicon.png');
     }
 
     &--analitic.active::before {
-      background-image: url('@assets/imgs/stats_active_icon.png');
+      background-image: url('@assets/imgs/statsactive.png');
     }
 
     &--family.active::before {
-      background-image: url('@assets/imgs/family_active_icon.png');
+      background-image: url('@assets/imgs/familyactive.png');
     }
 
     &--profile.active::before {
-      background-image: url('@assets/imgs/profile_active_icon.png');
+      background-image: url('@assets/imgs/profileactiveicon.png');
     }
   }
+}
+
+.mobile-menu__link {
+  color: #808080 !important;
+  transition: color 0.1s ease;
+}
+
+.mobile-menu__link--active {
+  color: #7268e5 !important;
 }
