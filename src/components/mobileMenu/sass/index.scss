@@ -63,7 +63,6 @@
       margin-top: -34px;
       border-radius: 38px;
     }
-
   }
 
   &__link {
@@ -81,6 +80,8 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    color: #808080;
+    transition: color 0.1s ease;
 
     &:focus {
       outline: none;
@@ -127,14 +128,9 @@
     &--profile.active::before {
       background-image: url('@assets/imgs/profileactiveicon.png');
     }
+    
+    &--active {
+      color: #7268e5;
+    }
   }
-}
-
-.mobile-menu__link {
-  color: #808080 !important;
-  transition: color 0.1s ease;
-}
-
-.mobile-menu__link--active {
-  color: #7268e5 !important;
 }
