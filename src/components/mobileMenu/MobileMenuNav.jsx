@@ -45,8 +45,7 @@ function MobileMenuNav() {
                   'mobile-menu__link',
                   `mobile-menu__link--${key}`,
                   {
-                    'mobile-menu__link--active': activeItem === key, // Класс для активного состояния
-                    'mobile-menu__link--inactive': activeItem !== key // Класс для неактивного состояния
+                    'mobile-menu__link--active': activeItem === key,
                   }
                 )}
                 onClick={() => handleIconClick(key)}
