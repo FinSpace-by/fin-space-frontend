@@ -18,9 +18,6 @@ function MobileMenuNav() {
       case ROUTES.ANALITIC.PATH:
         setActiveItem(ACTIVE_ITEMS.ANALITIC);
         break;
-      case ROUTES.FAMILY.PATH:
-        setActiveItem(ACTIVE_ITEMS.FAMILY);
-        break;
       case ROUTES.PROFILE.PATH:
         setActiveItem(ACTIVE_ITEMS.PROFILE);
         break;

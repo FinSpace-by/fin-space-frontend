@@ -105,10 +105,6 @@
       background-image: url('@assets/imgs/stats_icon.png');
     }
 
-    &--family::before {
-      background-image: url('@assets/imgs/family_icon.png');
-    }
-
     &--profile::before {
       background-image: url('@assets/imgs/profile_icon.png');
     }
@@ -119,10 +115,6 @@
 
     &--analitic.active::before {
       background-image: url('@assets/imgs/stats_active_icon.png');
-    }
-
-    &--family.active::before {
-      background-image: url('@assets/imgs/family_active_icon.png');
     }
 
     &--profile.active::before {
