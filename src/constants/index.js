@@ -5,7 +5,6 @@ export const ROUTER_ROUTES = {
   CARDS: 'cards',
   REGISTRATION: 'registration',
   ANALITIC: 'analitic',
-  FAMILY: 'family',
   PROFILE: 'profile',
 };
 
@@ -15,6 +14,5 @@ export const ROUTES = {
   CARDS: { TITLE: 'Карты', PATH: '/cards' },
   ANALITIC: { TITLE: 'Аналитика', PATH: '/analitic' },
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
-  FAMILY: { TITLE: 'Семья', PATH: '/family' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
 };
