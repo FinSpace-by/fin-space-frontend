@@ -6,17 +6,6 @@
 .mobile-menu {
   z-index: 999;
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 20px;
-
-    &__img {
-      width: 35px;
-      height: auto;
-    }
-  }
-
   &__nav {
     z-index: 999;
     background: rgba(17, 17, 17, 0.95);
@@ -89,16 +78,17 @@
 
     &::before {
       content: '';
-      width: 34px;
-      height: 34px;
+      width: 24px;
+      height: 24px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
       margin-bottom: 0;
+      padding-bottom: 8px;
     }
 
     &--cards::before {
-      background-image: url('@assets/imgs/card_icon.png');
+      background-image: url('@assets/imgs/home_page.png');
     }
 
     &--analitic::before {
@@ -110,7 +100,7 @@
     }
 
     &--cards.active::before {
-      background-image: url('@assets/imgs/card_active_icon.png');
+      background-image: url('@assets/imgs/home_page_active.png');
     }
 
     &--analitic.active::before {
