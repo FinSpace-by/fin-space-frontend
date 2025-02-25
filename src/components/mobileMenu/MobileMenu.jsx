@@ -15,8 +15,6 @@ function MobileMenu() {
         return ROUTES.CARDS.TITLE;
       case ROUTES.ANALITIC.PATH:
         return ROUTES.ANALITIC.TITLE;
-      case ROUTES.FAMILY.PATH:
-        return ROUTES.FAMILY.TITLE;
       case ROUTES.PROFILE.PATH:
         return ROUTES.PROFILE.TITLE;
       default:
