@@ -3,6 +3,29 @@
   .MuiButtonBase-root {
     text-transform: none;
   }
+  .analitic__tabs__header {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+  }
+
+  .cross {
+    position: absolute; 
+    right: 20px;
+    top: 7%; 
+    width: 17px;
+    height: 17px;
+    outline: none;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    background-image: url('@assets/imgs/cross.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: transparent;
+  }
 }
 
 .analitic {
@@ -67,8 +90,9 @@
 
   &__tabs {
     &__container {
-      width: 100vw;
+      width: 100%;
       margin-bottom: 100px;
+      margin-top: 30px;
     }
   }
 

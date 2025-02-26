@@ -6,6 +6,7 @@ export const ROUTER_ROUTES = {
   REGISTRATION: 'registration',
   ANALITIC: 'analitic',
   PROFILE: 'profile',
+  INCOME: 'income'
 };
 
 export const ROUTES = {
@@ -13,6 +14,7 @@ export const ROUTES = {
   REGISTRATION: { TITLE: 'Регистрация', PATH: '/registration' },
   CARDS: { TITLE: 'Карты', PATH: '/cards' },
   ANALITIC: { TITLE: 'Аналитика', PATH: '/analitic' },
+  INCOME: {TITLE: 'Доход', PATH: '/income'},
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
 };

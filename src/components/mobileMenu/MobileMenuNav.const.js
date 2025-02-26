@@ -5,10 +5,11 @@ export const ACTIVE_ITEMS = {
   CARDS: 'cards',
   ANALITIC: 'analitic',
   PROFILE: 'profile',
+  INCOME: 'income',
 };
 
 export const menuItems = [
-  { path: ROUTES.CARDS.PATH, label: 'Расходы', key: 'cards' },
-  { path: ROUTES.ANALITIC.PATH, label: '', key: 'analitic' },
-  { path: ROUTES.PROFILE.PATH, label: 'Доходы', key: 'profile' },
+  { path: ROUTES.ANALITIC.PATH, label: 'Расходы', key: 'analitic' },
+  { path: ROUTES.CARDS.PATH, label: '', key: 'cards' },
+  { path: ROUTES.INCOME.PATH, label: 'Доходы', key: 'income' },
 ];

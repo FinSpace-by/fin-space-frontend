@@ -18,8 +18,8 @@ function MobileMenuNav() {
       case ROUTES.ANALITIC.PATH:
         setActiveItem(ACTIVE_ITEMS.ANALITIC);
         break;
-      case ROUTES.PROFILE.PATH:
-        setActiveItem(ACTIVE_ITEMS.PROFILE);
+      case ROUTES.INCOME.PATH:
+        setActiveItem(ACTIVE_ITEMS.INCOME);
         break;
     }
   }, [location]);

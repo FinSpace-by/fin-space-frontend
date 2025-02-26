@@ -8,7 +8,7 @@
 
   &__nav {
     z-index: 999;
-    background: rgb(17, 17, 17);
+    background: rgba(17, 17, 17, 0.95);
     margin: 0;
     width: 100%;
     position: fixed;
@@ -76,12 +76,6 @@
       outline: none;
     }
 
-    &--analitic {
-      width: 64px;
-      height: 64px; 
-      margin-top: -11px;
-    }
-
     &::before {
       content: '';
       width: 24px;
@@ -94,29 +88,29 @@
     }
 
     &--cards::before {
-      background-image: url('@assets/imgs/expenses.svg');
-    }
-
-    &--analitic::before {
-      width: 64px; 
-      height: 64px; 
+      height: 64px;
+      width: 64px;
       margin-top: -11px;
       background-image: url('@assets/imgs/plus_icon.svg');
     }
 
-    &--profile::before {
+    &--analitic::before {
+      background-image: url('@assets/imgs/expenses.svg');
+    }
+
+    &--income::before {
       background-image: url('@assets/imgs/income.svg');
     }
 
     &--cards.active::before {
-      background-image: url('@assets/imgs/expenses_active.svg');
-    }
-
-    &--analitic.active::before {
       background-image: url('@assets/imgs/plus_icon.svg');
     }
 
-    &--profile.active::before {
+    &--analitic.active::before {
+      background-image: url('@assets/imgs/expenses_active.svg');
+    }
+
+    &--income.active::before {
       background-image: url('@assets/imgs/income_active.svg');
     }
 
