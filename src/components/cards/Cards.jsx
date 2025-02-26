@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './sass/index.scss';
-import { CircularProgress, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 function Cards() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +18,14 @@ function Cards() {
             Общий баланс
           </Typography>
           <Typography variant="h4" className="balance-amount">
-            10 364.32
+            {totalBalance}
           </Typography>
         </div>
       </div>
+
+      <button className="add-expense-button">
+        + Добавить трату
+      </button>
     </div>
   );
 }
