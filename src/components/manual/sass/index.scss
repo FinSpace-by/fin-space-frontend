@@ -1,0 +1,46 @@
+.analitic__tabs__container {
+    .analitic__tabs__header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+  
+    .analitic__tabContent {
+      background: #1c1c1c;
+      padding: 20px;
+      
+      .analitic__tabContent__header {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+      }
+  
+      .analitic__tab__category {
+        margin: 12px 0px;
+        font-family: GoghRegular, sans-serif;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  
+    .arrow {
+      position: absolute;
+      right: 90.5%;
+      top: 10%;
+      width: 18px;
+      height: 18px;
+      outline: none;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      background-image: url('@assets/icons/arrow.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      background-color: transparent;
+    }
+  }
+  
