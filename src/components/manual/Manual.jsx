@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
-import { ROUTES } from '@constants';
 import add_expenses from '@assets/icons/add_expenses.svg'
 import add_income from '@assets/icons/add_income.svg'
 import './sass/index.scss';
+
+const PREVIOUS = -1;
 
 const CATEGORIES = [
   {
@@ -18,16 +19,10 @@ const CATEGORIES = [
 ];
 
 function Manual() {
-  const [categories, setCategories] = useState(CATEGORIES);
   const navigate = useNavigate();
-  const previous = -1;
-
-  const handleRedirect = () => {
-    navigate(ROUTES.CARDS.PATH);
-  };
 
   const handleArrow = () => {
-    navigate(previous);
+    navigate(PREVIOUS);
   };
 
   return (
@@ -41,7 +36,7 @@ function Manual() {
     <div className="analitic__tabContent__header">
       <Typography variant="h5" fontSize={17}>Выберите тип</Typography>
     </div>
-    {categories.map((category, index) => (
+    {CATEGORIES.map((category, index) => (
       <div key={index} className="analitic__tab__category">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Typography variant="category" style={{ marginTop: 0, height: 45 }}>
