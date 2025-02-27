@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
+import { ROUTES } from '@constants';
 import food from '@assets/icons/food.svg';
 import clothes from '@assets/icons/clothes.svg';
 import entertainments from '@assets/icons/entertainments.svg';

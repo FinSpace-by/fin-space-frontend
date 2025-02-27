@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
+import { ROUTES } from '@constants';
 import salary from '@assets/icons/Salary.svg';
 import avans from '@assets/icons/Avans.svg';
 import debt from '@assets/icons/Debt.svg';
@@ -184,13 +185,7 @@ function Income() {
   };
 
   const handleSubmit = async () => {
-    // try {
-    //   await axios.post('/api/limits', { limits });
-    //   alert('Лимиты успешно отправлены');
-    // } catch (error) {
-    //   console.error('Ошибка при отправке лимитов:', error);
-    //   alert('Ошибка при отправке лимитов');
-    // }
+    
   };
 
   return (
