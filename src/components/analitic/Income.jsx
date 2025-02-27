@@ -2,56 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
 import { ROUTES } from '@constants';
-import food from '@assets/icons/food.svg';
-import clothes from '@assets/icons/clothes.svg';
-import entertainments from '@assets/icons/entertainments.svg';
-import transport from '@assets/icons/transport.svg';
-import health from '@assets/icons/health.svg';
-import utility from '@assets/icons/utility.svg';
-import loan from '@assets/icons/loan.svg';
-import education from '@assets/icons/education.svg';
-import other from '@assets/icons/other.svg';
+import salary from '@assets/icons/Salary.svg';
+import avans from '@assets/icons/Avans.svg';
+import debt from '@assets/icons/Debt.svg';
+import extra_income from '@assets/icons/Extra_income.svg';
+import investment from '@assets/icons/Investment.svg';
+import premiya from '@assets/icons/Premiya.svg';
 import arrow from '@assets/icons/arrow.png';
 
 import './sass/index.scss';
 
 const CATEGORIES = [
   {
-    icon: food,
-    title: 'Еда',
+    icon: salary,
+    title: 'Зарплата',
   },
   {
-    icon: clothes,
-    title: 'Одежда',
+    icon: avans,
+    title: 'Аванс',
   },
   {
-    icon: entertainments,
-    title: 'Развлечения',
+    icon: premiya,
+    title: 'Премия',
   },
   {
-    icon: transport,
-    title: 'Транспорт',
+    icon: extra_income,
+    title: 'Дополнительный доход',
   },
   {
-    icon: health,
-    title: 'Здоровье',
+    icon: debt,
+    title: 'Возврат долга',
   },
   {
-    icon: utility,
-    title: 'Коммунальные платежи',
+    icon: investment,
+    title: 'Инвестиции',
   },
-  {
-    icon: loan,
-    title: 'Платежи по кредиту',
-  },
-  {
-    icon: education,
-    title: 'Образование',
-  },
-  {
-    icon: other,
-    title: 'Прочие расходы',
-  },
+  
 ];
 
 const TRANSACTIONS = [
@@ -130,7 +116,7 @@ const RESULTS = [
   },
 ];
 
-function Analitic() {
+function Income() {
   const [activeTab, setActiveTab] = useState(0);
   const [activeCard, setActiveCard] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -207,7 +193,7 @@ function Analitic() {
         <>
           <div className="analitic__tabs__container">  
             <div className="analitic__tabs__header">
-              <Typography variant="h5" align="center" mb={3} fontSize={17}>Категории расходов</Typography>
+              <Typography variant="h5" align="center" mb={3} fontSize={17}>Категории доходов</Typography>
                 <button className="cross" onClick={handleRedirect}></button>
             </div>
               <div className="analitic__tabContent">
@@ -279,14 +265,13 @@ function Analitic() {
                   <div className="category_finance">
                     <div className="category_currency">{currency}</div>
                     <div
-                      className={
-                        (isPositive
-                          ? 'category_positive'
-                          : 'category_negative') + ' category_sum'
-                      }
-                    >
-                      {isPositive ? '+' : '-'} {sum}
-                    </div>
+                        className={clsx(
+                          isPositive ? 'category_positive' : 'category_negative',
+                          'category_sum'
+                        )}
+                      >
+                        {isPositive ? '+' : '-'} {sum}
+                      </div>
                   </div>
                 </div>
               );
@@ -298,4 +283,4 @@ function Analitic() {
   );
 }
 
-export default Analitic;
+export default Income;

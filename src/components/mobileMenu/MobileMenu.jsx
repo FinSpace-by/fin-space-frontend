@@ -15,8 +15,8 @@ function MobileMenu() {
         return ROUTES.CARDS.TITLE;
       case ROUTES.ANALITIC.PATH:
         return ROUTES.ANALITIC.TITLE;
-      case ROUTES.PROFILE.PATH:
-        return ROUTES.PROFILE.TITLE;
+      case ROUTES.INCOME.PATH:
+        return ROUTES.INCOME.TITLE;
       default:
         return 'Белкарт';
     }
