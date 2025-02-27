@@ -7,11 +7,8 @@ import debt from '@assets/icons/Debt.svg';
 import extra_income from '@assets/icons/Extra_income.svg';
 import investment from '@assets/icons/Investment.svg';
 import premiya from '@assets/icons/Premiya.svg';
-import loan from '@assets/icons/loan.svg';
-import education from '@assets/icons/education.svg';
-import other from '@assets/icons/other.svg';
-
 import arrow from '@assets/icons/arrow.png';
+import { ROUTES } from '@constants';
 
 import './sass/index.scss';
 
@@ -41,6 +38,23 @@ const CATEGORIES = [
     title: 'Инвестиции',
   },
   
+];
+
+const TRANSACTIONS = [
+  { id: 1, sum: '120.2', date: '10.12.2024' },
+  { id: 2, sum: '60.43', date: '11.12.2024' },
+  { id: 3, sum: '80.64', date: '12.12.2024' },
+  { id: 4, sum: '15.23', date: '13.12.2024' },
+  { id: 5, sum: '56.54', date: '14.12.2024' },
+  { id: 6, sum: '90.99', date: '15.12.2024' },
+  { id: 7, sum: '99.99', date: '16.12.2024' },
+  { id: 8, sum: '132.99', date: '17.12.2024' },
+  { id: 9, sum: '65.99', date: '18.12.2024' },
+  { id: 10, sum: '98.99', date: '19.12.2024' },
+  { id: 11, sum: '13.99', date: '20.12.2024' },
+  { id: 12, sum: '54.99', date: '21.12.2024' },
+  { id: 13, sum: '156.99', date: '22.12.2024' },
+  { id: 14, sum: '143.99', date: '23.12.2024' },
 ];
 
 const RESULTS = [
@@ -108,29 +122,9 @@ function Income() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDate, setActiveDate] = useState('');
   const [activeSum, setActiveSum] = useState(null);
-  const [transactions, setTransactions] = useState([
-    { id: 1, sum: '120.2', date: '10.12.2024' },
-    { id: 2, sum: '60.43', date: '11.12.2024' },
-    { id: 3, sum: '80.64', date: '12.12.2024' },
-    { id: 4, sum: '15.23', date: '13.12.2024' },
-    { id: 5, sum: '56.54', date: '14.12.2024' },
-    { id: 6, sum: '90.99', date: '15.12.2024' },
-    { id: 7, sum: '99.99', date: '16.12.2024' },
-    { id: 8, sum: '132.99', date: '17.12.2024' },
-    { id: 9, sum: '65.99', date: '18.12.2024' },
-    { id: 10, sum: '98.99', date: '19.12.2024' },
-    { id: 11, sum: '13.99', date: '20.12.2024' },
-    { id: 12, sum: '54.99', date: '21.12.2024' },
-    { id: 13, sum: '156.99', date: '22.12.2024' },
-    { id: 14, sum: '143.99', date: '23.12.2024' },
-  ]);
+  const [transactions, setTransactions] = useState([TRANSACTIONS]);
   const [categories, setCategories] = useState(CATEGORIES);
-  const [limits, setLimits] = useState(
-    categories.reduce((acc, category) => {
-      acc[category.id] = category.limit;
-      return acc;
-    }, {})
-  );
+  const [limits, setLimits] = useState(categoryLimits);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const navigate = useNavigate();
 
@@ -141,8 +135,13 @@ function Income() {
     } catch {}
   }, [transactions]);
 
+  const categoryLimits = categories.reduce((acc, category) => {
+    acc[category.id] = category.limit;
+    return acc;
+  }, {});
+
   const handleRedirect = () => {
-    navigate('/cards');
+    navigate(ROUTES.CARDS.PATH);
   };
 
   const handleTabChange = (event, newValue) => {
@@ -245,53 +244,7 @@ function Income() {
                 ))}
               </div>
           </div>
-          {/* <div
-        className="analitic__planning__button"
-        style={{
-          height: isOpen ? '80vh' : '55px',
-          borderRadius: isOpen ? '15px' : '15vw',
-        }}
-      >
-        <Typography
-          variant="h5"
-          className="analitic__planning__button__text"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? `Планирование ▼` : `Планирование ▲`}
-        </Typography>
-
-        <div class="analitic__planning__container">
-          <Typography variant="category" className="analitic__planning__limits">
-            Лимиты
-          </Typography>
-          {categories.map((category, index) => (
-            <div key={category.id} className="analitic__tab__category">
-              <Typography variant="category">{category.name}</Typography>
-              <div className="analitic__planning__flex">
-                <TextField
-                  type="number"
-                  value={limits[category.id]}
-                  onChange={(e) =>
-                    handleLimitChange(category.id, e.target.value)
-                  }
-                  variant="outlined"
-                  size="small"
-                  className="analitic__planning__limit-input"
-                />
-                <Typography variant="category">BYN</Typography>
-              </div>
-            </div>
-          ))}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setIsOpen(false)}
-            className="analitic__planning__submit-button"
-          >
-            Сохранить
-          </Button>
-        </div>
-      </div> */}{' '}
+          {' '}
         </>
       ) : (
         <div className="category">
@@ -318,14 +271,13 @@ function Income() {
                   <div className="category_finance">
                     <div className="category_currency">{currency}</div>
                     <div
-                      className={
-                        (isPositive
-                          ? 'category_positive'
-                          : 'category_negative') + ' category_sum'
-                      }
-                    >
-                      {isPositive ? '+' : '-'} {sum}
-                    </div>
+                        className={clsx(
+                          isPositive ? 'category_positive' : 'category_negative',
+                          'category_sum'
+                        )}
+                      >
+                        {isPositive ? '+' : '-'} {sum}
+                      </div>
                   </div>
                 </div>
               );
