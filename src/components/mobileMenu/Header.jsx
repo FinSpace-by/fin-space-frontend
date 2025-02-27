@@ -7,9 +7,6 @@ import { Typography } from '@mui/material';
 function Header({ pageTitle }) {
   return (
     <>
-      {/*<Typography variant="header">{pageTitle}</Typography>*/}
-
-      {/*<img src={logo} className="mobile-menu__header__img" />*/}
     </>
   );
 }
