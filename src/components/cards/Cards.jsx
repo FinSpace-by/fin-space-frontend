@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import './sass/index.scss';
 import { Typography } from '@mui/material';
+import clsx from 'clsx';
+
+const dates = {
+  Пн: '06.12.2025',
+  Вт: '07.12.2025',
+  Ср: '08.12.2025',
+  Чт: '09.12.2025',
+  Пт: '10.12.2025',
+  Сб: '11.12.2025',
+  Вс: '12.12.2025',
+};
+
+const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс');
-  const [selectedDate, setSelectedDate] = useState('12.12.2025');
+  const [selectedDate, setSelectedDate] = useState(dates['Вс']);
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
-    const dates = {
-      Пн: '06.12.2025',
-      Вт: '07.12.2025',
-      Ср: '08.12.2025',
-      Чт: '09.12.2025',
-      Пт: '10.12.2025',
-      Сб: '11.12.2025',
-      Вс: '12.12.2025',
-    };
     setSelectedDate(dates[day]);
   };
 
@@ -37,15 +41,15 @@ function Cards() {
       </div>
 
       <div className="expenses-income-sum">
-        <div className="expenses-income-sum1" style={{ display: 'flex' }}>
+        <div className="expenses-income-sum1">
           <Typography className="page-title1">Расходы:</Typography>
           <Typography className="page-title2">1 249.99</Typography>
-          <Typography className="page-title2" style={{ opacity: 0.5 }}>BYN</Typography>
+          <Typography className="page-title2 opacity">BYN</Typography>
         </div>
-        <div className="expenses-income-sum2" style={{ display: 'flex' }}>
+        <div className="expenses-income-sum2">
           <Typography className="page-title1">Доходы:</Typography>
           <Typography className="page-title3">1 249.99</Typography>
-          <Typography className="page-title3" style={{ opacity: 0.5 }}>BYN</Typography>
+          <Typography className="page-title3 opacity">BYN</Typography>
         </div>
       </div>
 
@@ -55,14 +59,11 @@ function Cards() {
       </div>
 
       <div className='analitic-graphic'>
-        {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((day, index) => (
+        {daysOfWeek.map((day, index) => ( 
           <div
-            key={index}
-            className={`day-column ${selectedDay === day ? 'active' : ''}`}
-            style={{
-              height: `${[100, 70, 170, 120, 100, 140, 80][index]}px`,
-              cursor: 'pointer',
-            }}
+            key={day}
+            className={clsx('day-column', { active: selectedDay === day })}
+            style={{ height: `${[100, 70, 170, 120, 100, 140, 80][index]}px` }}
             onClick={() => handleDayClick(day)}
           >
             {day}
