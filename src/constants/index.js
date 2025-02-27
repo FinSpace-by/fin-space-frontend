@@ -6,7 +6,8 @@ export const ROUTER_ROUTES = {
   REGISTRATION: 'registration',
   ANALITIC: 'analitic',
   PROFILE: 'profile',
-  INCOME: 'income'
+  INCOME: 'income',
+  MANUAL: 'manual',
 };
 
 export const ROUTES = {
@@ -17,4 +18,5 @@ export const ROUTES = {
   INCOME: {TITLE: 'Доход', PATH: '/income'},
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
+  MANUAL: { TITLE: 'Добавить вручную', PATH: '/manual' },
 };

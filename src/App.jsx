@@ -11,6 +11,7 @@ import Authorization from '@components/authorization/Authorization';
 import Registration from '@components/registration/Registration';
 import Analitic from '@components/analitic/Analitic';
 import Income from '@components/analitic/Income';
+import Manual from '@components/manual/Manual';
 
 import './sass/index.scss';
 
@@ -54,6 +55,7 @@ function App() {
                   <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
                   <Route path={ROUTER_ROUTES.INCOME} element={<Income />} />
+                  <Route path={ROUTER_ROUTES.MANUAL} element={<Manual />} />
                 </Route>
               </Route>
             </Routes>
