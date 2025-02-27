@@ -28,7 +28,7 @@ function Registration() {
 
     if (!hasErrors.phone && !hasErrors.password && !hasErrors.firstName && !hasErrors.lastName) {
       const body = {
-        username: phone,
+        phone: phone,
         password: password,
         firstName: firstName,
         lastName: lastName,
@@ -36,10 +36,9 @@ function Registration() {
 
       try {
         await authApi.register(body);
-        console.log("Успешная регистрация");
         navigate(ROUTES.CARDS.PATH);
       } catch (error) {
-        console.error("Ошибка при регистрации", error.response?.data || error.message);
+        
       }
     }
   };
