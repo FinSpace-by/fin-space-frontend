@@ -12,7 +12,6 @@ import loan from '@assets/icons/loan.svg';
 import education from '@assets/icons/education.svg';
 import other from '@assets/icons/other.svg';
 import arrow from '@assets/icons/arrow.png';
-import { ROUTES } from '@constants';
 
 import './sass/index.scss';
 

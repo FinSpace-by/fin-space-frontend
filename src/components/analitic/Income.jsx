@@ -9,8 +9,6 @@ import extra_income from '@assets/icons/Extra_income.svg';
 import investment from '@assets/icons/Investment.svg';
 import premiya from '@assets/icons/Premiya.svg';
 import arrow from '@assets/icons/arrow.png';
-import { ROUTES } from '@constants';
-
 import './sass/index.scss';
 
 const CATEGORIES = [
