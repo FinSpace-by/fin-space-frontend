@@ -86,6 +86,78 @@
         filter: brightness(0.9);
       }
     }
+
+    .expenses-income-sum {
+      display: flex;
+      flex-direction: column;
+      background: #1C1C1C;
+      margin: 16px 14px;
+      padding: 20px;
+      border-radius: 20px;
+      justify-content: flex-start;
+    }
+    
+    .page-title1 {
+      font-size: 20px;
+      font-family: 'SF Pro Text', normal;
+      font-weight: bold;
+      color: #ffffff;
+    }
+    
+    .page-title2 {
+      font-size: 19px;
+      margin-top: 2px;
+      padding-left: 5px;
+      font-family: 'SF Pro Text', normal;
+      color: #7160FF;
+    }
+
+    .page-title3 {
+      font-size: 19px;
+      margin-top: 2px;
+      padding-left: 5px;
+      font-family: 'SF Pro Text', normal;
+      color: #60FF75;
+    }
+
+    .analitic-graphic{
+      height: 200px;
+      display: flex;
+      flex-direction: row;
+      align-items: end;
+      background: linear-gradient(to bottom, #8B7DFF, #4F42BD);
+      margin: 16px 14px;
+      padding: 16px 10px 12px;
+      border-radius: 20px;
+      gap: 3px;
+    }
+
+    .day-column {
+      display: flex;
+      background: rgb(255, 255, 255, 0.6);
+      width: 20px;
+      padding: 14px;
+      padding-bottom: 8px;
+      border-radius: 10px;
+      font-family: 'SF Pro Text', normal;
+      font-size: 12px;
+      align-items: end;
+      justify-content: center;
+      color: black;
+
+      &.active {
+        background: white;
+        color: black;
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .graphic-name-container {
+      display: flex;
+      flex-direction: row;
+      margin: 14px 16px;
+    }
+
   }
 
 }
