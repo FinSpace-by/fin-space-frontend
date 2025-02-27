@@ -143,7 +143,7 @@
       font-size: 12px;
       align-items: end;
       justify-content: center;
-      color: black;
+      color: rgba(0, 0, 0, 0.7);
 
       &.active {
         background: white;
@@ -156,6 +156,15 @@
       display: flex;
       flex-direction: row;
       margin: 14px 16px;
+    }
+
+    .opacity {
+      opacity: 0.5;
+    }
+    
+    .expenses-income-sum1,
+    .expenses-income-sum2 {
+      display: flex;
     }
 
   }
