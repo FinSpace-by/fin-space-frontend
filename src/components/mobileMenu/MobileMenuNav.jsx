@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ROUTES } from '@constants';
 import { ACTIVE_ITEMS, menuItems } from './MobileMenuNav.const.js';
+import Methods from '../methods/Methods.jsx';
 import clsx from 'clsx';
 
 function MobileMenuNav() {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     const currentPath = location.pathname;
@@ -23,6 +25,12 @@ function MobileMenuNav() {
         break;
     }
   }, [location]);
+
+  const handleCardsClick = (e) => {
+    e.preventDefault(); 
+    setActiveItem(ACTIVE_ITEMS.CARDS);
+    setIsModalOpen(true); 
+  };
 
   const handleIconClick = (item) => {
     setActiveItem(item);
@@ -45,7 +53,13 @@ function MobileMenuNav() {
                     'mobile-menu__link--active': activeItem === key,
                   }
                 )}
-                onClick={() => handleIconClick(key)}
+                onClick={(e) => {
+                  if (key === 'cards') {
+                    handleCardsClick(e); 
+                  } else {
+                    handleIconClick(key);
+                  }
+                }}
               >
                 {label}
               </NavLink>
@@ -53,6 +67,8 @@ function MobileMenuNav() {
           </li>
         ))}
       </ul>
+
+      <Methods isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </nav>
   );
 }
