@@ -9,6 +9,7 @@ import extra_income from '@assets/icons/Extra_income.svg';
 import investment from '@assets/icons/Investment.svg';
 import premiya from '@assets/icons/Premiya.svg';
 import arrow from '@assets/icons/arrow.png';
+
 import './sass/index.scss';
 
 const CATEGORIES = [
@@ -38,6 +39,8 @@ const CATEGORIES = [
   },
   
 ];
+
+
 
 const TRANSACTIONS = [
   { id: 1, sum: '120.2', date: '10.12.2024' },
@@ -264,10 +267,11 @@ function Income() {
                   <div className="category_finance">
                     <div className="category_currency">{currency}</div>
                     <div
-                        className={clsx(
-                          isPositive ? 'category_positive' : 'category_negative',
-                          'category_sum'
-                        )}
+                        className={
+                          (isPositive
+                            ? 'category_positive'
+                            : 'category_negative') + ' category_sum'
+                        }
                       >
                         {isPositive ? '+' : '-'} {sum}
                       </div>
