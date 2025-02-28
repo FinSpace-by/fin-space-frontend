@@ -4,16 +4,16 @@
     text-transform: none;
   }
   .analitic__tabs__header {
-    display: flex; 
+    display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     position: relative;
   }
 
   .cross {
-    position: absolute; 
+    position: absolute;
     right: 20px;
-    top: 7%; 
+    top: 7%;
     width: 17px;
     height: 17px;
     outline: none;
@@ -99,11 +99,11 @@
   &__tab {
     &__category {
       margin: 12px 0px;
-      font-family: GoghRegular, sans-serif;
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: 'SF Pro Text', bold;
     }
   }
 
@@ -234,7 +234,7 @@
   padding: 16px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-family: GoghRegular, sans-serif;
+  font-family: 'SF Pro Text', bold;
   background: #1c1c1c;
   display: flex;
   flex-direction: column;
@@ -319,8 +319,8 @@
 .analitic__tab__category > .category-details {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; 
-  gap: 4px; 
+  align-items: flex-end;
+  gap: 4px;
 }
 
 .analitic__tab__category > .category-details .price {
@@ -328,7 +328,7 @@
   margin-top: 0;
 }
 
-.price-text{
+.price-text {
   color: grey;
   font-size: 17px;
 }

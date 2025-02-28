@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 function NotFound() {
-  return <div>dasasd</div>;
+  return <div>dasasd</div>
 }
 
-export default NotFound;
+export default NotFound

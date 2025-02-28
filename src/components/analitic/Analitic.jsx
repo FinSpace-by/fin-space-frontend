@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
-import { ROUTES } from '@constants';
-import clsx from 'clsx';
-import food from '@assets/icons/food.svg';
-import clothes from '@assets/icons/clothes.svg';
-import entertainments from '@assets/icons/entertainments.svg';
-import transport from '@assets/icons/transport.svg';
-import health from '@assets/icons/health.svg';
-import utility from '@assets/icons/utility.svg';
-import loan from '@assets/icons/loan.svg';
-import education from '@assets/icons/education.svg';
-import other from '@assets/icons/other.svg';
-import arrow from '@assets/icons/arrow.png';
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
+import { ROUTES } from '@constants'
+import clsx from 'clsx'
+import food from '@assets/icons/food.svg'
+import clothes from '@assets/icons/clothes.svg'
+import entertainments from '@assets/icons/entertainments.svg'
+import transport from '@assets/icons/transport.svg'
+import health from '@assets/icons/health.svg'
+import utility from '@assets/icons/utility.svg'
+import loan from '@assets/icons/loan.svg'
+import education from '@assets/icons/education.svg'
+import other from '@assets/icons/other.svg'
+import arrow from '@assets/icons/arrow.png'
 
-import './sass/index.scss';
+import './sass/index.scss'
 
 const CATEGORIES = [
   {
@@ -53,7 +53,7 @@ const CATEGORIES = [
     icon: other,
     title: 'Прочие расходы',
   },
-];
+]
 
 const TRANSACTIONS = [
   { id: 1, sum: '120.2', date: '10.12.2024' },
@@ -70,7 +70,7 @@ const TRANSACTIONS = [
   { id: 12, sum: '54.99', date: '21.12.2024' },
   { id: 13, sum: '156.99', date: '22.12.2024' },
   { id: 14, sum: '143.99', date: '23.12.2024' },
-];
+]
 
 const RESULTS = [
   {
@@ -129,149 +129,139 @@ const RESULTS = [
     sum: '1 249.99',
     isPositive: false,
   },
-];
+]
 
 function Analitic() {
-  const [activeTab, setActiveTab] = useState(0);
-  const [activeCard, setActiveCard] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeDate, setActiveDate] = useState('');
-  const [activeSum, setActiveSum] = useState(null);
-  const [transactions, setTransactions] = useState([TRANSACTIONS]);
-  const [categories, setCategories] = useState(CATEGORIES);
-  const [isOpenCategory, setIsOpenCategory] = useState(false);
-  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0)
+  const [activeCard, setActiveCard] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
+  const [activeDate, setActiveDate] = useState('')
+  const [activeSum, setActiveSum] = useState(null)
+  const [transactions, setTransactions] = useState([TRANSACTIONS])
+  const [categories, setCategories] = useState(CATEGORIES)
+  const [isOpenCategory, setIsOpenCategory] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     try {
-      setActiveSum(transactions[4].sum);
-      setActiveDate(transactions[4].date);
+      setActiveSum(transactions[4].sum)
+      setActiveDate(transactions[4].date)
     } catch {}
-  }, [transactions]);
+  }, [transactions])
 
   const categoryLimits = categories.reduce((acc, category) => {
-    acc[category.id] = category.limit;
-    return acc;
-  }, {});
+    acc[category.id] = category.limit
+    return acc
+  }, {})
 
-  const [limits, setLimits] = useState(categoryLimits);
+  const [limits, setLimits] = useState(categoryLimits)
 
   const handleRedirect = () => {
-    navigate(ROUTES.CARDS.PATH);
-  };
+    navigate(ROUTES.CARDS.PATH)
+  }
 
   const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
+    setActiveTab(newValue)
+  }
 
   const handleCardChange = (event, newValue) => {
-    setActiveCard(newValue);
-  };
+    setActiveCard(newValue)
+  }
 
   const handleOpenCategory = () => {
-    setIsOpenCategory(true);
-  };
+    setIsOpenCategory(true)
+  }
 
   const handleCloseCategory = () => {
-    setIsOpenCategory(false);
-  };
+    setIsOpenCategory(false)
+  }
 
   const handleItemClick = (sum, date) => {
-    setActiveSum(sum);
-    setActiveDate(date);
-  };
+    setActiveSum(sum)
+    setActiveDate(date)
+  }
 
   const handleLimitChange = (categoryId, newLimit) => {
     setLimits((prevLimits) => ({
       ...prevLimits,
       [categoryId]: newLimit,
-    }));
-  };
+    }))
+  }
 
-  const handleSubmit = async () => {
-    
-  };
+  const handleSubmit = async () => {}
 
   return (
     <>
       {!isOpenCategory ? (
         <>
-          <div className="analitic__tabs__container">  
-            <div className="analitic__tabs__header">
-              <Typography variant="h5" align="center" mb={3} fontSize={17}>Категории расходов</Typography>
-                <button className="cross" onClick={handleRedirect}></button>
+          <div className='analitic__tabs__container'>
+            <div className='analitic__tabs__header'>
+              <Typography variant='h5' align='center' mb={3} fontSize={17}>
+                Категории расходов
+              </Typography>
+              <button className='cross' onClick={handleRedirect}></button>
             </div>
-              <div className="analitic__tabContent">
-                {categories.map((category, index) => (
-                  <div
-                    key={index}
-                    className="analitic__tab__category"
-                    onClick={handleOpenCategory}
-                  >
-                    <div className="category-header">
-                      <Typography
-                        variant="category"
-                        className="category-icon"
-                      >
-                        <img src={category.icon} alt="icon" />
+            <div className='analitic__tabContent'>
+              {categories.map((category, index) => (
+                <div key={index} className='analitic__tab__category' onClick={handleOpenCategory}>
+                  <div className='category-header'>
+                    <Typography variant='category' className='category-icon'>
+                      <img src={category.icon} alt='icon' />
+                    </Typography>
+                    <Typography variant='category' className='category-title'>
+                      {category.title}
+                    </Typography>
+                  </div>
+                  <div className='category-details'>
+                    <span className='price-text'>BYN</span>
+                    <div className='price-container'>
+                      <Typography variant='category' className='price'>
+                        1 249.99
                       </Typography>
-                      <Typography variant="category" className="category-title">
-                        {category.title}
-                      </Typography>
-                    </div>
-                    <div className="category-details">
-                      <span className="price-text">BYN</span>
-                      <div className="price-container">
-                        <Typography variant="category" className="price">
-                          1 249.99
-                        </Typography>
-                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-          </div>
-          {' '}
+                </div>
+              ))}
+            </div>
+          </div>{' '}
         </>
       ) : (
-        <div className="category">
-          <div className="category_titleWrapper">
-            <img
-              src={arrow}
-              className="category_arrow"
-              onClick={handleCloseCategory}
-            />
-            <div className="category_title">Еда</div>
+        <div className='category'>
+          <div className='category_titleWrapper'>
+            <img src={arrow} className='category_arrow' onClick={handleCloseCategory} />
+            <div className='category_title'>Еда</div>
           </div>
-          <div className="category_body">
+          <div className='category_body'>
             {RESULTS.map((item) => {
-              const { currency, date, isPositive, name, sum, time } = item;
+              const { currency, date, isPositive, name, sum, time } = item
 
               return (
-                <div className="category_item">
+                <div className='category_item'>
                   <div>
-                    <div className="category_date">
+                    <div className='category_date'>
                       {time}, {date}
                     </div>
-                    <div className="category_name">{name}</div>
+                    <div className='category_name'>{name}</div>
                   </div>
-                  <div className="category_finance">
-                    <div className="category_currency">{currency}</div>
-                    <div className={clsx('category_sum', {
-                      category_positive: isPositive,
-                      category_negative: !isPositive,
-                    })}>
+                  <div className='category_finance'>
+                    <div className='category_currency'>{currency}</div>
+                    <div
+                      className={clsx('category_sum', {
+                        category_positive: isPositive,
+                        category_negative: !isPositive,
+                      })}
+                    >
                       {isPositive ? '+' : '-'} {sum}
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default Analitic;
+export default Analitic
