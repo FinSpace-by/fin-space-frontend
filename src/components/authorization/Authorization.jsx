@@ -32,8 +32,8 @@ function Authorization() {
     if (!hasErrors.phone && !hasErrors.password) {
       try {
         const body = {
-          phone: phone,
-          password: password,
+          phone,
+          password,
         };
 
         await authApi.setLogin(body);

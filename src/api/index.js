@@ -5,7 +5,7 @@ export * from './auth'
 export * from './user'
 
 export const instance = axios.create({
-  baseURL: REACT_APP_API,
+  baseURL: REACT_APP_API + `/api`,
   headers: {
     'Content-Type': 'application/json',
   },
