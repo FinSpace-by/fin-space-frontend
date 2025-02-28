@@ -1,14 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import './sass/index.scss';
+import './sass/index.scss'
 
 const AddButtonWrapper = ({ onClick }) => {
   return (
-    <div className="button-wrapper">
-      <div className="dark-overlay"></div>
-      <button className="add-button" onClick={onClick}>Добавить</button>
+    <div className='button-wrapper'>
+      <div className='dark-overlay'></div>
+      <button className='add-button' onClick={onClick}>
+        Добавить
+      </button>
     </div>
-  );
-};
+  )
+}
 
-export default AddButtonWrapper;
+export default AddButtonWrapper

@@ -25,18 +25,19 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      transition: background-color 0.3s, border 0.3s;
+      transition:
+        background-color 0.3s,
+        border 0.3s;
       padding: 10px;
       border-radius: 10px;
       &:hover {
-        background: #7160FF;
+        background: #7160ff;
       }
     }
 
     .analitic__tab__category.selected {
-        background: #7160FF;
-      }
-
+      background: #7160ff;
+    }
   }
 
   .arrow {

@@ -1,30 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@constants';
-import logo from '@assets/imgs/logo.png';
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Snackbar,
-  Alert,
-} from '@mui/material';
-import { authApi, userApi } from '@api';
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '@constants'
+import logo from '@assets/imgs/logo.png'
+import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
+import { authApi, userApi } from '@api'
 
-import './sass/index.scss';
+import './sass/index.scss'
 
 function Authorization() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ phone: false, password: false });
+  const [isLoading, setIsLoading] = useState(true)
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState({ phone: false, password: false })
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
     severity: 'info',
-  });
-  const navigate = useNavigate();
+  })
+  const navigate = useNavigate()
 
   // useEffect(() => {
   //   if (isLoading) {
@@ -43,14 +36,14 @@ function Authorization() {
   // }, [isLoading, navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const hasErrors = {
       phone: phone === '',
       password: password === '',
-    };
+    }
 
-    setErrors(hasErrors);
+    setErrors(hasErrors)
 
     if (!hasErrors.phone && !hasErrors.password) {
       // try {
@@ -60,7 +53,7 @@ function Authorization() {
       //   };
 
       //   await authApi.setLogin(body);
-      navigate(ROUTES.CARDS.PATH);
+      navigate(ROUTES.CARDS.PATH)
       // } catch {
       //   setSnackbar({
       //     open: true,
@@ -73,41 +66,37 @@ function Authorization() {
         open: true,
         message: 'Заполните все поля',
         severity: 'warning',
-      });
+      })
     }
-  };
+  }
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
-      return;
+      return
     }
-    setSnackbar({ ...snackbar, open: false });
-  };
+    setSnackbar({ ...snackbar, open: false })
+  }
 
   return (
-    <Box className="authorization">
-      <div className="authorization__img-container">
-        <img
-          src={logo}
-          alt="Logo"
-          className="authorization__img-container__img"
-        />
+    <Box className='authorization'>
+      <div className='authorization__img-container'>
+        <img src={logo} alt='Logo' className='authorization__img-container__img' />
       </div>
 
-      <div className="authorization__text">
-        <Typography variant="h5">
+      <div className='authorization__text'>
+        <Typography variant='h5'>
           Fin
           <br />
           Space
         </Typography>
       </div>
 
-      <form className="authorization__form" onSubmit={handleSubmit}>
+      <form className='authorization__form' onSubmit={handleSubmit}>
         <TextField
-          placeholder="Номер телефона"
-          variant="outlined"
+          placeholder='Номер телефона'
+          variant='outlined'
           fullWidth
-          margin="normal"
+          margin='normal'
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           error={errors.phone}
@@ -115,11 +104,11 @@ function Authorization() {
         />
 
         <TextField
-          placeholder="Пароль"
-          type="password"
-          variant="outlined"
+          placeholder='Пароль'
+          type='password'
+          variant='outlined'
           fullWidth
-          margin="normal"
+          margin='normal'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           error={errors.password}
@@ -127,20 +116,17 @@ function Authorization() {
         />
 
         <Button
-          type="submit"
-          variant="contained"
-          color="primary"
+          type='submit'
+          variant='contained'
+          color='primary'
           fullWidth
-          className="authorization__form__button"
+          className='authorization__form__button'
         >
           Войти
         </Button>
       </form>
-      <div className="authorization__no-account">
-        <Typography
-          variant="login_register"
-          onClick={() => navigate(ROUTES.REGISTRATION.PATH)}
-        >
+      <div className='authorization__no-account'>
+        <Typography variant='login_register' onClick={() => navigate(ROUTES.REGISTRATION.PATH)}>
           Нет аккаунта
         </Typography>
       </div>
@@ -156,7 +142,7 @@ function Authorization() {
         </Alert>
       </Snackbar>
     </Box>
-  );
+  )
 }
 
-export default Authorization;
+export default Authorization

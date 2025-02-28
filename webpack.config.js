@@ -1,11 +1,11 @@
-const path = require('path');
-const dotenv = require('dotenv'); 
-dotenv.config(); 
-const webpack = require('webpack'); 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config()
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env) => {
   return {
@@ -51,7 +51,7 @@ module.exports = (env) => {
       extensions: ['', '.js', '.jsx', '.scss'],
     },
     plugins: [
-      new webpack.DefinePlugin({ 
+      new webpack.DefinePlugin({
         'process.env.REACT_APP_API': JSON.stringify(process.env.REACT_APP_API),
       }),
       new CleanWebpackPlugin(),
@@ -83,5 +83,5 @@ module.exports = (env) => {
       hot: true,
       historyApiFallback: true,
     },
-  };
-};
+  }
+}
