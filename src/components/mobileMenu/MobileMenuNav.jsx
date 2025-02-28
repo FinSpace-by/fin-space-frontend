@@ -36,6 +36,15 @@ function MobileMenuNav() {
     setActiveItem(item);
   };
 
+  const handleMenuItemClick = (key, e) => {
+    if (key === 'cards') {
+      handleCardsClick(e);
+    } else {
+      handleIconClick(key);
+    }
+  };
+  
+
   return (
     <nav className="mobile-menu__nav">
       <ul className="mobile-menu__nav__menu-list">
@@ -53,13 +62,7 @@ function MobileMenuNav() {
                     'mobile-menu__link--active': activeItem === key,
                   }
                 )}
-                onClick={(e) => {
-                  if (key === 'cards') {
-                    handleCardsClick(e); 
-                  } else {
-                    handleIconClick(key);
-                  }
-                }}
+                onClick={(e) => handleMenuItemClick(key, e)}
               >
                 {label}
               </NavLink>
