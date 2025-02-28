@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { ROUTES } from '@constants'
 import food from '@assets/icons/food.svg';
 import clothes from '@assets/icons/clothes.svg';
 import entertainments from '@assets/icons/entertainments.svg';
@@ -10,12 +11,14 @@ import utility from '@assets/icons/utility.svg';
 import loan from '@assets/icons/loan.svg';
 import education from '@assets/icons/education.svg';
 import other from '@assets/icons/other.svg';
+import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss';
 
 const PREVIOUS = -1;
 
 const CATEGORIES = [
+  { icon: add_custom, title: 'Добавить категорию'},
   { icon: food, title: 'Еда' },
   { icon: clothes, title: 'Одежда' },
   { icon: entertainments, title: 'Развлечения' },
@@ -40,6 +43,11 @@ function AddExpensesManual() {
   };
 
   const handleCategoryClick = (category) => {
+
+    if (category.title === "Добавить категорию") {
+      navigate(ROUTES.ADD_CUSTOM.PATH);
+    }
+
     setSelectedCategory(category);
 
     window.scrollTo({
@@ -51,7 +59,7 @@ function AddExpensesManual() {
       if (amountInputRef.current) {
         amountInputRef.current.focus();
       }
-    }, 500);
+    }, 300);
   };
 
   const handleAmountChange = (e) => {

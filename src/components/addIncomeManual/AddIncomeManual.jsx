@@ -1,18 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { ROUTES } from '@constants'
 import salary from '@assets/icons/Salary.svg';
 import avans from '@assets/icons/Avans.svg';
 import debt from '@assets/icons/Debt.svg';
 import extra_income from '@assets/icons/Extra_income.svg';
 import investment from '@assets/icons/Investment.svg';
 import premiya from '@assets/icons/Premiya.svg';
+import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss';
 
 const PREVIOUS = -1;
 
 const CATEGORIES = [
+    { 
+      icon: add_custom,
+      title: 'Добавить категорию',
+    },
     {
       icon: salary,
       title: 'Зарплата',
@@ -53,6 +59,11 @@ function AddIncomeManual() {
   };
 
   const handleCategoryClick = (category) => {
+
+    if (category.title === "Добавить категорию") {
+      navigate(ROUTES.ADD_CUSTOM.PATH);
+    }
+
     setSelectedCategory(category);
 
     window.scrollTo({
