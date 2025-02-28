@@ -13,7 +13,7 @@ import Analitic from '@components/analitic/Analitic';
 import Income from '@components/analitic/Income';
 import Manual from '@components/manual/Manual';
 import AddExpensesManual from '@components/addExpensesManual/AddExpensesManual';
-import AddIncomeManual from './components/addIncomeManual/AddIncomeManual';
+import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual';
 
 import './sass/index.scss';
 
