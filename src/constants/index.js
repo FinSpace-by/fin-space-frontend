@@ -8,6 +8,8 @@ export const ROUTER_ROUTES = {
   PROFILE: 'profile',
   INCOME: 'income',
   MANUAL: 'manual',
+  ADD_EXPENSES_MANUAL: 'add-expenses-manual',
+  ADD_INCOME_MANUAL: 'add-income-manual',
 };
 
 export const ROUTES = {
@@ -19,4 +21,6 @@ export const ROUTES = {
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
   MANUAL: { TITLE: 'Добавить вручную', PATH: '/manual' },
+  ADD_EXPENSES_MANUAL: { TITLE: 'Добавить расход', PATH: '/add-expenses-manual'},
+  ADD_INCOME_MANUAL: { TITLE: 'Добавить доход', PATH: '/add-income-manual'}
 };

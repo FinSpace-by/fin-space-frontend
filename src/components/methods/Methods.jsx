@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import './sass/index.scss'; 
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ROUTES } from '@constants';
-import Manual from '@components/manual/Manual';
+import './sass/index.scss';
 
 const Methods = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isModalDisabledPaths = [
+    ROUTES.ADD_INCOME_MANUAL.PATH,  
+    ROUTES.ADD_EXPENSES_MANUAL.PATH 
+  ];
+
+  const shouldCloseModal = isModalDisabledPaths.includes(location.pathname);
 
   const handleClose = () => {
     onClose();
@@ -14,7 +21,9 @@ const Methods = ({ isOpen, onClose }) => {
   const handleRedirect = () => {
     navigate(ROUTES.MANUAL.PATH);
     onClose();
-  }
+  };
+
+  if (shouldCloseModal) return null;
 
   return (
     <div className={`modal ${isOpen ? 'open' : ''}`}>
