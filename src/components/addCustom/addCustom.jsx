@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { ROUTES } from '@constants'
+import { ROUTES } from '@constants';
+import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper';
 
 import './sass/index.scss';
 
@@ -46,10 +47,7 @@ function AddExpensesManual() {
           />
         </div>
       </div>
-      <div className="button-wrapper">
-        <div className="dark-overlay"></div>
-        <button className="add-button" onClick={handleAdd}>Добавить</button>
-      </div>
+      <AddButtonWrapper handleAdd={handleAdd} />
     </div>
   );
 }
