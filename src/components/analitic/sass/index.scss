@@ -114,25 +114,6 @@
     }
   }
 
-  //   &__all {
-  //     display: inline-block !important;
-  //     border: 1px dashed gray !important;
-  //     border-radius: 30px !important;
-  //     padding: 0 20px !important;
-  //     height: 45px !important;
-  //     background: none !important;
-
-  //     &::before {
-  //         margin-bottom: -6px;
-  //         margin-right: 10px;
-  //         display: inline-block !important;
-  //         width: 25px;
-  //         height: 25px;
-  //         content: '';
-  //         background-image: url('@assets/icons/allCards.svg');
-  //     }
-  //   }
-
   &__notActive {
     display: inline-block !important;
     border: 1px dashed gray !important;
@@ -317,4 +298,37 @@
   &_positive {
     color: #3bff69;
   }
+}
+
+.analitic__tab__category > .category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analitic__tab__category > .category-header .category-title {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.analitic__tab__category > .category-header .category-icon {
+  margin-top: 0;
+  height: 45px;
+}
+
+.analitic__tab__category > .category-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  gap: 4px; 
+}
+
+.analitic__tab__category > .category-details .price {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.price-text{
+  color: grey;
+  font-size: 17px;
 }

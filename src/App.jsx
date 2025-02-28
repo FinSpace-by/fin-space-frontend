@@ -14,6 +14,7 @@ import Income from '@components/analitic/Income';
 import Manual from '@components/manual/Manual';
 import AddExpensesManual from '@components/addExpensesManual/AddExpensesManual';
 import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual';
+import AddCustom from '@components/addCustom/addCustom';
 
 import './sass/index.scss';
 
@@ -60,6 +61,7 @@ function App() {
                   <Route path={ROUTER_ROUTES.MANUAL} element={<Manual />} />
                   <Route path={ROUTER_ROUTES.ADD_EXPENSES_MANUAL} element={<AddExpensesManual />} />
                   <Route path={ROUTER_ROUTES.ADD_INCOME_MANUAL} element={<AddIncomeManual />} />
+                  <Route path={ROUTER_ROUTES.ADD_CUSTOM} element={<AddCustom />} />
                 </Route>
               </Route>
             </Routes>

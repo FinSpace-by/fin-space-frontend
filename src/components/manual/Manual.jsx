@@ -39,25 +39,31 @@ function Manual() {
 
   return (
     <div className="analitic__tabs__container">
-  <div className="analitic__tabs__header">
-    <Typography variant="h5" align="center" mb={3} fontSize={20}>Добавить вручную</Typography>
-    <button className="arrow" onClick={handleArrow}></button>
-  </div>
-
-  <div className="analitic__tabContent">
-    <div className="analitic__tabContent__header">
-      <Typography variant="h5" fontSize={17}>Выберите тип</Typography>
-    </div>
-    {CATEGORIES.map((category, index) => (
-      <div key={index} className="analitic__tab__category" onClick={() => handleChoise(category.key)}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Typography variant="category" style={{ marginTop: 0, height: 45 }}>
-            <img src={category.icon} />
-          </Typography>
-          <Typography variant="category" style={{ fontSize: 16, marginTop: 0 }}>
-            {category.title}
-          </Typography>
-        </div>
+      <div className="analitic__tabs__header">
+        <Typography variant="h5" align="center" mb={3} fontSize={20}>Добавить вручную</Typography>
+        <button className="arrow" onClick={handleArrow}></button>
+      </div>
+      <div className="analitic__tabContent">
+        <div className="analitic__tabContent__header">
+        <Typography variant="h5" fontSize={17}>Выберите тип</Typography>
+      </div>
+          {CATEGORIES.map((category, index) => (
+            <div
+              key={index}
+              className="analitic__tab__category"
+              onClick={() => handleChoise(category.key)}
+            >
+              <div className="category-header">
+                <Typography
+                  variant="category"
+                  className="category-icon"
+                >
+                  <img src={category.icon} alt="icon" />
+                </Typography>
+                <Typography variant="category" className="category-title">
+                  {category.title}
+                </Typography>
+          </div>
       </div>
     ))}
   </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material';
 import { ROUTES } from '@constants';
+import clsx from 'clsx';
 import food from '@assets/icons/food.svg';
 import clothes from '@assets/icons/clothes.svg';
 import entertainments from '@assets/icons/entertainments.svg';
@@ -138,7 +139,6 @@ function Analitic() {
   const [activeSum, setActiveSum] = useState(null);
   const [transactions, setTransactions] = useState([TRANSACTIONS]);
   const [categories, setCategories] = useState(CATEGORIES);
-  const [limits, setLimits] = useState(categoryLimits);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const navigate = useNavigate();
 
@@ -153,6 +153,8 @@ function Analitic() {
     acc[category.id] = category.limit;
     return acc;
   }, {});
+
+  const [limits, setLimits] = useState(categoryLimits);
 
   const handleRedirect = () => {
     navigate(ROUTES.CARDS.PATH);
@@ -172,17 +174,6 @@ function Analitic() {
 
   const handleCloseCategory = () => {
     setIsOpenCategory(false);
-  };
-
-  const totalSpent = (categories) =>
-    categories.reduce((total, category) => total + category.spent, 0);
-
-  const minSum = Math.min(...transactions.map((t) => t.sum));
-  const maxSum = Math.max(...transactions.map((t) => t.sum));
-
-  const calculateHeight = (sum) => {
-    const percentage = ((sum - minSum) / (maxSum - minSum)) * 100;
-    return Math.max(percentage, 10);
   };
 
   const handleItemClick = (sum, date) => {
@@ -217,36 +208,24 @@ function Analitic() {
                     className="analitic__tab__category"
                     onClick={handleOpenCategory}
                   >
-                    <div
-                      style={{ display: 'flex', alignItems: 'center', gap: 12 }}
-                    >
+                    <div className="category-header">
                       <Typography
                         variant="category"
-                        style={{ marginTop: 0, height: 45 }}
+                        className="category-icon"
                       >
-                        <img src={category.icon} />
+                        <img src={category.icon} alt="icon" />
                       </Typography>
-                      <Typography
-                        variant="category"
-                        style={{ fontSize: 16, marginTop: 0 }}
-                      >
+                      <Typography variant="category" className="category-title">
                         {category.title}
                       </Typography>
                     </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'end',
-                      }}
-                    >
-                      <span style={{ color: 'gray', fontSize: 17 }}>BYN</span>
-                      <Typography
-                        variant="category"
-                        style={{ marginTop: 0, fontSize: 18 }}
-                      >
-                        1 249.99
-                      </Typography>
+                    <div className="category-details">
+                      <span className="price-text">BYN</span>
+                      <div className="price-container">
+                        <Typography variant="category" className="price">
+                          1 249.99
+                        </Typography>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -278,13 +257,10 @@ function Analitic() {
                   </div>
                   <div className="category_finance">
                     <div className="category_currency">{currency}</div>
-                    <div
-                      className={
-                        (isPositive
-                          ? 'category_positive'
-                          : 'category_negative') + ' category_sum'
-                      }
-                    >
+                    <div className={clsx('category_sum', {
+                      category_positive: isPositive,
+                      category_negative: !isPositive,
+                    })}>
                       {isPositive ? '+' : '-'} {sum}
                     </div>
                   </div>

@@ -50,6 +50,11 @@
         background: #7160FF;
       }
     }
+
+    .analitic__tab__category.selected {
+        background: #7160FF;
+      }
+
   }
 
   .arrow {
@@ -108,5 +113,3 @@
   pointer-events: none;
   font-family: 'SF Pro Text', bold;
 }
-
-
