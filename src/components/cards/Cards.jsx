@@ -70,8 +70,6 @@ function Cards() {
           </div>
         ))}
       </div>
-
-      <button className="add-expense-button">+ Добавить трату</button>
     </div>
   );
 }

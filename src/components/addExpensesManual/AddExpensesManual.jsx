@@ -16,8 +16,6 @@ import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss';
 
-const PREVIOUS = -1;
-
 const CATEGORIES = [
   { icon: add_custom, title: 'Добавить категорию'},
   { icon: food, title: 'Еда' },
@@ -40,7 +38,7 @@ function AddExpensesManual() {
   const amountInputRef = useRef(null);
 
   const handleArrow = () => {
-    navigate(PREVIOUS);
+    navigate(-1);
   };
 
   const handleCategoryClick = (category) => {

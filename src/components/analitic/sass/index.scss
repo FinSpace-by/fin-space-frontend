@@ -99,11 +99,11 @@
   &__tab {
     &__category {
       margin: 12px 0px;
-      font-family: GoghRegular, sans-serif;
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: 'SF Pro Text', bold;
     }
   }
 
@@ -234,7 +234,7 @@
   padding: 16px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-family: GoghRegular, sans-serif;
+  font-family: 'SF Pro Text', bold;
   background: #1c1c1c;
   display: flex;
   flex-direction: column;

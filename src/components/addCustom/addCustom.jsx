@@ -6,8 +6,6 @@ import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper';
 
 import './sass/index.scss';
 
-const PREVIOUS = -1;
-
 function AddExpensesManual() {
   const navigate = useNavigate();
 
@@ -16,7 +14,7 @@ function AddExpensesManual() {
   const amountInputRef = useRef(null);
 
   const handleArrow = () => {
-    navigate(PREVIOUS);
+    navigate(-1);
   };
 
   const handleAmountChange = (e) => {
