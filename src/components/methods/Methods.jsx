@@ -4,16 +4,16 @@ import { ROUTES } from '@constants';
 import clsx from 'clsx';
 import './sass/index.scss';
 
+const IS_MODAL_DISABLED_PATHS = [
+  ROUTES.ADD_INCOME_MANUAL.PATH,  
+  ROUTES.ADD_EXPENSES_MANUAL.PATH 
+];
+
 const Methods = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isModalDisabledPaths = [
-    ROUTES.ADD_INCOME_MANUAL.PATH,  
-    ROUTES.ADD_EXPENSES_MANUAL.PATH 
-  ];
-
-  const shouldCloseModal = isModalDisabledPaths.includes(location.pathname);
+  const shouldCloseModal = IS_MODAL_DISABLED_PATHS.includes(location.pathname);
 
   const handleRedirect = () => {
     navigate(ROUTES.MANUAL.PATH);

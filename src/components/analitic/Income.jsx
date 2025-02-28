@@ -41,8 +41,6 @@ const CATEGORIES = [
   
 ];
 
-
-
 const TRANSACTIONS = [
   { id: 1, sum: '120.2', date: '10.12.2024' },
   { id: 2, sum: '60.43', date: '11.12.2024' },
