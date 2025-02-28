@@ -19,22 +19,6 @@ function Authorization() {
   })
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     userApi
-  //       .getProfile()
-  //       .then(() => navigate(ROUTES.EVENTS.PATH))
-  //       .catch(() => {
-  //         setIsLoading(false);
-  //         setSnackbar({
-  //           open: true,
-  //           message: 'Вы не авторизовались',
-  //           severity: 'info',
-  //         });
-  //       });
-  //   }
-  // }, [isLoading, navigate]);
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -46,21 +30,21 @@ function Authorization() {
     setErrors(hasErrors)
 
     if (!hasErrors.phone && !hasErrors.password) {
-      // try {
-      //   const body = {
-      //     username: phone,
-      //     password: password,
-      //   };
+      try {
+        const body = {
+          phone,
+          password,
+        };
 
-      //   await authApi.setLogin(body);
+        await authApi.setLogin(body);
       navigate(ROUTES.CARDS.PATH)
-      // } catch {
-      //   setSnackbar({
-      //     open: true,
-      //     message: 'Неверный логин или пароль',
-      //     severity: 'warning',
-      //   });
-      // }
+      } catch {
+        setSnackbar({
+          open: true,
+          message: 'Неверный логин или пароль',
+          severity: 'warning',
+        });
+      }
     } else {
       setSnackbar({
         open: true,
