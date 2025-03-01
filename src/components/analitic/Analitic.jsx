@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
 import { ROUTES } from '@constants'
+import { expensesApi } from '@api'
 import clsx from 'clsx'
 import food from '@assets/icons/food.svg'
 import clothes from '@assets/icons/clothes.svg'
@@ -138,9 +139,22 @@ function Analitic() {
   const [activeDate, setActiveDate] = useState('')
   const [activeSum, setActiveSum] = useState(null)
   const [transactions, setTransactions] = useState([TRANSACTIONS])
-  const [categories, setCategories] = useState(CATEGORIES)
   const [isOpenCategory, setIsOpenCategory] = useState(false)
+  const [categories, setCategories] = useState([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await expensesApi.getExpenses() 
+        setCategories(response.data)
+      } catch (error) {
+        console.error('Ошибка при получении категорий:', error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   useEffect(() => {
     try {
