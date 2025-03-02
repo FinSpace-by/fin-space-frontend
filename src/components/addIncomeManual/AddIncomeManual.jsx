@@ -1,56 +1,39 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { ROUTES } from '@constants'
+import { incomeApi } from '@api'
+import { ICONS_MAP } from '@api/icons'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
-import salary from '@assets/icons/Salary.svg'
-import avans from '@assets/icons/Avans.svg'
-import debt from '@assets/icons/Debt.svg'
-import extra_income from '@assets/icons/Extra_income.svg'
-import investment from '@assets/icons/Investment.svg'
-import premiya from '@assets/icons/Premiya.svg'
 import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss'
 
-const CATEGORIES = [
-  {
-    icon: add_custom,
-    title: 'Добавить категорию',
-  },
-  {
-    icon: salary,
-    title: 'Зарплата',
-  },
-  {
-    icon: avans,
-    title: 'Аванс',
-  },
-  {
-    icon: premiya,
-    title: 'Премия',
-  },
-  {
-    icon: extra_income,
-    title: 'Дополнительный доход',
-  },
-  {
-    icon: debt,
-    title: 'Возврат долга',
-  },
-  {
-    icon: investment,
-    title: 'Инвестиции',
-  },
-]
-
-function AddIncomeManual() {
+function AddExpensesManual() {
   const navigate = useNavigate()
 
+  const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [amount, setAmount] = useState('')
-
   const amountInputRef = useRef(null)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await incomeApi.getIncomes()
+        const fetchedCategories = response.data.map(({ name, iconUrl, id }) => ({
+          title: name,
+          icon: ICONS_MAP[iconUrl] || ICONS_MAP['custom'],
+          categoryId: id,
+        }))
+        setCategories([
+          { icon: add_custom, title: 'Добавить категорию', categoryId: '1' },
+          ...fetchedCategories,
+        ])
+      } catch (error) {}
+    }
+    fetchCategories()
+  }, [])
 
   const handleArrow = () => {
     navigate(-1)
@@ -58,32 +41,34 @@ function AddIncomeManual() {
 
   const handleCategoryClick = (category) => {
     if (category.title === 'Добавить категорию') {
-      navigate(ROUTES.ADD_CUSTOM.PATH)
+      navigate(ROUTES.ADD_CUSTOM.PATH, { state: { from: 'add-income-manual' } })
     }
-
     setSelectedCategory(category)
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     setTimeout(() => {
       if (amountInputRef.current) {
         amountInputRef.current.focus()
       }
-    }, 500)
+    }, 300)
   }
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value)
   }
 
-  const handleAdd = () => {
-    if (selectedCategory && amount) {
+  const handleAdd = async () => {
+    if (!selectedCategory || !amount) return
+
+    try {
+      const body = {
+        amount: amount,
+        categoryId: selectedCategory.categoryId,
+      }
+
+      await incomeApi.addIncome(body)
       setAmount('')
       setSelectedCategory(null)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -115,7 +100,7 @@ function AddIncomeManual() {
             Категория
           </Typography>
         </div>
-        {CATEGORIES.map((category, index) => (
+        {categories.map((category, index) => (
           <div
             key={index}
             className='analitic__tab__category'
@@ -132,9 +117,9 @@ function AddIncomeManual() {
           </div>
         ))}
       </div>
-      <AddButtonWrapper handleAdd={handleAdd} />
+      <AddButtonWrapper onClick={handleAdd} />
     </div>
   )
 }
 
-export default AddIncomeManual
+export default AddExpensesManual

@@ -34,16 +34,16 @@ function Authorization() {
         const body = {
           phone,
           password,
-        };
+        }
 
-        await authApi.setLogin(body);
-      navigate(ROUTES.CARDS.PATH)
+        await authApi.setLogin(body)
+        navigate(ROUTES.CARDS.PATH)
       } catch {
         setSnackbar({
           open: true,
           message: 'Неверный логин или пароль',
           severity: 'warning',
-        });
+        })
       }
     } else {
       setSnackbar({

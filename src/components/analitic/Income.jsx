@@ -2,43 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
 import { ROUTES } from '@constants'
+import { incomeApi } from '@api'
+import { ICONS_MAP } from '@api/icons'
 import clsx from 'clsx'
-import salary from '@assets/icons/Salary.svg'
-import avans from '@assets/icons/Avans.svg'
-import debt from '@assets/icons/Debt.svg'
-import extra_income from '@assets/icons/Extra_income.svg'
-import investment from '@assets/icons/Investment.svg'
-import premiya from '@assets/icons/Premiya.svg'
 import arrow from '@assets/icons/arrow.png'
 
 import './sass/index.scss'
-
-const CATEGORIES = [
-  {
-    icon: salary,
-    title: 'Зарплата',
-  },
-  {
-    icon: avans,
-    title: 'Аванс',
-  },
-  {
-    icon: premiya,
-    title: 'Премия',
-  },
-  {
-    icon: extra_income,
-    title: 'Дополнительный доход',
-  },
-  {
-    icon: debt,
-    title: 'Возврат долга',
-  },
-  {
-    icon: investment,
-    title: 'Инвестиции',
-  },
-]
 
 const TRANSACTIONS = [
   { id: 1, sum: '120.2', date: '10.12.2024' },
@@ -116,16 +85,29 @@ const RESULTS = [
   },
 ]
 
-function Income() {
-  const [activeTab, setActiveTab] = useState(0)
-  const [activeCard, setActiveCard] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeDate, setActiveDate] = useState('')
-  const [activeSum, setActiveSum] = useState(null)
+function Analitic() {
   const [transactions, setTransactions] = useState([TRANSACTIONS])
-  const [categories, setCategories] = useState(CATEGORIES)
   const [isOpenCategory, setIsOpenCategory] = useState(false)
+  const [categories, setCategories] = useState([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await incomeApi.getUserIncomes()
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalIncome,
+          })
+        )
+        setCategories(fetchedCategories)
+      } catch (error) {}
+    }
+
+    fetchCategories()
+  }, [])
 
   useEffect(() => {
     try {
@@ -201,7 +183,7 @@ function Income() {
                     <span className='price-text'>BYN</span>
                     <div className='price-container'>
                       <Typography variant='category' className='price'>
-                        1 249.99
+                        {category.amount}
                       </Typography>
                     </div>
                   </div>
@@ -249,4 +231,4 @@ function Income() {
   )
 }
 
-export default Income
+export default Analitic

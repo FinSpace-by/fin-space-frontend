@@ -2,58 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
 import { ROUTES } from '@constants'
+import { expensesApi } from '@api'
+import { ICONS_MAP } from '@api/icons'
 import clsx from 'clsx'
-import food from '@assets/icons/food.svg'
-import clothes from '@assets/icons/clothes.svg'
-import entertainments from '@assets/icons/entertainments.svg'
-import transport from '@assets/icons/transport.svg'
-import health from '@assets/icons/health.svg'
-import utility from '@assets/icons/utility.svg'
-import loan from '@assets/icons/loan.svg'
-import education from '@assets/icons/education.svg'
-import other from '@assets/icons/other.svg'
 import arrow from '@assets/icons/arrow.png'
 
 import './sass/index.scss'
-
-const CATEGORIES = [
-  {
-    icon: food,
-    title: 'Еда',
-  },
-  {
-    icon: clothes,
-    title: 'Одежда',
-  },
-  {
-    icon: entertainments,
-    title: 'Развлечения',
-  },
-  {
-    icon: transport,
-    title: 'Транспорт',
-  },
-  {
-    icon: health,
-    title: 'Здоровье',
-  },
-  {
-    icon: utility,
-    title: 'Коммунальные платежи',
-  },
-  {
-    icon: loan,
-    title: 'Платежи по кредиту',
-  },
-  {
-    icon: education,
-    title: 'Образование',
-  },
-  {
-    icon: other,
-    title: 'Прочие расходы',
-  },
-]
 
 const TRANSACTIONS = [
   { id: 1, sum: '120.2', date: '10.12.2024' },
@@ -132,15 +86,28 @@ const RESULTS = [
 ]
 
 function Analitic() {
-  const [activeTab, setActiveTab] = useState(0)
-  const [activeCard, setActiveCard] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeDate, setActiveDate] = useState('')
-  const [activeSum, setActiveSum] = useState(null)
   const [transactions, setTransactions] = useState([TRANSACTIONS])
-  const [categories, setCategories] = useState(CATEGORIES)
   const [isOpenCategory, setIsOpenCategory] = useState(false)
+  const [categories, setCategories] = useState([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await expensesApi.getUserExpenses()
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalIncome,
+          })
+        )
+        setCategories(fetchedCategories)
+      } catch (error) {}
+    }
+
+    fetchCategories()
+  }, [])
 
   useEffect(() => {
     try {
@@ -216,7 +183,7 @@ function Analitic() {
                     <span className='price-text'>BYN</span>
                     <div className='price-container'>
                       <Typography variant='category' className='price'>
-                        1 249.99
+                        {category.amount}
                       </Typography>
                     </div>
                   </div>

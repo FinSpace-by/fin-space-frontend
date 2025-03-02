@@ -1,41 +1,39 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { ROUTES } from '@constants'
+import { expensesApi } from '@api'
+import { ICONS_MAP } from '@api/icons'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
-import food from '@assets/icons/food.svg'
-import clothes from '@assets/icons/clothes.svg'
-import entertainments from '@assets/icons/entertainments.svg'
-import transport from '@assets/icons/transport.svg'
-import health from '@assets/icons/health.svg'
-import utility from '@assets/icons/utility.svg'
-import loan from '@assets/icons/loan.svg'
-import education from '@assets/icons/education.svg'
-import other from '@assets/icons/other.svg'
 import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss'
 
-const CATEGORIES = [
-  { icon: add_custom, title: 'Добавить категорию' },
-  { icon: food, title: 'Еда' },
-  { icon: clothes, title: 'Одежда' },
-  { icon: entertainments, title: 'Развлечения' },
-  { icon: transport, title: 'Транспорт' },
-  { icon: health, title: 'Здоровье' },
-  { icon: utility, title: 'Коммунальные платежи' },
-  { icon: loan, title: 'Платежи по кредиту' },
-  { icon: education, title: 'Образование' },
-  { icon: other, title: 'Прочие расходы' },
-]
-
 function AddExpensesManual() {
   const navigate = useNavigate()
 
+  const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [amount, setAmount] = useState('')
-
   const amountInputRef = useRef(null)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await expensesApi.getExpenses()
+        const fetchedCategories = response.data.map(({ name, iconUrl, id }) => ({
+          title: name,
+          icon: ICONS_MAP[iconUrl] || ICONS_MAP['custom'],
+          categoryId: id,
+        }))
+        setCategories([
+          { icon: add_custom, title: 'Добавить категорию', categoryId: '1' },
+          ...fetchedCategories,
+        ])
+      } catch (error) {}
+    }
+    fetchCategories()
+  }, [])
 
   const handleArrow = () => {
     navigate(-1)
@@ -43,16 +41,10 @@ function AddExpensesManual() {
 
   const handleCategoryClick = (category) => {
     if (category.title === 'Добавить категорию') {
-      navigate(ROUTES.ADD_CUSTOM.PATH)
+      navigate(ROUTES.ADD_CUSTOM.PATH, { state: { from: 'add-expenses-manual' } })
     }
-
     setSelectedCategory(category)
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     setTimeout(() => {
       if (amountInputRef.current) {
         amountInputRef.current.focus()
@@ -64,11 +56,19 @@ function AddExpensesManual() {
     setAmount(e.target.value)
   }
 
-  const handleAdd = () => {
-    if (selectedCategory && amount) {
+  const handleAdd = async () => {
+    if (!selectedCategory || !amount) return
+
+    try {
+      const body = {
+        amount: amount,
+        categoryId: selectedCategory.categoryId,
+      }
+
+      await expensesApi.addExpense(body)
       setAmount('')
       setSelectedCategory(null)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -100,7 +100,7 @@ function AddExpensesManual() {
             Категория
           </Typography>
         </div>
-        {CATEGORIES.map((category, index) => (
+        {categories.map((category, index) => (
           <div
             key={index}
             className='analitic__tab__category'
@@ -117,7 +117,7 @@ function AddExpensesManual() {
           </div>
         ))}
       </div>
-      <AddButtonWrapper handleAdd={handleAdd} />
+      <AddButtonWrapper onClick={handleAdd} />
     </div>
   )
 }
