@@ -86,19 +86,19 @@ function Cards() {
       <div className='expenses-income-sum'>
         <div className='expenses-income-sum1'>
           <Typography className='page-title1'>Расходы:</Typography>
-          <Typography className='page-title2'>1 249.99</Typography>
+          <Typography className='page-title2'>0</Typography>
           <Typography className='page-title2 opacity'>BYN</Typography>
         </div>
         <div className='expenses-income-sum2'>
           <Typography className='page-title1'>Доходы:</Typography>
-          <Typography className='page-title3'>1 249.99</Typography>
+          <Typography className='page-title3'>0</Typography>
           <Typography className='page-title3 opacity'>BYN</Typography>
         </div>
       </div>
 
       <div className='graphic-name-container'>
         <Typography className='page-title1'>Аналитика расходов</Typography>
-        <Typography className='page-title2'>{selectedDate} &#9660;</Typography>
+        <Typography className='graphic-date-selector'>{selectedDate}&#9660;</Typography>
       </div>
 
       <div className='analitic-graphic'>
@@ -106,14 +106,14 @@ function Cards() {
           <div
             key={day}
             className={clsx('day-column', { active: selectedDay === day })}
-            style={{ height: `${[100, 70, 170, 120, 100, 140, 80][index]}px` }}
+            style={{ height: '${[10, 10, 10, 10, 10, 10, 10][index]} px' }}
             onClick={() => handleDayClick(day)}
           >
             {day}
           </div>
         ))}
       </div>
-    </div>
+    </div >
   )
 }
 
