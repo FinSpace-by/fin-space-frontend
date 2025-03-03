@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './sass/index.scss'
-import { Typography } from '@mui/material'
+import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
+import EditIcon from '../../assets/imgs/edit_icon.png'
 
 const dates = {
   Пн: '06.12.2025',
@@ -18,10 +19,20 @@ const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс')
   const [selectedDate, setSelectedDate] = useState(dates['Вс'])
+  const [isEditingBalance, setIsEditingBalance] = useState(false)
+  const [balance, setBalance] = useState('0.00')
 
   const handleDayClick = (day) => {
     setSelectedDay(day)
     setSelectedDate(dates[day])
+  }
+
+  const handleBalanceChange = (event) => {
+    setBalance(event.target.value)
+  }
+
+  const handleEditClick = () => {
+    setIsEditingBalance(!isEditingBalance)
   }
 
   return (
@@ -31,12 +42,28 @@ function Cards() {
           Главная
         </Typography>
         <div className='balance'>
-          <Typography variant='body1' className='balance-label'>
-            Общий баланс
-          </Typography>
-          <Typography variant='h4' className='balance-amount'>
-            10 364.32
-          </Typography>
+          <div className='balance-text-edit-button'>
+            <Typography variant='body1' className='balance-label'>
+              Общий баланс
+            </Typography>
+            <IconButton onClick={handleEditClick} className='edit-link' size='large'>
+              <img src={EditIcon} className='edit-icon' alt="Edit" />
+            </IconButton>
+          </div>
+          {isEditingBalance ? (
+            <input
+              type="text"
+              value={balance}
+              onChange={handleBalanceChange}
+              onBlur={() => setIsEditingBalance(false)}
+              autoFocus
+              className="balance-edit-entry"
+            />
+          ) : (
+            <Typography variant='h4' className='balance-amount'>
+              {balance} BYN
+            </Typography>
+          )}
         </div>
       </div>
 
