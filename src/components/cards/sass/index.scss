@@ -22,12 +22,12 @@
     }
 
     .balance {
-      height: 76px;
+      height: auto;
     }
 
     .balance-text-edit-button {
       display: flex;
-      gap: 198px;
+      justify-content: space-between;
       margin-bottom: 2px;
     }
 
@@ -53,7 +53,8 @@
 
     .balance-edit-entry {
       margin-top: -2px;
-      width: 94%;
+      width: 70%;
+      height: 59px;
       font-size: 46px;
       font-family: 'SF Pro Text', sans-serif;
       font-weight: 600;
@@ -62,6 +63,7 @@
       outline: none;
       background-color: transparent;
       border-radius: 10px;
+      box-sizing: border-box;
     }
 
     .balance-edit-entry:focus {
@@ -76,34 +78,8 @@
       font-family: 'SF Pro Text', normal;
     }
 
-    .add-expense-button {
-      display: block;
-      width: 95%;
-      height: 6.4vh;
-      margin: 1.9vh auto 0;
-      padding: 0;
-      font-size: 17px;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(to right, #6054e4, #9284ff);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'SF Pro Text', bold;
-      text-align: center;
-      line-height: 6.65vh;
-
-      &:hover {
-        filter: brightness(1.2);
-      }
-
-      &:active {
-        filter: brightness(0.9);
-      }
-    }
-
     .expenses-income-sum {
+      height: 60px;
       display: flex;
       flex-direction: column;
       background: #1c1c1c;
@@ -139,9 +115,9 @@
       height: 200px;
       display: flex;
       flex-direction: row;
-      align-items: end;
+      align-items: flex-end;
       background: linear-gradient(to bottom, #8b7dff, #4f42bd);
-      margin: 16px 14px;
+      margin: 16px 14px 160px 14px;
       padding: 16px 10px 12px;
       border-radius: 20px;
       gap: 3px;
@@ -149,15 +125,16 @@
 
     .day-column {
       display: flex;
-      background: rgb(255, 255, 255, 0.6);
-      width: 20px;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.6);
+      width: 30%;
+      min-width: 8px;
       padding: 14px;
       padding-bottom: 8px;
       border-radius: 10px;
       font-family: 'SF Pro Text', normal;
       font-size: 12px;
-      align-items: end;
-      justify-content: center;
       color: rgba(0, 0, 0, 0.7);
 
       &.active {
@@ -170,7 +147,17 @@
     .graphic-name-container {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       margin: 14px 16px;
+    }
+
+    .graphic-date-selector {
+      font-size: 19px;
+      margin-top: 2px;
+      margin-left: 5px;
+      padding-left: 5px;
+      font-family: 'SF Pro Text', normal;
+      color: #7160ff;
     }
 
     .opacity {
