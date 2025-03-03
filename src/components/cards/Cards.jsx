@@ -28,14 +28,23 @@ function Cards() {
   }
 
   const handleBalanceChange = (event) => {
-    setBalance(event.target.value)
-  }
+    const value = event.target.value;
+    if (/^\d*\.?\d*$/.test(value)) {
+      setBalance(value);
+    }
+  };
 
   const handleEditClick = () => {
     setIsEditingBalance(!isEditingBalance)
   }
 
   const handleBlur = () => {
+    const numericValue = parseFloat(balance);
+    if (!isNaN(numericValue)) {
+      setBalance(numericValue.toFixed(2));
+    } else {
+      setBalance(0.0);
+    }
     setIsEditingBalance(false);
   };
 
@@ -63,6 +72,7 @@ function Cards() {
               onChange={handleBalanceChange}
               onBlur={handleBlur}
               autoFocus
+              step="0.01"
               className="balance-edit-entry"
             />
           ) : (
