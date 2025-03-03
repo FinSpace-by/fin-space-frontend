@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './sass/index.scss'
-import { Typography } from '@mui/material'
+import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
+import EditIcon from '@assets/imgs/edit_icon.png';
 
 const dates = {
   Пн: '06.12.2025',
@@ -18,11 +19,34 @@ const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс')
   const [selectedDate, setSelectedDate] = useState(dates['Вс'])
+  const [isEditingBalance, setIsEditingBalance] = useState(false)
+  const [balance, setBalance] = useState(0.0);
 
   const handleDayClick = (day) => {
     setSelectedDay(day)
     setSelectedDate(dates[day])
   }
+
+  const handleBalanceChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*\.?\d*$/.test(value)) {
+      setBalance(value);
+    }
+  };
+
+  const handleEditClick = () => {
+    setIsEditingBalance(!isEditingBalance)
+  }
+
+  const handleBlur = () => {
+    const numericValue = parseFloat(balance);
+    if (!isNaN(numericValue)) {
+      setBalance(numericValue.toFixed(2));
+    } else {
+      setBalance(0.0);
+    }
+    setIsEditingBalance(false);
+  };
 
   return (
     <div className='cards__container'>
@@ -31,12 +55,31 @@ function Cards() {
           Главная
         </Typography>
         <div className='balance'>
-          <Typography variant='body1' className='balance-label'>
-            Общий баланс
-          </Typography>
-          <Typography variant='h4' className='balance-amount'>
-            10 364.32
-          </Typography>
+          <div className='balance-text-edit-button'>
+            <Typography variant='body1' className='balance-label'>
+              Общий баланс
+            </Typography>
+            {!isEditingBalance && (
+              <IconButton onClick={handleEditClick} className='edit-link'>
+                <img src={EditIcon} className='edit-icon' alt="Edit" />
+              </IconButton>
+            )}
+          </div>
+          {isEditingBalance ? (
+            <input
+              type="text"
+              value={balance}
+              onChange={handleBalanceChange}
+              onBlur={handleBlur}
+              autoFocus
+              step="0.01"
+              className="balance-edit-entry"
+            />
+          ) : (
+            <Typography variant='h4' className='balance-amount'>
+              {balance} BYN
+            </Typography>
+          )}
         </div>
       </div>
 
