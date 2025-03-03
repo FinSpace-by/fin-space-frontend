@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './sass/index.scss'
 import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
-import EditIcon from '../../assets/imgs/edit_icon.png'
+import EditIcon from '@assets/imgs/edit_icon.png';
 
 const dates = {
   Пн: '06.12.2025',
@@ -20,7 +20,7 @@ function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс')
   const [selectedDate, setSelectedDate] = useState(dates['Вс'])
   const [isEditingBalance, setIsEditingBalance] = useState(false)
-  const [balance, setBalance] = useState('0.00')
+  const [balance, setBalance] = useState(0.0);
 
   const handleDayClick = (day) => {
     setSelectedDay(day)
@@ -34,6 +34,10 @@ function Cards() {
   const handleEditClick = () => {
     setIsEditingBalance(!isEditingBalance)
   }
+
+  const handleBlur = () => {
+    setIsEditingBalance(false);
+  };
 
   return (
     <div className='cards__container'>
@@ -57,7 +61,7 @@ function Cards() {
               type="text"
               value={balance}
               onChange={handleBalanceChange}
-              onBlur={() => setIsEditingBalance(false)}
+              onBlur={handleBlur}
               autoFocus
               className="balance-edit-entry"
             />
