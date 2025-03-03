@@ -106,14 +106,14 @@ function Cards() {
           <div
             key={day}
             className={clsx('day-column', { active: selectedDay === day })}
-            style={{ height: '${[10, 10, 10, 10, 10, 10, 10][index]} px' }}
+            style={{ height: '10px' }}
             onClick={() => handleDayClick(day)}
           >
             {day}
           </div>
         ))}
       </div>
-    </div >
+    </div>
   )
 }
 
