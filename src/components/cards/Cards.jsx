@@ -46,9 +46,11 @@ function Cards() {
             <Typography variant='body1' className='balance-label'>
               Общий баланс
             </Typography>
-            <IconButton onClick={handleEditClick} className='edit-link' size='large'>
-              <img src={EditIcon} className='edit-icon' alt="Edit" />
-            </IconButton>
+            {!isEditingBalance && (
+              <IconButton onClick={handleEditClick} className='edit-link' size='large'>
+                <img src={EditIcon} className='edit-icon' alt="Edit" />
+              </IconButton>
+            )}
           </div>
           {isEditingBalance ? (
             <input
