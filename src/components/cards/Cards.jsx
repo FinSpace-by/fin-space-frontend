@@ -47,7 +47,7 @@ function Cards() {
               Общий баланс
             </Typography>
             {!isEditingBalance && (
-              <IconButton onClick={handleEditClick} className='edit-link' size='large'>
+              <IconButton onClick={handleEditClick} className='edit-link'>
                 <img src={EditIcon} className='edit-icon' alt="Edit" />
               </IconButton>
             )}
