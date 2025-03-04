@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography } from '@mui/material'
-import { expensesApi, incomeApi } from '@api'
+import { categoryApi } from '@api'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
-import { ICONS_MAP } from '@api/icons'
+import { ICONS_MAP } from '@constants'
+import { LOCATION_STATES } from '@constants';
 
 import './sass/index.scss'
 
@@ -30,10 +31,10 @@ function AddCustom() {
     }
 
     try {
-      if (location.state?.from === 'add-expenses-manual') {
-        await expensesApi.addCustom(body)
-      } else if (location.state?.from === 'add-income-manual') {
-        await incomeApi.addCustom(body)
+      if (location.state?.from === LOCATION_STATES.ADD_EXPENSES_MANUAL) {
+        await categoryApi.addCustomExpense(body)
+      } else if (location.state?.from === LOCATION_STATES.ADD_INCOME_MANUAL) {
+        await categoryApi.addCustomIncome(body)
       } else {
         return
       }

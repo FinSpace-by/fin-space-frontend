@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { ROUTES } from '@constants'
-import { incomeApi } from '@api'
-import { ICONS_MAP } from '@api/icons'
+import { categoryApi } from '@api'
+import { ICONS_MAP } from '@constants'
+import { LOCATION_STATES } from '@constants';
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import add_custom from '@assets/icons/add_custom.svg'
 
@@ -20,7 +21,7 @@ function AddExpensesManual() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await incomeApi.getIncomes()
+        const response = await categoryApi.getIncomes()
         const fetchedCategories = response.data.map(({ name, iconUrl, id }) => ({
           title: name,
           icon: ICONS_MAP[iconUrl] || ICONS_MAP['custom'],
@@ -41,7 +42,7 @@ function AddExpensesManual() {
 
   const handleCategoryClick = (category) => {
     if (category.title === 'Добавить категорию') {
-      navigate(ROUTES.ADD_CUSTOM.PATH, { state: { from: 'add-income-manual' } })
+      navigate(ROUTES.ADD_CUSTOM.PATH, { state: { from: LOCATION_STATES.ADD_INCOME_MANUAL } })
     }
     setSelectedCategory(category)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -65,7 +66,7 @@ function AddExpensesManual() {
         categoryId: selectedCategory.categoryId,
       }
 
-      await incomeApi.addIncome(body)
+      await categoryApi.addIncome(body)
       setAmount('')
       setSelectedCategory(null)
     } catch (error) {}
