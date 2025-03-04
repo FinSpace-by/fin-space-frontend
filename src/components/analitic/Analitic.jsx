@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
 import { ROUTES } from '@constants'
-import { expensesApi } from '@api'
-import { ICONS_MAP } from '@api/icons'
+import { categoryApi } from '@api'
+import { ICONS_MAP } from '@constants'
 import clsx from 'clsx'
 import arrow from '@assets/icons/arrow.png'
 
@@ -94,12 +94,12 @@ function Analitic() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await expensesApi.getUserExpenses()
+        const response = await categoryApi.getUserExpenses()
         const fetchedCategories = response.data.map(
           ({ categoryName, categoryIconUrl, totalIncome }) => ({
             title: categoryName,
             icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
-            amount: totalIncome,
+            amount: totalIncome.toFixed(2),
           })
         )
         setCategories(fetchedCategories)
