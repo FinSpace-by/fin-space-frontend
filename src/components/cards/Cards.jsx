@@ -21,7 +21,7 @@ function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс')
   const [selectedDate, setSelectedDate] = useState(dates['Вс'])
   const [isEditingBalance, setIsEditingBalance] = useState(false)
-  const [balance, setBalance] = useState(0.0)
+  const [balance, setBalance] = useState(0)
   const [userExpenses, setUserExpenses] = useState(0)
   const [userIncomes, setUserIncomes] = useState(0)
 
