@@ -65,7 +65,7 @@ function Cards() {
     if (!isNaN(numericValue)) {
       setBalance(numericValue.toFixed(2))
     } else {
-      setBalance(0.0)
+      setBalance(0)
     }
     setIsEditingBalance(false)
   }
