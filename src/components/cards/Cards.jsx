@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './sass/index.scss'
 import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
-import EditIcon from '@assets/imgs/edit_icon.png';
+import EditIcon from '@assets/imgs/edit_icon.png'
+import { categoryApi } from '@api'
 
 const dates = {
   Пн: '06.12.2025',
@@ -20,7 +21,28 @@ function Cards() {
   const [selectedDay, setSelectedDay] = useState('Вс')
   const [selectedDate, setSelectedDate] = useState(dates['Вс'])
   const [isEditingBalance, setIsEditingBalance] = useState(false)
-  const [balance, setBalance] = useState(0.0);
+  const [balance, setBalance] = useState(0)
+  const [userExpenses, setUserExpenses] = useState(0)
+  const [userIncomes, setUserIncomes] = useState(0)
+
+  useEffect(() => {
+    const fetchUserExpenses = async () => {
+      try {
+        const data = await categoryApi.getUserExpenses()
+        setUserExpenses(data)
+      } catch (error) {}
+    }
+
+    const fetchUserIncomes = async () => {
+      try {
+        const data = await categoryApi.getUserIncomes()
+        setUserIncomes(data)
+      } catch (error) {}
+    }
+
+    fetchUserExpenses()
+    fetchUserIncomes()
+  }, [])
 
   const handleDayClick = (day) => {
     setSelectedDay(day)
@@ -28,25 +50,25 @@ function Cards() {
   }
 
   const handleBalanceChange = (event) => {
-    const value = event.target.value;
+    const value = event.target.value
     if (/^\d*\.?\d*$/.test(value)) {
-      setBalance(value);
+      setBalance(value)
     }
-  };
+  }
 
   const handleEditClick = () => {
     setIsEditingBalance(!isEditingBalance)
   }
 
   const handleBlur = () => {
-    const numericValue = parseFloat(balance);
+    const numericValue = parseFloat(balance)
     if (!isNaN(numericValue)) {
-      setBalance(numericValue.toFixed(2));
+      setBalance(numericValue.toFixed(2))
     } else {
-      setBalance(0.0);
+      setBalance(0)
     }
-    setIsEditingBalance(false);
-  };
+    setIsEditingBalance(false)
+  }
 
   return (
     <div className='cards__container'>
@@ -61,19 +83,19 @@ function Cards() {
             </Typography>
             {!isEditingBalance && (
               <IconButton onClick={handleEditClick} className='edit-link'>
-                <img src={EditIcon} className='edit-icon' alt="Edit" />
+                <img src={EditIcon} className='edit-icon' alt='Edit' />
               </IconButton>
             )}
           </div>
           {isEditingBalance ? (
             <input
-              type="text"
+              type='text'
               value={balance}
               onChange={handleBalanceChange}
               onBlur={handleBlur}
               autoFocus
-              step="0.01"
-              className="balance-edit-entry"
+              step='0.01'
+              className='balance-edit-entry'
             />
           ) : (
             <Typography variant='h4' className='balance-amount'>
@@ -86,19 +108,19 @@ function Cards() {
       <div className='expenses-income-sum'>
         <div className='expenses-income-sum1'>
           <Typography className='page-title1'>Расходы:</Typography>
-          <Typography className='page-title2'>1 249.99</Typography>
+          <Typography className='page-title2'>{userExpenses.toFixed(2)}</Typography>
           <Typography className='page-title2 opacity'>BYN</Typography>
         </div>
         <div className='expenses-income-sum2'>
           <Typography className='page-title1'>Доходы:</Typography>
-          <Typography className='page-title3'>1 249.99</Typography>
+          <Typography className='page-title3'>{userIncomes.toFixed(2)}</Typography>
           <Typography className='page-title3 opacity'>BYN</Typography>
         </div>
       </div>
 
       <div className='graphic-name-container'>
         <Typography className='page-title1'>Аналитика расходов</Typography>
-        <Typography className='page-title2'>{selectedDate} &#9660;</Typography>
+        <Typography className='graphic-date-selector'>{selectedDate}&#9660;</Typography>
       </div>
 
       <div className='analitic-graphic'>
@@ -106,7 +128,7 @@ function Cards() {
           <div
             key={day}
             className={clsx('day-column', { active: selectedDay === day })}
-            style={{ height: `${[100, 70, 170, 120, 100, 140, 80][index]}px` }}
+            style={{ height: '10px' }}
             onClick={() => handleDayClick(day)}
           >
             {day}
