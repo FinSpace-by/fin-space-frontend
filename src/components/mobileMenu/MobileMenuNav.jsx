@@ -44,6 +44,9 @@ function MobileMenuNav() {
     }
   }
 
+  // Проверяем, если мы на Scanner, скрываем кнопку
+  const isScannerPage = location.pathname === ROUTES.SCANNER.PATH
+
   return (
     <nav className='mobile-menu__nav'>
       <ul className='mobile-menu__nav__menu-list'>
@@ -66,7 +69,7 @@ function MobileMenuNav() {
         ))}
       </ul>
 
-      <Methods isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {!isScannerPage && <Methods isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </nav>
   )
 }

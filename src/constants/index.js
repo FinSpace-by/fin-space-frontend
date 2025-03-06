@@ -13,6 +13,7 @@ import extra_income from '@assets/icons/Extra_income.svg'
 import investment from '@assets/icons/Investment.svg'
 import premiya from '@assets/icons/Premiya.svg'
 import custom from '@assets/icons/custom.svg'
+import scanner from '@assets/icons/scanner.svg'
 
 export const ROUTER_ROUTES = {
   NOT_FOUND: '*',
@@ -24,6 +25,8 @@ export const ROUTER_ROUTES = {
   PROFILE: 'profile',
   INCOME: 'income',
   MANUAL: 'manual',
+  SCANNER: 'scanner',
+  SCANNER_RESULTS: 'scanner-results',
   ADD_EXPENSES_MANUAL: 'add-expenses-manual',
   ADD_INCOME_MANUAL: 'add-income-manual',
   ADD_CUSTOM: 'add-custom',
@@ -38,6 +41,8 @@ export const ROUTES = {
   PROFILE: { TITLE: 'Профиль', PATH: '/profile' },
   NOT_FOUND: { TITLE: '404', PATH: '*' },
   MANUAL: { TITLE: 'Добавить вручную', PATH: '/manual' },
+  SCANNER: { TITLE: 'Сканировать', PATH: '/scanner' },
+  SCANNER_RESULTS: { TITLE: 'Результаты сканирования', PATH: '/scanner-results' },
   ADD_EXPENSES_MANUAL: { TITLE: 'Добавить расход', PATH: '/add-expenses-manual' },
   ADD_INCOME_MANUAL: { TITLE: 'Добавить доход', PATH: '/add-income-manual' },
   ADD_CUSTOM: { TITLE: 'Добавить вручную', PATH: '/add-custom' },
@@ -59,6 +64,7 @@ export const ICONS_MAP = {
   investment,
   premiya,
   custom,
+  scanner,
 }
 
 export const LOCATION_STATES = {
