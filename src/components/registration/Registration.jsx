@@ -33,14 +33,19 @@ function Registration() {
 
     if (!hasErrors.phone && !hasErrors.password && !hasErrors.firstName && !hasErrors.lastName) {
       const body = {
-        phone: phone,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
+        phone,
+        password,
+        firstName,
+        lastName,
       }
 
       try {
-        await authApi.register(body)
+        const response = await authApi.register(body);
+          
+        if (response?.data?.token) {
+          localStorage.setItem('token', response.data.token);
+        }
+        
         navigate(ROUTES.CARDS.PATH)
       } catch (error) {}
     }
