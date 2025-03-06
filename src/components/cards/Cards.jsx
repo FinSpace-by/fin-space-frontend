@@ -29,14 +29,14 @@ function Cards() {
     const fetchUserExpenses = async () => {
       try {
         const data = await categoryApi.getUserExpenses()
-        setUserExpenses(data)
+        setUserExpenses(data.toFixed(2))
       } catch (error) {}
     }
 
     const fetchUserIncomes = async () => {
       try {
         const data = await categoryApi.getUserIncomes()
-        setUserIncomes(data)
+        setUserIncomes(data.toFixed(2))
       } catch (error) {}
     }
 
@@ -108,12 +108,12 @@ function Cards() {
       <div className='expenses-income-sum'>
         <div className='expenses-income-sum1'>
           <Typography className='page-title1'>Расходы:</Typography>
-          <Typography className='page-title2'>{userExpenses.toFixed(2)}</Typography>
+          <Typography className='page-title2'>{userExpenses}</Typography>
           <Typography className='page-title2 opacity'>BYN</Typography>
         </div>
         <div className='expenses-income-sum2'>
           <Typography className='page-title1'>Доходы:</Typography>
-          <Typography className='page-title3'>{userIncomes.toFixed(2)}</Typography>
+          <Typography className='page-title3'>{userIncomes}</Typography>
           <Typography className='page-title3 opacity'>BYN</Typography>
         </div>
       </div>

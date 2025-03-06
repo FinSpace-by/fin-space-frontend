@@ -31,13 +31,14 @@ function Authorization() {
 
     if (!hasErrors.phone && !hasErrors.password) {
       try {
-        const body = {
-          phone,
-          password,
+        const body = { phone, password };
+        const response = await authApi.setLogin(body);
+  
+        if (response?.data?.token) {
+          localStorage.setItem('token', response.data.token);
         }
-
-        await authApi.setLogin(body)
-        navigate(ROUTES.CARDS.PATH)
+  
+        navigate(ROUTES.CARDS.PATH);
       } catch {
         setSnackbar({
           open: true,
