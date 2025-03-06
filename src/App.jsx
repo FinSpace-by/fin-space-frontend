@@ -12,9 +12,11 @@ import Registration from '@components/registration/Registration'
 import Analitic from '@components/analitic/Analitic'
 import Income from '@components/analitic/Income'
 import Manual from '@components/manual/Manual'
+import Scanner from '@components/scanner/Scanner'
 import AddExpensesManual from '@components/addExpensesManual/AddExpensesManual'
 import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual'
 import AddCustom from '@components/addCustom/addCustom'
+import ScannerResults from '@components/scannerResults/ScannerResults'
 
 import './sass/index.scss'
 
@@ -50,6 +52,8 @@ function App() {
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
                   <Route path={ROUTER_ROUTES.INCOME} element={<Income />} />
                   <Route path={ROUTER_ROUTES.MANUAL} element={<Manual />} />
+                  <Route path={ROUTER_ROUTES.SCANNER} element={<Scanner />} />
+                  <Route path={ROUTER_ROUTES.SCANNER_RESULTS} element={<ScannerResults />} />
                   <Route path={ROUTER_ROUTES.ADD_EXPENSES_MANUAL} element={<AddExpensesManual />} />
                   <Route path={ROUTER_ROUTES.ADD_INCOME_MANUAL} element={<AddIncomeManual />} />
                   <Route path={ROUTER_ROUTES.ADD_CUSTOM} element={<AddCustom />} />

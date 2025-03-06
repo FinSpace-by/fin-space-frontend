@@ -63,11 +63,21 @@ h2 {
   cursor: pointer;
 }
 
-.card__icon {
+.card__icon__manual {
   margin-top: 30px;
   width: 100px;
   height: 100px;
   background-image: url('@assets/icons/Manual.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__icon__scanner {
+  margin-top: 30px;
+  width: 100px;
+  height: 100px;
+  background-image: url('@assets/icons/scanner.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
