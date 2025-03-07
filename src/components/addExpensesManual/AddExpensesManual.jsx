@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import { ROUTES } from '@constants'
 import { categoryApi } from '@api'
 import { ICONS_MAP } from '@constants'
-import { LOCATION_STATES } from '@constants';
+import { LOCATION_STATES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import add_custom from '@assets/icons/add_custom.svg'
 

@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import { categoryApi } from '@api'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import { ICONS_MAP } from '@constants'
-import { LOCATION_STATES } from '@constants';
+import { LOCATION_STATES } from '@constants'
 
 import './sass/index.scss'
 

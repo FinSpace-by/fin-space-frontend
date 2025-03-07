@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import { Typography, CircularProgress } from '@mui/material'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import { ROUTES } from '@constants'
+import { scannerApi } from '@api'
 
 import './sass/index.scss'
 
@@ -11,34 +12,35 @@ function Scanner() {
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
   const [stream, setStream] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [capturedImage, setCapturedImage] = useState(null)
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     startCamera()
-    return () => stopCamera() 
+    return () => stopCamera()
   }, [])
 
   const startCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
+        video: { facingMode: 'environment' },
       })
       setStream(mediaStream)
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream
       }
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   }
 
   const stopCamera = () => {
     if (stream) {
-      stream.getTracks().forEach(track => track.stop()) 
+      stream.getTracks().forEach((track) => track.stop())
     }
   }
 
   const handleArrow = () => {
-    stopCamera() 
+    stopCamera()
     navigate(-1)
   }
 
@@ -52,10 +54,25 @@ function Scanner() {
     canvas.height = videoRef.current.videoHeight
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height)
 
-    const imageBase64 = canvas.toDataURL('image/png');
-
+    const imageBase64 = canvas.toDataURL('image/png')
+    setCapturedImage(imageBase64)
     stopCamera()
-    navigate(ROUTES.SCANNER_RESULTS.PATH) 
+
+    setLoading(true)
+
+    try {
+      const body = { image: imageBase64 }
+      const response = await scannerApi.sendImage(body)
+      setProducts(response.data.products)
+      navigate(ROUTES.SCANNER_RESULTS.PATH, {
+        state: {
+          items: response.data.products,
+        },
+      })
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -67,11 +84,24 @@ function Scanner() {
         <button className='arrow' onClick={handleArrow}></button>
       </div>
 
-      <video ref={videoRef} autoPlay playsInline className='camera-feed' />
-      
+      {capturedImage ? (
+        <img src={capturedImage} alt='Снимок' className='captured-image' />
+      ) : (
+        <video ref={videoRef} autoPlay playsInline className='camera-feed' />
+      )}
+
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <AddButtonWrapper onClick={handleAdd} />
+      {loading ? (
+        <div className='loading-overlay'>
+          <CircularProgress size={80} thickness={6} />
+          <Typography variant='body1' className='loading-text'>
+            Обработка изображения...
+          </Typography>
+        </div>
+      ) : (
+        <AddButtonWrapper onClick={handleAdd} />
+      )}
     </div>
   )
 }
