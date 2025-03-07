@@ -1,6 +1,6 @@
-import { instance } from '.';
+import { instance } from '.'
 
-const AUTH_PATH = '/auth';
+const AUTH_PATH = '/auth'
 
 export const authApi = {
   register: (body) => instance.post(`${AUTH_PATH}/register`, body),

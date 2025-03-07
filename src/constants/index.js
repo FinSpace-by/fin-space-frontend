@@ -70,5 +70,4 @@ export const ICONS_MAP = {
 export const LOCATION_STATES = {
   ADD_EXPENSES_MANUAL: 'add-expenses-manual',
   ADD_INCOME_MANUAL: 'add-income-manual',
-};
-
+}
