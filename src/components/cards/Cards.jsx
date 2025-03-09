@@ -26,20 +26,30 @@ function Cards() {
   const [userIncomes, setUserIncomes] = useState(0)
 
   useEffect(() => {
+    const fetchUserBalance = async () => {
+      try {
+        const response = await categoryApi.getUserBalance()
+        setBalance(response.data)
+      } catch (error) {}
+    }
+
     const fetchUserExpenses = async () => {
       try {
-        const data = await categoryApi.getUserExpenses()
-        setUserExpenses(data.toFixed(2))
+        const response = await categoryApi.getUserExpenses()
+        const totalExpenses = response.data.reduce((acc, expense) => acc + expense.totalIncome, 0)
+        setUserExpenses(totalExpenses)
       } catch (error) {}
     }
 
     const fetchUserIncomes = async () => {
       try {
-        const data = await categoryApi.getUserIncomes()
-        setUserIncomes(data.toFixed(2))
+        const response = await categoryApi.getUserIncomes()
+        const totalIncomes = response.data.reduce((acc, income) => acc + income.totalIncome, 0)
+        setUserIncomes(totalIncomes)
       } catch (error) {}
     }
 
+    fetchUserBalance()
     fetchUserExpenses()
     fetchUserIncomes()
   }, [])
@@ -63,11 +73,17 @@ function Cards() {
   const handleBlur = () => {
     const numericValue = parseFloat(balance)
     if (!isNaN(numericValue)) {
-      setBalance(numericValue.toFixed(2))
+      updateBalance(numericValue)
     } else {
       setBalance(0)
     }
     setIsEditingBalance(false)
+  }
+
+  const updateBalance = async (newBalance) => {
+    try {
+      await categoryApi.updateBalance({ balance: newBalance })
+    } catch (error) {}
   }
 
   return (
@@ -124,7 +140,7 @@ function Cards() {
       </div>
 
       <div className='analitic-graphic'>
-        {daysOfWeek.map((day, index) => (
+        {daysOfWeek.map((day) => (
           <div
             key={day}
             className={clsx('day-column', { active: selectedDay === day })}
