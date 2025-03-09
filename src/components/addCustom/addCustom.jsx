@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { categoryApi } from '@api'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { LOCATION_STATES } from '@constants'
 
@@ -13,10 +14,6 @@ function AddCustom() {
   const location = useLocation()
 
   const [categoryName, setCategoryName] = useState('')
-
-  const handleArrow = () => {
-    navigate(-1)
-  }
 
   const handleCategoryChange = (e) => {
     setCategoryName(e.target.value)
@@ -48,7 +45,7 @@ function AddCustom() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Добавить категорию
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton />
       </div>
       <div className='analitic__tabContent'>
         <div className='analitic__tabContent__header'>

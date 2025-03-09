@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, CircularProgress } from '@mui/material'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import BackButton from '@components/backButton/BackButton'
 import { ROUTES } from '@constants'
 import { scannerApi } from '@api'
 
@@ -37,11 +38,6 @@ function Scanner() {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop())
     }
-  }
-
-  const handleArrow = () => {
-    stopCamera()
-    navigate(-1)
   }
 
   const handleAdd = async () => {
@@ -81,16 +77,23 @@ function Scanner() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Сканировать
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton onClick={stopCamera} />
       </div>
 
-      {capturedImage ? (
-        <img src={capturedImage} alt='Снимок' className='captured-image' />
-      ) : (
-        <video ref={videoRef} autoPlay playsInline className='camera-feed' />
-      )}
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        className={`camera-feed ${capturedImage ? 'hidden' : ''}`}
+      />
 
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <img
+        src={capturedImage}
+        alt='Снимок'
+        className={`captured-image ${capturedImage ? '' : 'hidden'}`}
+      />
+
+      <canvas ref={canvasRef} className="hidden" />
 
       {loading ? (
         <div className='loading-overlay'>

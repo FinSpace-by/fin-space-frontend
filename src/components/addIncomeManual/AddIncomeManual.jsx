@@ -6,6 +6,7 @@ import { categoryApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LOCATION_STATES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import BackButton from '@components/backButton/BackButton'
 import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss'
@@ -35,10 +36,6 @@ function AddExpensesManual() {
     }
     fetchCategories()
   }, [])
-
-  const handleArrow = () => {
-    navigate(-1)
-  }
 
   const handleCategoryClick = (category) => {
     if (category.title === 'Добавить категорию') {
@@ -78,7 +75,7 @@ function AddExpensesManual() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Добавить доход
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton />
       </div>
       <div className='analitic__tabContent'>
         <div className='analitic__tabContent__header'>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography } from '@mui/material'
+import BackButton from '@components/backButton/BackButton'
 import { ROUTES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 
@@ -12,10 +13,6 @@ function ScannerResults() {
 
   const [items, setItems] = useState(location.state?.items || [])
 
-  const handleArrow = () => {
-    navigate(-1)
-  }
-
   const handleAdd = async () => {}
 
   return (
@@ -24,7 +21,7 @@ function ScannerResults() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Результаты сканирования
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton/>
       </div>
 
       {items.length === 0 ? (
