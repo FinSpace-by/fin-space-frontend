@@ -20,4 +20,7 @@ export const categoryApi = {
   getIncomes: () => instance.get(CATEGORY_PATH.INCOME),
   getUserIncomes: () => instance.get(SUMMARY_PATH.INCOME),
   addCustomIncome: (body) => instance.post(CATEGORY_PATH.INCOME, body),
+
+  updateBalance: (body) => instance.patch('/users/balance', body),
+  getUserBalance: () => instance.get('/users/balance'),
 }
