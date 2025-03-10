@@ -71,3 +71,8 @@ export const LOCATION_STATES = {
   ADD_EXPENSES_MANUAL: 'add-expenses-manual',
   ADD_INCOME_MANUAL: 'add-income-manual',
 }
+
+export const REDIRECT_TYPES = {
+  MANUAL: 'manual',
+  SCANNER: 'scanner',
+}

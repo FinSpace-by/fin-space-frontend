@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ROUTES } from '@constants'
+import { REDIRECT_TYPES, ROUTES } from '@constants'
 import clsx from 'clsx'
 import './sass/index.scss'
 
@@ -13,14 +13,14 @@ const Methods = ({ isOpen, onClose }) => {
   const shouldCloseModal = IS_MODAL_DISABLED_PATHS.includes(location.pathname)
 
   const handleRedirect = (type) => {
-    if (type === 'manual') {
-      navigate(ROUTES.MANUAL.PATH);
-    } else if (type === 'scanner') {
-      navigate(ROUTES.SCANNER.PATH);
+    if (type === REDIRECT_TYPES.MANUAL) {
+      navigate(ROUTES.MANUAL.PATH)
+    } else if (type === REDIRECT_TYPES.SCANNER) {
+      navigate(ROUTES.SCANNER.PATH)
     }
-    onClose();
-  };
-  
+    onClose()
+  }
+
   if (shouldCloseModal) return null
 
   return (

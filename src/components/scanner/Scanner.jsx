@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, CircularProgress } from '@mui/material'
+import clsx from 'clsx'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import BackButton from '@components/backButton/BackButton'
 import { ROUTES } from '@constants'
@@ -88,13 +89,13 @@ function Scanner() {
         ref={videoRef}
         autoPlay
         playsInline
-        className={`camera-feed ${capturedImage ? 'hidden' : ''}`}
+        className={clsx('camera-feed', { hidden: capturedImage })}
       />
 
       <img
         src={capturedImage}
         alt='Снимок'
-        className={`captured-image ${capturedImage ? '' : 'hidden'}`}
+        className={clsx('captured-image', { hidden: !capturedImage })}
       />
 
       <canvas ref={canvasRef} className='hidden' />

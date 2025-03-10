@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
-import { ROUTES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 
 import './sass/scanner_results.scss'
 
+const CATEGORIES_LIST = ['Еда', 'Одежда', 'Транспорт', 'Развлечения', 'Прочее']
+
 function ScannerResults() {
   const navigate = useNavigate()
   const location = useLocation()
-
-  const categoriesList = ['Еда', 'Одежда', 'Транспорт', 'Развлечения', 'Прочее']
 
   const [items, setItems] = useState(
     location.state?.items.map((item) => ({ ...item, category: '' })) || []
@@ -70,7 +69,7 @@ function ScannerResults() {
                     value={item.category}
                     onChange={(e) => handleCategoryChange(index, e.target.value)}
                   >
-                    {categoriesList.map((category) => (
+                    {CATEGORIES_LIST.map((category) => (
                       <MenuItem key={category} value={category}>
                         {category}
                       </MenuItem>
