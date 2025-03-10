@@ -3,7 +3,7 @@ import './sass/index.scss'
 import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
 import EditIcon from '@assets/imgs/edit_icon.png'
-import { categoryApi } from '@api'
+import { categoryApi, userApi } from '@api'
 
 const dates = {
   Пн: '06.12.2025',
@@ -28,8 +28,8 @@ function Cards() {
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
-        const response = await categoryApi.getUserBalance()
-        setBalance(response.data)
+        const response = await userApi.getUserBalance()
+        setBalance(response.data.toFixed(2))
       } catch (error) {}
     }
 
@@ -37,7 +37,7 @@ function Cards() {
       try {
         const response = await categoryApi.getUserExpenses()
         const totalExpenses = response.data.reduce((acc, expense) => acc + expense.totalIncome, 0)
-        setUserExpenses(totalExpenses)
+        setUserExpenses(totalExpenses.toFixed(2))
       } catch (error) {}
     }
 
@@ -45,7 +45,7 @@ function Cards() {
       try {
         const response = await categoryApi.getUserIncomes()
         const totalIncomes = response.data.reduce((acc, income) => acc + income.totalIncome, 0)
-        setUserIncomes(totalIncomes)
+        setUserIncomes(totalIncomes.toFixed(2))
       } catch (error) {}
     }
 
@@ -82,7 +82,7 @@ function Cards() {
 
   const updateBalance = async (newBalance) => {
     try {
-      await categoryApi.updateBalance({ balance: newBalance })
+      await userApi.updateBalance({ balance: newBalance })
     } catch (error) {}
   }
 
