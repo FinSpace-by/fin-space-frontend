@@ -59,10 +59,14 @@ function Scanner() {
     try {
       const body = { image: imageBase64 }
       const response = await scannerApi.sendImage(body)
-      setProducts(response.data.products)
+
+      const productsList = Object.values(response.data).find((value) => Array.isArray(value)) || []
+
+      setProducts(productsList)
+
       navigate(ROUTES.SCANNER_RESULTS.PATH, {
         state: {
-          items: response.data.products,
+          items: productsList,
         },
       })
     } catch (error) {
@@ -93,7 +97,7 @@ function Scanner() {
         className={`captured-image ${capturedImage ? '' : 'hidden'}`}
       />
 
-      <canvas ref={canvasRef} className="hidden" />
+      <canvas ref={canvasRef} className='hidden' />
 
       {loading ? (
         <div className='loading-overlay'>
