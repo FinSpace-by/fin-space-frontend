@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, Tabs, Tab, TextField, Button } from '@mui/material'
 import { ROUTES } from '@constants'
+import BackButton from '@components/backButton/BackButton'
 import add_expenses from '@assets/icons/add_expenses.svg'
 import add_income from '@assets/icons/add_income.svg'
 
 import './sass/index.scss'
-
-const PREVIOUS = -1
 
 const CATEGORIES = [
   {
@@ -25,10 +24,6 @@ const CATEGORIES = [
 function Manual() {
   const navigate = useNavigate()
 
-  const handleArrow = () => {
-    navigate(PREVIOUS)
-  }
-
   const handleChoise = (key) => {
     if (key === 'expenses') {
       navigate(ROUTES.ADD_EXPENSES_MANUAL.PATH)
@@ -43,7 +38,7 @@ function Manual() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Добавить вручную
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton />
       </div>
       <div className='analitic__tabContent'>
         <div className='analitic__tabContent__header'>

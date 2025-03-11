@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography, CircularProgress } from '@mui/material'
+import clsx from 'clsx'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import BackButton from '@components/backButton/BackButton'
 import { ROUTES } from '@constants'
 import { scannerApi } from '@api'
 
@@ -39,11 +41,6 @@ function Scanner() {
     }
   }
 
-  const handleArrow = () => {
-    stopCamera()
-    navigate(-1)
-  }
-
   const handleAdd = async () => {
     if (!videoRef.current || !canvasRef.current) return
 
@@ -63,10 +60,14 @@ function Scanner() {
     try {
       const body = { image: imageBase64 }
       const response = await scannerApi.sendImage(body)
-      setProducts(response.data.products)
+
+      const productsList = Object.values(response.data).find((value) => Array.isArray(value)) || []
+
+      setProducts(productsList)
+
       navigate(ROUTES.SCANNER_RESULTS.PATH, {
         state: {
-          items: response.data.products,
+          items: productsList,
         },
       })
     } catch (error) {
@@ -81,16 +82,23 @@ function Scanner() {
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Сканировать
         </Typography>
-        <button className='arrow' onClick={handleArrow}></button>
+        <BackButton onClick={stopCamera} />
       </div>
 
-      {capturedImage ? (
-        <img src={capturedImage} alt='Снимок' className='captured-image' />
-      ) : (
-        <video ref={videoRef} autoPlay playsInline className='camera-feed' />
-      )}
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        className={clsx('camera-feed', { hidden: capturedImage })}
+      />
 
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <img
+        src={capturedImage}
+        alt='Снимок'
+        className={clsx('captured-image', { hidden: !capturedImage })}
+      />
+
+      <canvas ref={canvasRef} className='hidden' />
 
       {loading ? (
         <div className='loading-overlay'>
