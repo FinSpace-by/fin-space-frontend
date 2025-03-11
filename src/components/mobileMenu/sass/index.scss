@@ -83,30 +83,37 @@
     }
 
     &--cards::before {
-      height: 64px;
-      width: 64px;
-      margin-top: -11px;
-      background-image: url('@assets/imgs/plus_icon.svg');
+      background-image: url('@assets/imgs/home.svg');
     }
 
     &--analitic::before {
-      background-image: url('@assets/imgs/expenses.svg');
+      height: 45px;
+      width: 45px;
+      background-image: url('@assets/imgs/icon_plus2.svg');
     }
 
     &--income::before {
-      background-image: url('@assets/imgs/income.svg');
+      background-image: url('@assets/imgs/expenses.svg');
+    }
+
+    &--profile::before {
+      background-image: url('@assets/imgs/settings.svg');
     }
 
     &--cards.active::before {
-      background-image: url('@assets/imgs/plus_icon.svg');
+      background-image: url('@assets/imgs/home_page_active.png');
     }
 
     &--analitic.active::before {
-      background-image: url('@assets/imgs/expenses_active.svg');
+      background-image: url('@assets/imgs/icon_plus2.svg');
     }
 
     &--income.active::before {
-      background-image: url('@assets/imgs/income_active.svg');
+      background-image: url('@assets/imgs/expenses_active.svg');
+    }
+
+    &--profile.active::before {
+      background-image: url('@assets/imgs/settings_active.svg');
     }
 
     &--active {
