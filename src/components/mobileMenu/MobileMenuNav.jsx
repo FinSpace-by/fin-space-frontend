@@ -23,6 +23,9 @@ function MobileMenuNav() {
       case ROUTES.INCOME.PATH:
         setActiveItem(ACTIVE_ITEMS.INCOME)
         break
+      case ROUTES.MANUAL.PATH:
+        setActiveItem(ACTIVE_ITEMS.PROFILE)
+        break
     }
   }, [location])
 
@@ -37,14 +40,13 @@ function MobileMenuNav() {
   }
 
   const handleMenuItemClick = (key, e) => {
-    if (key === 'cards') {
+    if (key === 'analitic') {
       handleCardsClick(e)
     } else {
       handleIconClick(key)
     }
   }
 
-  // Проверяем, если мы на Scanner, скрываем кнопку
   const isScannerPage = location.pathname === ROUTES.SCANNER.PATH
 
   return (

@@ -8,7 +8,8 @@ export const ACTIVE_ITEMS = {
 }
 
 export const menuItems = [
-  { path: ROUTES.ANALITIC.PATH, label: 'Расходы', key: 'analitic' },
-  { path: ROUTES.CARDS.PATH, label: '', key: 'cards' },
-  { path: ROUTES.INCOME.PATH, label: 'Доходы', key: 'income' },
+  { path: ROUTES.ANALITIC.PATH, label: '', key: 'analitic' },
+  { path: ROUTES.CARDS.PATH, label: 'Главная', key: 'cards' },
+  { path: ROUTES.NOT_FOUND.PATH, label: 'Счета', key: 'income' },
+  { path: ROUTES.NOT_FOUND.PATH, label: 'Профиль', key: 'profile' },
 ]
