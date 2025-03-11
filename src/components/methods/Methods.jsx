@@ -28,11 +28,11 @@ const Methods = ({ isOpen, onClose }) => {
       <div className='modal__content'>
         <button className='modal__close' onClick={onClose}></button>
         <div className='grid'>
-          <div className='card' onClick={() => handleRedirect('manual')}>
+          <div className='card' onClick={() => handleRedirect(REDIRECT_TYPES.MANUAL)}>
             <div className='card__icon__manual' />
             <p className='card__title'>Вручную</p>
           </div>
-          <div className='card' onClick={() => handleRedirect('scanner')}>
+          <div className='card' onClick={() => handleRedirect(REDIRECT_TYPES.SCANNER)}>
             <div className='card__icon__scanner' />
             <p className='card__title'>Сканировать</p>
           </div>

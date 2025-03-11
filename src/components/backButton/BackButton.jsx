@@ -7,7 +7,7 @@ const BackButton = ({ onClick }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    if (onClick) onClick()
+    onClick?.()
     navigate(-1)
   }
 
