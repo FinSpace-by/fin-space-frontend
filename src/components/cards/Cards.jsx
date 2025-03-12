@@ -3,7 +3,14 @@ import './sass/index.scss'
 import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
 import EditIcon from '@assets/imgs/edit_icon.png'
+import ExpensesIcon from '@assets/imgs/expenses_icon.png'
+import ExpensesActiveIcon from '@assets/imgs/expenses_active_icon.png'
+import IncomesIcon from '@assets/imgs/incomes_icon.png'
+import IncomesActiveIcon from '@assets/imgs/incomes_active_icon.png'
+import CalendarIcon from '@assets/imgs/calendar_icon.png'
+import PieChartIcon from '@assets/imgs/pie_chart_icon.png'
 import { categoryApi, userApi } from '@api'
+import { ICONS_MAP } from '@constants'
 
 const dates = {
   Пн: '06.12.2025',
@@ -24,6 +31,10 @@ function Cards() {
   const [balance, setBalance] = useState(0)
   const [userExpenses, setUserExpenses] = useState(0)
   const [userIncomes, setUserIncomes] = useState(0)
+  const [Ecategories, setECategories] = useState([])
+  const [Icategories, setICategories] = useState([])
+  const [showExpenses, setShowExpenses] = useState(true)
+  const [showIncomes, setShowIncomes] = useState(false)
 
   useEffect(() => {
     const fetchUserBalance = async () => {
@@ -49,9 +60,39 @@ function Cards() {
       } catch (error) {}
     }
 
+    const fetchECategories = async () => {
+      try {
+        const response = await categoryApi.getUserExpenses()
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalIncome.toFixed(2),
+          })
+        )
+        setECategories(fetchedCategories)
+      } catch (error) {}
+    }
+
+    const fetchICategories = async () => {
+      try {
+        const response = await categoryApi.getUserIncomes()
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalIncome.toFixed(2),
+          })
+        )
+        setICategories(fetchedCategories)
+      } catch (error) {}
+    }
+
     fetchUserBalance()
     fetchUserExpenses()
     fetchUserIncomes()
+    fetchECategories()
+    fetchICategories()
   }, [])
 
   const handleDayClick = (day) => {
@@ -86,12 +127,23 @@ function Cards() {
     } catch (error) {}
   }
 
+  const handleShowExpenses = () => {
+    if (!showExpenses) {
+      setShowExpenses(true)
+      setShowIncomes(false)
+    }
+  }
+
+  const handleShowIncomes = () => {
+    if (!showIncomes) {
+      setShowIncomes(true)
+      setShowExpenses(false)
+    }
+  }
+
   return (
     <div className='cards__container'>
       <div className='header-container'>
-        <Typography variant='h6' className='page-title'>
-          Главная
-        </Typography>
         <div className='balance'>
           <div className='balance-text-edit-button'>
             <Typography variant='body1' className='balance-label'>
@@ -114,32 +166,60 @@ function Cards() {
               className='balance-edit-entry'
             />
           ) : (
-            <Typography variant='h4' className='balance-amount'>
+            <Typography variant='h4' className='balance-amount' onClick={handleEditClick}>
               {balance} BYN
             </Typography>
           )}
         </div>
       </div>
-
       <div className='expenses-income-sum'>
-        <div className='expenses-income-sum1'>
-          <Typography className='page-title1'>Расходы:</Typography>
-          <Typography className='page-title2'>{userExpenses}</Typography>
-          <Typography className='page-title2 opacity'>BYN</Typography>
-        </div>
-        <div className='expenses-income-sum2'>
-          <Typography className='page-title1'>Доходы:</Typography>
-          <Typography className='page-title3'>{userIncomes}</Typography>
-          <Typography className='page-title3 opacity'>BYN</Typography>
-        </div>
+        <IconButton
+          onClick={handleShowExpenses}
+          className={`expenses-income-sum1 ${showExpenses ? 'active' : ''}`}
+        >
+          <img
+            src={showExpenses ? ExpensesActiveIcon : ExpensesIcon}
+            className='expenses-incomes-icon'
+            alt='Edit'
+          />
+          <Typography className={`expenses-button-text ${showExpenses ? 'active' : ''}`}>
+            {userExpenses}
+          </Typography>
+          <Typography className={`expenses-button-text opacity ${showExpenses ? 'active' : ''}`}>
+            BYN
+          </Typography>
+        </IconButton>
+        <IconButton
+          onClick={handleShowIncomes}
+          className={`expenses-income-sum2 ${showIncomes ? 'active' : ''}`}
+        >
+          <img
+            src={showIncomes ? IncomesActiveIcon : IncomesIcon}
+            className='expenses-incomes-icon'
+            alt='Edit'
+          />
+          <Typography className={`incomes-button-text ${showIncomes ? 'active' : ''}`}>
+            {userIncomes}
+          </Typography>
+          <Typography className={`incomes-button-text opacity ${showIncomes ? 'active' : ''}`}>
+            BYN
+          </Typography>
+        </IconButton>
       </div>
-
       <div className='graphic-name-container'>
-        <Typography className='page-title1'>Аналитика расходов</Typography>
-        <Typography className='graphic-date-selector'>{selectedDate}&#9660;</Typography>
+        <Typography className='page-title1'>Аналитика</Typography>
+        <IconButton className='graphic-date-selector'>
+          {selectedDate}
+          <img src={CalendarIcon} className='calender-icon' alt='Edit' />
+        </IconButton>
       </div>
-
       <div className='analitic-graphic'>
+        <div class='chart-type-container'>
+          <IconButton className='pie-chart-icon'>
+            <img src={PieChartIcon} className='pie-chart-icon' />
+          </IconButton>
+        </div>
+
         {daysOfWeek.map((day) => (
           <div
             key={day}
@@ -151,6 +231,58 @@ function Cards() {
           </div>
         ))}
       </div>
+
+      {showExpenses && (
+        <div className='categories-container'>
+          <Typography variant='h5' align='center' mb={3} fontSize={20}>
+            Расходы
+          </Typography>
+          <div className='categories-list'>
+            {Ecategories.map((category, index) => (
+              <div key={index} className='category-item'>
+                <div className='category-header'>
+                  <img src={category.icon} alt='icon' className='category-icon' />
+                  <Typography variant='category' className='category-title'>
+                    {category.title}
+                  </Typography>
+                </div>
+                <div className='category-details'>
+                  <span className='price-text'>BYN</span>
+                  <Typography variant='category' className='price'>
+                    {category.amount}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {showIncomes && (
+        <div className='categories-container'>
+          <Typography variant='h5' align='center' mb={3} fontSize={20}>
+            Доходы
+          </Typography>
+          <div className='categories-list'>
+            {Icategories.map((category, index) => (
+              <div key={index} className='category-item'>
+                <div className='category-header'>
+                  <img src={category.icon} alt='icon' className='category-icon' />
+                  <Typography variant='category' className='category-title'>
+                    {category.title}
+                  </Typography>
+                </div>
+                <div className='category-details'>
+                  <span className='price-text'>BYN</span>
+                  <Typography variant='category' className='price'>
+                    {category.amount}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
