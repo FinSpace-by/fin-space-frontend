@@ -2,8 +2,8 @@
   &__container {
     width: auto;
     position: relative;
-    overflow: hidden; /* чтобы избежать вылазки контента */
-    border-radius: 30px; /* Сглаживаем углы карточки */
+    overflow: hidden;
+    border-radius: 30px;
 
     .header-container {
       display: flex;
@@ -11,7 +11,7 @@
       background: linear-gradient(to bottom, #6054e4, #9284ff);
       padding: 30px 4% 14px;
       border-radius: 0 0 30px 30px;
-      transition: background 0.3s ease; /* Плавное изменение фона */
+      transition: background 0.3s ease;
     }
 
     .balance {
@@ -29,7 +29,7 @@
       width: 20px;
       margin-top: 7px;
       opacity: 0.6;
-      transition: opacity 0.3s ease; /* Плавное изменение прозрачности */
+      transition: opacity 0.3s ease;
     }
 
     .edit-link {
@@ -58,7 +58,7 @@
       background-color: transparent;
       border-radius: 10px;
       box-sizing: border-box;
-      transition: border-color 0.3s ease; /* Плавное изменение границы */
+      transition: border-color 0.3s ease;
     }
 
     .balance-edit-entry:focus {
@@ -125,7 +125,7 @@
       padding-left: 2px;
       font-family: 'SF Pro Text', normal;
       font-weight: 400;
-      transition: color 0.3s ease; /* Плавное изменение цвета текста */
+      transition: color 0.3s ease;
     }
 
     .expenses-button-text.active {
