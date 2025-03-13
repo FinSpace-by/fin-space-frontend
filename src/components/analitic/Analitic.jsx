@@ -92,24 +92,6 @@ function Analitic() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await categoryApi.getUserExpenses()
-        const fetchedCategories = response.data.map(
-          ({ categoryName, categoryIconUrl, totalIncome }) => ({
-            title: categoryName,
-            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
-            amount: totalIncome.toFixed(2),
-          })
-        )
-        setCategories(fetchedCategories)
-      } catch (error) {}
-    }
-
-    fetchCategories()
-  }, [])
-
-  useEffect(() => {
     try {
       setActiveSum(transactions[4].sum)
       setActiveDate(transactions[4].date)

@@ -14,6 +14,7 @@ import investment from '@assets/icons/Investment.svg'
 import premiya from '@assets/icons/Premiya.svg'
 import custom from '@assets/icons/custom.svg'
 import scanner from '@assets/icons/scanner.svg'
+import grafik_icon from '@assets/imgs/grafik_icon.svg'
 
 export const ROUTER_ROUTES = {
   NOT_FOUND: '*',
@@ -65,6 +66,7 @@ export const ICONS_MAP = {
   premiya,
   custom,
   scanner,
+  grafik_icon,
 }
 
 export const LOCATION_STATES = {

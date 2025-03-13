@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import './sass/index.scss'
 import { Typography, IconButton } from '@mui/material'
 import clsx from 'clsx'
 import EditIcon from '@assets/imgs/edit_icon.png'
@@ -9,8 +8,11 @@ import IncomesIcon from '@assets/imgs/incomes_icon.png'
 import IncomesActiveIcon from '@assets/imgs/incomes_active_icon.png'
 import CalendarIcon from '@assets/imgs/calendar_icon.png'
 import PieChartIcon from '@assets/imgs/pie_chart_icon.png'
+import PieChart from '@components/pieChart/PieChart'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
+
+import './sass/index.scss'
 
 const dates = {
   Пн: '06.12.2025',
@@ -35,6 +37,9 @@ function Cards() {
   const [Icategories, setICategories] = useState([])
   const [showExpenses, setShowExpenses] = useState(true)
   const [showIncomes, setShowIncomes] = useState(false)
+  const [currentType, setCurrentType] = useState([])
+  const [currentAmount, setCurrentAmount] = useState(0)
+  const [isPieChartVisible, setIsPieChartVisible] = useState(false)
 
   useEffect(() => {
     const fetchUserBalance = async () => {
@@ -94,6 +99,20 @@ function Cards() {
     fetchECategories()
     fetchICategories()
   }, [])
+
+  useEffect(() => {
+    if (showExpenses) {
+      setCurrentType(Ecategories)
+      setCurrentAmount(userExpenses)
+    } else if (showIncomes) {
+      setCurrentType(Icategories)
+      setCurrentAmount(userIncomes)
+    }
+  }, [showExpenses, showIncomes, Ecategories, Icategories])
+
+  const handlePieChartClick = () => {
+    setIsPieChartVisible(!isPieChartVisible)
+  }
 
   const handleDayClick = (day) => {
     setSelectedDay(day)
@@ -180,7 +199,7 @@ function Cards() {
           <img
             src={showExpenses ? ExpensesActiveIcon : ExpensesIcon}
             className='expenses-incomes-icon'
-            alt='Edit'
+            alt='Expenses'
           />
           <Typography className={`expenses-button-text ${showExpenses ? 'active' : ''}`}>
             {userExpenses}
@@ -196,7 +215,7 @@ function Cards() {
           <img
             src={showIncomes ? IncomesActiveIcon : IncomesIcon}
             className='expenses-incomes-icon'
-            alt='Edit'
+            alt='Incomes'
           />
           <Typography className={`incomes-button-text ${showIncomes ? 'active' : ''}`}>
             {userIncomes}
@@ -210,27 +229,44 @@ function Cards() {
         <Typography className='page-title1'>Аналитика</Typography>
         <IconButton className='graphic-date-selector'>
           {selectedDate}
-          <img src={CalendarIcon} className='calender-icon' alt='Edit' />
+          <img src={CalendarIcon} className='calender-icon' alt='Calendar' />
         </IconButton>
       </div>
-      <div className='analitic-graphic'>
-        <div class='chart-type-container'>
-          <IconButton className='pie-chart-icon'>
-            <img src={PieChartIcon} className='pie-chart-icon' />
-          </IconButton>
-        </div>
 
-        {daysOfWeek.map((day) => (
-          <div
-            key={day}
-            className={clsx('day-column', { active: selectedDay === day })}
-            style={{ height: '10px' }}
-            onClick={() => handleDayClick(day)}
-          >
-            {day}
+      {!isPieChartVisible && (
+        <div className='analitic-graphic'>
+          <div className='chart-type-container'>
+            <IconButton className='pie-chart-icon' onClick={handlePieChartClick}>
+              <img src={PieChartIcon} className='pie-chart-icon' alt='Pie Chart' />
+            </IconButton>
           </div>
-        ))}
-      </div>
+
+          {daysOfWeek.map((day) => (
+            <div
+              key={day}
+              className={clsx('day-column', { active: selectedDay === day })}
+              style={{ height: '10px' }}
+              onClick={() => handleDayClick(day)}
+            >
+              {day}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {isPieChartVisible && (
+        <div className='analitic-graphic'>
+          <div className='chart-type-container'>
+            <IconButton className='pie-chart-icon' onClick={handlePieChartClick}>
+              <img src={ICONS_MAP['grafik_icon']} className='pie-chart-icon' alt='Pie Chart' />
+            </IconButton>
+          </div>
+          <div className='chart-container'>
+            <div className='chart-header'></div>
+            <PieChart categories={currentType} amount={currentAmount} />
+          </div>
+        </div>
+      )}
 
       {showExpenses && (
         <div className='categories-container'>
