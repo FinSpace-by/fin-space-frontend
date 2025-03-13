@@ -15,6 +15,13 @@ import premiya from '@assets/icons/Premiya.svg'
 import custom from '@assets/icons/custom.svg'
 import scanner from '@assets/icons/scanner.svg'
 import grafik_icon from '@assets/imgs/grafik_icon.svg'
+import edit from '@assets/imgs/edit_icon.png'
+import expenses from '@assets/imgs/expenses_icon.png'
+import expenses_active from '@assets/imgs/expenses_active_icon.png'
+import incomes from '@assets/imgs/incomes_icon.png'
+import incomes_active from '@assets/imgs/incomes_active_icon.png'
+import calendar from '@assets/imgs/calendar_icon.png'
+import pie_chart from '@assets/imgs/pie_chart_icon.png'
 
 export const ROUTER_ROUTES = {
   NOT_FOUND: '*',
@@ -67,6 +74,13 @@ export const ICONS_MAP = {
   custom,
   scanner,
   grafik_icon,
+  edit,
+  expenses,
+  expenses_active,
+  incomes,
+  incomes_active,
+  calendar,
+  pie_chart,
 }
 
 export const LOCATION_STATES = {
