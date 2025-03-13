@@ -262,7 +262,6 @@ function Cards() {
             </IconButton>
           </div>
           <div className='chart-container'>
-            <div className='chart-header'></div>
             <PieChart categories={currentType} amount={currentAmount} />
           </div>
         </div>
