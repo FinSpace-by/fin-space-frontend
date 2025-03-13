@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
-
 import './sass/index.scss'
 
 const dates = {
@@ -38,7 +37,7 @@ function Cards() {
     const fetchUserBalance = async () => {
       try {
         const response = await userApi.getUserBalance()
-        setBalance(response.data.toFixed(2))
+        setBalance(response.data)
       } catch (error) {}
     }
 
@@ -54,7 +53,7 @@ function Cards() {
           })
         )
         setECategories(fetchedCategories)
-        setUserExpenses(totalExpenses.toFixed(2))
+        setUserExpenses(totalExpenses)
       } catch (error) {}
     }
 
@@ -70,7 +69,7 @@ function Cards() {
           })
         )
         setICategories(fetchedCategories)
-        setUserIncomes(totalIncomes.toFixed(2))
+        setUserIncomes(totalIncomes)
       } catch (error) {}
     }
 
@@ -112,11 +111,10 @@ function Cards() {
   const handleBlur = () => {
     const numericValue = parseFloat(balance)
     if (!isNaN(numericValue)) {
-      const formattedBalance = numericValue.toFixed(2)
-      setBalance(formattedBalance)
+      setBalance(numericValue)
       updateBalance(numericValue)
     } else {
-      setBalance('0.00')
+      setBalance(0)
     }
     setIsEditingBalance(false)
   }
@@ -167,7 +165,7 @@ function Cards() {
             />
           ) : (
             <Typography variant='h4' className='balance-amount' onClick={handleEditClick}>
-              {balance} BYN
+              {balance.toFixed(2)} BYN
             </Typography>
           )}
         </div>
@@ -183,7 +181,7 @@ function Cards() {
             alt='Expenses'
           />
           <Typography className={clsx('expenses-button-text', { active: showExpenses })}>
-            {userExpenses}
+            {userExpenses.toFixed(2)}
           </Typography>
           <Typography className={clsx('expenses-button-text', 'opacity', { active: showExpenses })}>
             BYN
@@ -199,7 +197,7 @@ function Cards() {
             alt='Incomes'
           />
           <Typography className={clsx('incomes-button-text', { active: showIncomes })}>
-            {userIncomes}
+            {userIncomes.toFixed(2)}
           </Typography>
           <Typography className={clsx('incomes-button-text', 'opacity', { active: showIncomes })}>
             BYN
