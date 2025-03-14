@@ -10,7 +10,7 @@
       background: linear-gradient(to bottom, #6054e4, #9284ff);
       padding: 30px 4% 14px;
       border-radius: 0 0 30px 30px;
-      transition: background 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .balance {
@@ -162,6 +162,11 @@
       flex-wrap: wrap;
     }
 
+    .graphic-date-selector {
+      display: flex;
+      align-items: center;
+    }
+
     .page-title1 {
       font-size: 20px;
       font-family: 'SF Pro Text', normal;
@@ -309,4 +314,46 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+}
+
+.page-header-container {
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.MuiDatePicker-root {
+  margin-right: 8px;
+}
+
+.css-zpey8w-MuiInputBase-root-MuiOutlinedInput-root {
+  border: none !important;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiDatePicker-root input {
+  border: none !important;
+  font-size: 16px;
+  color: #6054e4 !important;
+  text-align: center;
+  padding-block: 10px !important;
+  margin-top: 5px;
+}
+
+.MuiDatePicker-root input::placeholder {
+  font-size: 13.5px;
+  color: #888;
+}
+
+span {
+  color: white;
 }

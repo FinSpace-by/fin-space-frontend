@@ -4,6 +4,13 @@ import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/ru'
+import dayjs from 'dayjs'
+
 import './sass/index.scss'
 
 const dates = {
@@ -32,6 +39,10 @@ function Cards() {
   const [currentType, setCurrentType] = useState([])
   const [currentAmount, setCurrentAmount] = useState(0)
   const [isPieChartVisible, setIsPieChartVisible] = useState(false)
+  const today = dayjs()
+  const yesterday = dayjs().subtract(1, 'day')
+  const [startDate, setStartDate] = useState(yesterday)
+  const [endDate, setEndDate] = useState(today)
 
   useEffect(() => {
     const fetchUserBalance = async () => {
@@ -209,12 +220,16 @@ function Cards() {
           </Typography>
         </IconButton>
       </div>
-      <div className='graphic-name-container'>
+
+      <div className='page-header-container'>
         <Typography className='page-title1'>Аналитика</Typography>
-        <IconButton className='graphic-date-selector'>
-          {selectedDate}
-          <img src={ICONS_MAP['calendar']} className='calender-icon' alt='Calendar' />
-        </IconButton>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+          <div className='date-picker-container'>
+            <DatePicker className='MuiDatePicker-root' disableFuture defaultValue={yesterday} />
+            <span>-</span>
+            <DatePicker className='MuiDatePicker-root' disableFuture defaultValue={today} />
+          </div>
+        </LocalizationProvider>
       </div>
 
       {!isPieChartVisible && (
