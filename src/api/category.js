@@ -16,9 +16,23 @@ export const categoryApi = {
   getExpenses: () => instance.get(CATEGORY_PATH.EXPENSE),
   getUserExpenses: () => instance.get(SUMMARY_PATH.EXPENSE),
   addCustomExpense: (body) => instance.post(CATEGORY_PATH.EXPENSE, body),
+  getExpensesByDate: (startDate, endDate) =>
+    instance.get('expenses/categorized-by-date', {
+      params: {
+        startDate,
+        endDate,
+      },
+    }),
 
   addIncome: (body) => instance.post('/incomes', body),
   getIncomes: () => instance.get(CATEGORY_PATH.INCOME),
   getUserIncomes: () => instance.get(SUMMARY_PATH.INCOME),
   addCustomIncome: (body) => instance.post(CATEGORY_PATH.INCOME, body),
+  getIncomesByDate: (startDate, endDate) =>
+    instance.get('incomes/categorized-by-date', {
+      params: {
+        startDate,
+        endDate,
+      },
+    }),
 }
