@@ -12,6 +12,7 @@ const SUMMARY_PATH = {
 
 export const categoryApi = {
   addExpense: (body) => instance.post('/expenses', body),
+  addExpenses: (body) => instance.post('/expenses/products', body),
   getExpenses: () => instance.get(CATEGORY_PATH.EXPENSE),
   getUserExpenses: () => instance.get(SUMMARY_PATH.EXPENSE),
   addCustomExpense: (body) => instance.post(CATEGORY_PATH.EXPENSE, body),
