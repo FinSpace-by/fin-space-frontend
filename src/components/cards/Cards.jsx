@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, IconButton } from '@mui/material'
+import { Typography, IconButton, Snackbar, Alert } from '@mui/material'
 import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
 import { categoryApi, userApi } from '@api'
@@ -43,6 +43,9 @@ function Cards() {
   const yesterday = dayjs().subtract(1, 'day')
   const [startDate, setStartDate] = useState(yesterday)
   const [endDate, setEndDate] = useState(today)
+
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   useEffect(() => {
     const fetchUserBalance = async () => {
@@ -90,14 +93,82 @@ function Cards() {
   }, [])
 
   useEffect(() => {
-    if (showExpenses) {
-      setCurrentType(eCategories)
-      setCurrentAmount(userExpenses)
-    } else if (showIncomes) {
-      setCurrentType(iCategories)
-      setCurrentAmount(userIncomes)
+    if (startDate && endDate && startDate.isAfter(endDate)) {
+      setSnackbarMessage('Начальная дата не может быть позже конечной.')
+      setOpenSnackbar(true)
+      return
     }
-  }, [showExpenses, showIncomes, eCategories, iCategories])
+
+    if ((startDate && endDate && startDate.isBefore(endDate)) || startDate.isSame(endDate)) {
+      const formattedStartDate = startDate.format('YYYY-MM-DD')
+      const formattedEndDate = endDate.format('YYYY-MM-DD')
+
+      const fetchExpensesByDate = async () => {
+        try {
+          const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, incomes }) => {
+            incomes.forEach(({ categoryName, totalIncome }) => {
+              if (acc[categoryName]) {
+                acc[categoryName] += totalIncome
+              } else {
+                acc[categoryName] = totalIncome
+              }
+            })
+            return acc
+          }, {})
+
+          const chartDataExpenses = Object.entries(expensesData).map(
+            ([categoryName, totalIncome]) => ({
+              title: categoryName,
+              amount: totalIncome,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataExpenses)
+          setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {
+          console.error('Error fetching expenses by date:', error)
+        }
+      }
+
+      const fetchIncomesByDate = async () => {
+        try {
+          const response = await categoryApi.getIncomesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, incomes }) => {
+            incomes.forEach(({ categoryName, totalIncome }) => {
+              if (acc[categoryName]) {
+                acc[categoryName] += totalIncome
+              } else {
+                acc[categoryName] = totalIncome
+              }
+            })
+            return acc
+          }, {})
+
+          const chartDataIncomes = Object.entries(expensesData).map(
+            ([categoryName, totalIncome]) => ({
+              title: categoryName,
+              amount: totalIncome,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataIncomes)
+          setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {
+          console.error('Error fetching incomes by date:', error)
+        }
+      }
+      if (showExpenses) {
+        fetchExpensesByDate()
+      } else if (showIncomes) {
+        fetchIncomesByDate()
+      }
+    }
+  }, [showExpenses, showIncomes, startDate, endDate])
 
   const handlePieChartClick = () => {
     setIsPieChartVisible(!isPieChartVisible)
@@ -152,6 +223,11 @@ function Cards() {
 
   return (
     <div className='cards__container'>
+      <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <div className='header-container'>
         <div className='balance'>
           <div className='balance-text-edit-button'>
@@ -225,9 +301,21 @@ function Cards() {
         <Typography className='page-title1'>Аналитика</Typography>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
           <div className='date-picker-container'>
-            <DatePicker className='MuiDatePicker-root' disableFuture defaultValue={yesterday} />
+            <DatePicker
+              className='MuiDatePicker-root'
+              disableFuture
+              defaultValue={yesterday}
+              value={startDate}
+              onChange={(newValue) => setStartDate(newValue)}
+            />
             <span>-</span>
-            <DatePicker className='MuiDatePicker-root' disableFuture defaultValue={today} />
+            <DatePicker
+              className='MuiDatePicker-root'
+              disableFuture
+              defaultValue={today}
+              value={endDate}
+              onChange={(newValue) => setEndDate(newValue)}
+            />
           </div>
         </LocalizationProvider>
       </div>
