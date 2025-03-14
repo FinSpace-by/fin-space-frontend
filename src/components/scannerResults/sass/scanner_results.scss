@@ -15,6 +15,11 @@
       display: flex;
       justify-content: flex-start;
       margin-bottom: 15px;
+
+      h5 {
+        margin-top: 2px;
+        font-size: 17px;
+      }
     }
 
     .analitic__tabContent__block {
@@ -22,30 +27,32 @@
     }
 
     .analitic__inputWrapper {
+      position: relative;
+
       .MuiSelect-nativeInput {
         position: absolute;
       }
-    }
 
-    .analitic__inputWrapper input {
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      background-color: rgba(35, 35, 35, 1);
-      box-shadow: none;
-      outline: none;
-      border: 1px solid rgba(113, 96, 255, 1);
-      border-radius: 10px;
-      width: 100%;
-      color: white;
-      padding: 20px;
-      font-size: 17px;
-      padding-right: 50px;
-    }
+      input {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        background-color: rgba(35, 35, 35, 1);
+        box-shadow: none;
+        outline: none;
+        border: 1px solid rgba(113, 96, 255, 1);
+        border-radius: 10px;
+        width: 100%;
+        color: white;
+        padding: 20px;
+        font-size: 17px;
+        padding-right: 50px;
 
-    .analitic__inputWrapper input::placeholder {
-      color: gray;
-      font-size: 17px;
+        &::placeholder {
+          color: gray;
+          font-size: 17px;
+        }
+      }
     }
 
     .currency {
@@ -57,6 +64,17 @@
       font-size: 17px;
       pointer-events: none;
       font-family: 'SF Pro Text', bold;
+    }
+
+    .category-select {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+      }
     }
   }
 }
