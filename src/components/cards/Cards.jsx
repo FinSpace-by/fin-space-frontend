@@ -164,9 +164,14 @@ function Cards() {
               className='balance-edit-entry'
             />
           ) : (
-            <Typography variant='h4' className='balance-amount' onClick={handleEditClick}>
-              {balance.toFixed(2)} BYN
-            </Typography>
+            <div className='balance-amount'>
+              <Typography variant='h4' className='balance-numbers' onClick={handleEditClick}>
+                {balance.toFixed(2)}
+              </Typography>
+              <Typography variant='h4' className='balance-currency'>
+                BYN
+              </Typography>
+            </div>
           )}
         </div>
       </div>
