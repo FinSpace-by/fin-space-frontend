@@ -66,10 +66,28 @@
     }
 
     .balance-amount {
+      display: flex;
+    }
+
+    .balance-numbers {
       font-size: 46px;
       font-weight: 600;
       color: rgb(255, 255, 255);
       font-family: 'SF Pro Text', normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 400px;
+      min-width: 180px;
+      display: inline-block;
+    }
+
+    .balance-currency {
+      font-size: 46px;
+      font-weight: 600;
+      color: rgb(255, 255, 255);
+      font-family: 'SF Pro Text', normal;
+      margin-left: 12px;
     }
 
     .expenses-income-sum {
