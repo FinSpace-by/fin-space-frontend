@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Typography, IconButton, Snackbar, Alert } from '@mui/material'
 import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
+import BarChart from '@components/barChart/BarChart'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -13,21 +14,9 @@ import dayjs from 'dayjs'
 
 import './sass/index.scss'
 
-const dates = {
-  Пн: '06.12.2025',
-  Вт: '07.12.2025',
-  Ср: '08.12.2025',
-  Чт: '09.12.2025',
-  Пт: '10.12.2025',
-  Сб: '11.12.2025',
-  Вс: '12.12.2025',
-}
-
 const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
 function Cards() {
-  const [selectedDay, setSelectedDay] = useState('Вс')
-  const [selectedDate, setSelectedDate] = useState(dates['Вс'])
   const [isEditingBalance, setIsEditingBalance] = useState(false)
   const [balance, setBalance] = useState(0)
   const [userExpenses, setUserExpenses] = useState(0)
@@ -39,6 +28,7 @@ function Cards() {
   const [currentType, setCurrentType] = useState([])
   const [currentAmount, setCurrentAmount] = useState(0)
   const [isPieChartVisible, setIsPieChartVisible] = useState(false)
+  const [isBarChartVisible, setIsBarChartVisible] = useState(true)
   const today = dayjs()
   const yesterday = dayjs().subtract(1, 'day')
   const [startDate, setStartDate] = useState(yesterday)
@@ -162,21 +152,102 @@ function Cards() {
           console.error('Error fetching incomes by date:', error)
         }
       }
-      if (showExpenses) {
-        fetchExpensesByDate()
-      } else if (showIncomes) {
-        fetchIncomesByDate()
+
+      const fetchExpensesByDay = async () => {
+        try {
+          const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, incomes }) => {
+            const totalIncomeForDay = incomes.reduce((sum, { totalIncome }) => sum + totalIncome, 0)
+            const dayOfWeekIndex = dayjs(date).day()
+
+            const correctedIndex = (dayOfWeekIndex + 6) % 7
+
+            const dayOfWeek = daysOfWeek[correctedIndex]
+
+            if (acc[dayOfWeek]) {
+              acc[dayOfWeek] += totalIncomeForDay
+            } else {
+              acc[dayOfWeek] = totalIncomeForDay
+            }
+            return acc
+          }, {})
+
+          const chartDataExpenses = Object.entries(expensesData).map(
+            ([dayOfWeek, totalIncome]) => ({
+              title: dayOfWeek,
+              amount: totalIncome,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataExpenses)
+          setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {
+          console.error('Error fetching expenses by date:', error)
+        }
+      }
+
+      const fetchIncomesByDay = async () => {
+        try {
+          const response = await categoryApi.getIncomesByDate(formattedStartDate, formattedEndDate)
+
+          const incomesData = response.data.reduce((acc, { date, incomes }) => {
+            const totalIncomeForDay = incomes.reduce((sum, { totalIncome }) => sum + totalIncome, 0)
+            const dayOfWeekIndex = dayjs(date).day()
+
+            const correctedIndex = (dayOfWeekIndex + 6) % 7
+
+            const dayOfWeek = daysOfWeek[correctedIndex]
+
+            if (acc[dayOfWeek]) {
+              acc[dayOfWeek] += totalIncomeForDay
+            } else {
+              acc[dayOfWeek] = totalIncomeForDay
+            }
+            return acc
+          }, {})
+
+          const chartDataIncomes = Object.entries(incomesData).map(([dayOfWeek, totalIncome]) => ({
+            title: dayOfWeek,
+            amount: totalIncome,
+            icon: ICONS_MAP['custom'],
+          }))
+
+          setCurrentType(chartDataIncomes)
+          setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {
+          console.error('Error fetching incomes by date:', error)
+        }
+      }
+
+      if (isBarChartVisible) {
+        if (showExpenses) {
+          fetchExpensesByDay(formattedStartDate, formattedEndDate)
+        } else if (showIncomes) {
+          fetchIncomesByDay(formattedStartDate, formattedEndDate)
+        }
+      } else if (isPieChartVisible) {
+        if (showExpenses) {
+          fetchExpensesByDate(formattedStartDate, formattedEndDate)
+        } else if (showIncomes) {
+          fetchIncomesByDate(formattedStartDate, formattedEndDate)
+        }
       }
     }
-  }, [showExpenses, showIncomes, startDate, endDate])
+  }, [showExpenses, showIncomes, startDate, endDate, isBarChartVisible, isPieChartVisible])
 
   const handlePieChartClick = () => {
     setIsPieChartVisible(!isPieChartVisible)
-  }
+    setIsBarChartVisible(!isBarChartVisible)
 
-  const handleDayClick = (day) => {
-    setSelectedDay(day)
-    setSelectedDate(dates[day])
+    if (!isBarChartVisible) {
+      const startOfWeek = startDate.day(1)
+      setStartDate(startOfWeek)
+
+      const newEndDate = startOfWeek.add(6, 'day')
+      setEndDate(newEndDate)
+    }
   }
 
   const handleBalanceChange = (event) => {
@@ -306,7 +377,19 @@ function Cards() {
               disableFuture
               defaultValue={yesterday}
               value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
+              onChange={(newValue) => {
+                if (newValue) {
+                  if (isBarChartVisible) {
+                    const startOfWeek = newValue.day(1)
+                    setStartDate(startOfWeek)
+
+                    const newEndDate = startOfWeek.add(6, 'day')
+                    setEndDate(newEndDate)
+                  } else {
+                    setStartDate(newValue)
+                  }
+                }
+              }}
             />
             <span>-</span>
             <DatePicker
@@ -314,7 +397,8 @@ function Cards() {
               disableFuture
               defaultValue={today}
               value={endDate}
-              onChange={(newValue) => setEndDate(newValue)}
+              onChange={(newValue) => {}}
+              readOnly={isBarChartVisible}
             />
           </div>
         </LocalizationProvider>
@@ -327,17 +411,9 @@ function Cards() {
               <img src={ICONS_MAP['pie_chart']} className='pie-chart-icon' alt='Pie Chart' />
             </IconButton>
           </div>
-
-          {daysOfWeek.map((day) => (
-            <div
-              key={day}
-              className={clsx('day-column', { active: selectedDay === day })}
-              style={{ height: '10px' }}
-              onClick={() => handleDayClick(day)}
-            >
-              {day}
-            </div>
-          ))}
+          <div className='chart-container'>
+            <BarChart categories={currentType} />
+          </div>
         </div>
       )}
 
