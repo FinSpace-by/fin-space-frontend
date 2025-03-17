@@ -324,7 +324,7 @@ function Cards() {
           ) : (
             <div className='balance-amount'>
               <Typography variant='h4' className='balance-numbers' onClick={handleEditClick}>
-                {balance.toFixed(2)}
+                {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : '0.00'}
               </Typography>
               <Typography variant='h4' className='balance-currency'>
                 BYN
@@ -344,7 +344,9 @@ function Cards() {
             alt='Expenses'
           />
           <Typography className={clsx('expenses-button-text', { active: showExpenses })}>
-            {userExpenses.toFixed(2)}
+            {typeof userExpenses === 'number' && !isNaN(userExpenses)
+              ? userExpenses.toFixed(2)
+              : '0.00'}
           </Typography>
           <Typography className={clsx('expenses-button-text', 'opacity', { active: showExpenses })}>
             BYN
@@ -360,7 +362,9 @@ function Cards() {
             alt='Incomes'
           />
           <Typography className={clsx('incomes-button-text', { active: showIncomes })}>
-            {userIncomes.toFixed(2)}
+            {typeof userIncomes === 'number' && !isNaN(userIncomes)
+              ? userIncomes.toFixed(2)
+              : '0.00'}
           </Typography>
           <Typography className={clsx('incomes-button-text', 'opacity', { active: showIncomes })}>
             BYN
@@ -447,7 +451,7 @@ function Cards() {
                 <div className='category-details'>
                   <span className='price-text'>BYN</span>
                   <Typography variant='category' className='price'>
-                    {amount.toFixed(2)}
+                    {typeof amount === 'number' && !isNaN(amount) ? amount.toFixed(2) : '0.00'}
                   </Typography>
                 </div>
               </div>
@@ -473,7 +477,7 @@ function Cards() {
                 <div className='category-details'>
                   <span className='price-text'>BYN</span>
                   <Typography variant='category' className='price'>
-                    {amount.toFixed(2)}
+                    {typeof amount === 'number' && !isNaN(amount) ? amount.toFixed(2) : '0.00'}
                   </Typography>
                 </div>
               </div>
