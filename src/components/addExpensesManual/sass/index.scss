@@ -33,6 +33,12 @@
       &:hover {
         background: #7160ff;
       }
+      .category-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 32vh;
+      }
     }
   }
 
