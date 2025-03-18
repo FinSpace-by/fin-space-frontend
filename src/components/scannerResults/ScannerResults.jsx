@@ -78,7 +78,7 @@ function ScannerResults() {
       </div>
 
       {items.length === 0 ? (
-        <Typography variant='body1' align='center'>
+        <Typography variant='body1' align='center' className='no-products-message'>
           Нет продуктов для отображения
         </Typography>
       ) : (

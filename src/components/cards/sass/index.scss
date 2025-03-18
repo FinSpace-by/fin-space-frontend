@@ -134,17 +134,20 @@
     .expenses-incomes-icon {
       width: 22px;
       height: 22px;
-      margin: 3px 2px;
+      margin: 3px 3px;
     }
 
     .expenses-button-text,
     .incomes-button-text {
       font-size: 17px;
       margin-top: 2px;
-      padding-left: 2px;
       font-family: 'SF Pro Text', normal;
       font-weight: 400;
       transition: color 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 46px;
     }
 
     .expenses-button-text.active {
@@ -286,6 +289,10 @@
       color: white;
       font-family: 'SF Pro Text', normal;
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20vh;
     }
 
     .category-details {
