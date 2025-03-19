@@ -29,10 +29,8 @@ function Cards() {
   const [currentAmount, setCurrentAmount] = useState(0)
   const [isPieChartVisible, setIsPieChartVisible] = useState(false)
   const [isBarChartVisible, setIsBarChartVisible] = useState(true)
-  const today = dayjs()
-  const yesterday = dayjs().subtract(1, 'day')
-  const [startDate, setStartDate] = useState(yesterday)
-  const [endDate, setEndDate] = useState(today)
+  const [startDate, setStartDate] = useState(dayjs().day(1)) // Последний понедельник
+  const [endDate, setEndDate] = useState(dayjs().day(7)) // Воскресенье этой недели
 
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -48,12 +46,12 @@ function Cards() {
     const fetchECategories = async () => {
       try {
         const response = await categoryApi.getUserExpenses()
-        const totalExpenses = response.data.reduce((acc, expense) => acc + expense.totalIncome, 0)
+        const totalExpenses = response.data.reduce((acc, expense) => acc + expense.totalExpense, 0)
         const fetchedCategories = response.data.map(
-          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+          ({ categoryName, categoryIconUrl, totalExpense }) => ({
             title: categoryName,
             icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
-            amount: totalIncome,
+            amount: totalExpense,
           })
         )
         setECategories(fetchedCategories)
@@ -97,21 +95,21 @@ function Cards() {
         try {
           const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
 
-          const expensesData = response.data.reduce((acc, { date, incomes }) => {
-            incomes.forEach(({ categoryName, totalIncome }) => {
+          const expensesData = response.data.reduce((acc, { date, expenses }) => {
+            expenses.forEach(({ categoryName, totalExpense }) => {
               if (acc[categoryName]) {
-                acc[categoryName] += totalIncome
+                acc[categoryName] += totalExpense
               } else {
-                acc[categoryName] = totalIncome
+                acc[categoryName] = totalExpense
               }
             })
             return acc
           }, {})
 
           const chartDataExpenses = Object.entries(expensesData).map(
-            ([categoryName, totalIncome]) => ({
+            ([categoryName, totalExpense]) => ({
               title: categoryName,
-              amount: totalIncome,
+              amount: totalExpense,
               icon: ICONS_MAP['custom'],
             })
           )
@@ -157,8 +155,11 @@ function Cards() {
         try {
           const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
 
-          const expensesData = response.data.reduce((acc, { date, incomes }) => {
-            const totalIncomeForDay = incomes.reduce((sum, { totalIncome }) => sum + totalIncome, 0)
+          const expensesData = response.data.reduce((acc, { date, expenses }) => {
+            const totalIncomeForDay = expenses.reduce(
+              (sum, { totalExpense }) => sum + totalExpense,
+              0
+            )
             const dayOfWeekIndex = dayjs(date).day()
 
             const correctedIndex = (dayOfWeekIndex + 6) % 7
@@ -174,9 +175,9 @@ function Cards() {
           }, {})
 
           const chartDataExpenses = Object.entries(expensesData).map(
-            ([dayOfWeek, totalIncome]) => ({
+            ([dayOfWeek, totalExpense]) => ({
               title: dayOfWeek,
-              amount: totalIncome,
+              amount: totalExpense,
               icon: ICONS_MAP['custom'],
             })
           )
@@ -236,6 +237,21 @@ function Cards() {
       }
     }
   }, [showExpenses, showIncomes, startDate, endDate, isBarChartVisible, isPieChartVisible])
+
+  useEffect(() => {
+    const savedStartDate = sessionStorage.getItem('startDate')
+    const savedEndDate = sessionStorage.getItem('endDate')
+
+    if (savedStartDate && savedEndDate) {
+      setStartDate(dayjs(savedStartDate))
+      setEndDate(dayjs(savedEndDate))
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('startDate', startDate.format('YYYY-MM-DD'))
+    sessionStorage.setItem('endDate', endDate.format('YYYY-MM-DD'))
+  }, [startDate, endDate])
 
   const handlePieChartClick = () => {
     setIsPieChartVisible(!isPieChartVisible)
@@ -379,18 +395,18 @@ function Cards() {
             <DatePicker
               className='MuiDatePicker-root'
               disableFuture
-              defaultValue={yesterday}
               value={startDate}
               onChange={(newValue) => {
                 if (newValue) {
+                  // Сохраняем начальную дату
+                  setStartDate(newValue)
+
                   if (isBarChartVisible) {
                     const startOfWeek = newValue.day(1)
                     setStartDate(startOfWeek)
 
                     const newEndDate = startOfWeek.add(6, 'day')
                     setEndDate(newEndDate)
-                  } else {
-                    setStartDate(newValue)
                   }
                 }
               }}
@@ -399,9 +415,13 @@ function Cards() {
             <DatePicker
               className='MuiDatePicker-root'
               disableFuture
-              defaultValue={today}
               value={endDate}
-              onChange={(newValue) => {}}
+              onChange={(newValue) => {
+                if (newValue) {
+                  // Сохраняем конечную дату
+                  setEndDate(newValue)
+                }
+              }}
               readOnly={isBarChartVisible}
             />
           </div>

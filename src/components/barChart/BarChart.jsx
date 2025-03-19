@@ -32,15 +32,15 @@ const BarChart = ({ categories }) => {
     scales: {
       x: {
         grid: {
-          display: false, 
+          display: false,
         },
         ticks: {
           font: {
-            family: 'SF Pro Text', 
+            family: 'SF Pro Text',
             size: 18,
             weight: 600,
           },
-          color: 'rgba(255, 255, 255, 0.7)', 
+          color: 'rgba(255, 255, 255, 0.7)',
         },
       },
       y: {
