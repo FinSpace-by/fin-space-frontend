@@ -340,7 +340,7 @@ function Cards() {
           ) : (
             <div className='balance-amount'>
               <Typography variant='h4' className='balance-numbers' onClick={handleEditClick}>
-                {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : 'ZHOPEA'}
+                {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : '0.00'}
               </Typography>
               <Typography variant='h4' className='balance-currency'>
                 BYN
