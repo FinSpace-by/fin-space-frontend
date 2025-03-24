@@ -9,9 +9,9 @@ import './sass/index.scss'
 
 function Authorization() {
   const [isLoading, setIsLoading] = useState(true)
-  const [phone, setPhone] = useState('')
+  const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({ phone: false, password: false })
+  const [errors, setErrors] = useState({ phoneOrEmail: false, password: false })
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
@@ -23,15 +23,15 @@ function Authorization() {
     e.preventDefault()
 
     const hasErrors = {
-      phone: phone === '',
+      phoneOrEmail: phoneOrEmail === '',
       password: password === '',
     }
 
     setErrors(hasErrors)
 
-    if (!hasErrors.phone && !hasErrors.password) {
+    if (!hasErrors.phoneOrEmail && !hasErrors.password) {
       try {
-        const body = { phone, password }
+        const body = { phoneOrEmail, password }
         const response = await authApi.setLogin(body)
 
         if (response?.data?.token) {
@@ -82,10 +82,10 @@ function Authorization() {
           variant='outlined'
           fullWidth
           margin='normal'
-          value={phone}
+          value={phoneOrEmail}
           onChange={(e) => setPhone(e.target.value)}
-          error={errors.phone}
-          helperText={errors.phone ? 'Это поле обязательно' : ''}
+          error={errors.phoneOrEmail}
+          helperText={errors.phoneOrEmail ? 'Это поле обязательно' : ''}
         />
 
         <TextField
