@@ -7,12 +7,12 @@ import { TextField, Button, Box, Typography } from '@mui/material'
 import './sass/index.scss'
 
 function Registration() {
-  const [phone, setPhone] = useState('')
+  const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [errors, setErrors] = useState({
-    phone: false,
+    phoneOrEmail: false,
     password: false,
     firstName: false,
     lastName: false,
@@ -23,7 +23,7 @@ function Registration() {
     e.preventDefault()
 
     const hasErrors = {
-      phone: phone === '',
+      phoneOrEmail: phoneOrEmail === '',
       password: password === '',
       firstName: firstName === '',
       lastName: lastName === '',
@@ -31,9 +31,14 @@ function Registration() {
 
     setErrors(hasErrors)
 
-    if (!hasErrors.phone && !hasErrors.password && !hasErrors.firstName && !hasErrors.lastName) {
+    if (
+      !hasErrors.phoneOrEmail &&
+      !hasErrors.password &&
+      !hasErrors.firstName &&
+      !hasErrors.lastName
+    ) {
       const body = {
-        phone: phone,
+        phoneOrEmail: phoneOrEmail,
         password: password,
         firstName: firstName,
         lastName: lastName,
@@ -66,10 +71,10 @@ function Registration() {
           variant='outlined'
           fullWidth
           margin='normal'
-          value={phone}
+          value={phoneOrEmail}
           onChange={(e) => setPhone(e.target.value)}
-          error={errors.phone}
-          helperText={errors.phone ? 'Это поле обязательно' : ''}
+          error={errors.phoneOrEmail}
+          helperText={errors.phoneOrEmail ? 'Это поле обязательно' : ''}
         />
 
         <TextField
