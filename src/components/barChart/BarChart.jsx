@@ -12,6 +12,52 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
+const chartOptions = {
+  responsive: false,
+  barThickness: 40,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        font: {
+          family: 'SF Pro Text',
+          size: 18,
+          weight: 600,
+        },
+        color: 'rgba(255, 255, 255, 0.7)',
+      },
+    },
+    y: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: false,
+      },
+    },
+  },
+  plugins: {
+    legend: {
+      position: '',
+    },
+    tooltip: {
+      multiKeyBackground: 'rgba(0, 0, 0, 0)',
+      titleFont: {
+        family: 'SF Pro Text',
+        size: 12,
+        color: 'rgba(255, 255, 255, 0.7)',
+      },
+      bodyFont: {
+        family: 'SF Pro Text',
+        size: 12,
+        color: 'rgba(255, 255, 255, 0.7)',
+      },
+    },
+  },
+}
+
 const BarChart = ({ categories }) => {
   const data = {
     labels: categories.map((category) => category.title),
@@ -26,53 +72,7 @@ const BarChart = ({ categories }) => {
     ],
   }
 
-  const options = {
-    responsive: false,
-    barThickness: 40,
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          font: {
-            family: 'SF Pro Text',
-            size: 18,
-            weight: 600,
-          },
-          color: 'rgba(255, 255, 255, 0.7)',
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        position: '',
-      },
-      tooltip: {
-        multiKeyBackground: 'rgba(0, 0, 0, 0)',
-        titleFont: {
-          family: 'SF Pro Text',
-          size: 12,
-          color: 'rgba(255, 255, 255, 0.7)',
-        },
-        bodyFont: {
-          family: 'SF Pro Text',
-          size: 12,
-          color: 'rgba(255, 255, 255, 0.7)',
-        },
-      },
-    },
-  }
-
-  return <Bar data={data} options={options} width={370} height={190} />
+  return <Bar data={data} options={chartOptions} width={370} height={190} />
 }
 
 export default BarChart

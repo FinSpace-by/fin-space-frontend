@@ -29,8 +29,8 @@ function Cards() {
   const [currentAmount, setCurrentAmount] = useState(0)
   const [isPieChartVisible, setIsPieChartVisible] = useState(false)
   const [isBarChartVisible, setIsBarChartVisible] = useState(true)
-  const [startDate, setStartDate] = useState(dayjs().day(1)) // Последний понедельник
-  const [endDate, setEndDate] = useState(dayjs().day(7)) // Воскресенье этой недели
+  const [startDate, setStartDate] = useState(dayjs().day(1))
+  const [endDate, setEndDate] = useState(dayjs().day(7))
 
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -116,9 +116,7 @@ function Cards() {
 
           setCurrentType(chartDataExpenses)
           setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
-        } catch (error) {
-          console.error('Error fetching expenses by date:', error)
-        }
+        } catch (error) {}
       }
 
       const fetchIncomesByDate = async () => {
@@ -146,9 +144,7 @@ function Cards() {
 
           setCurrentType(chartDataIncomes)
           setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
-        } catch (error) {
-          console.error('Error fetching incomes by date:', error)
-        }
+        } catch (error) {}
       }
 
       const fetchExpensesByDay = async () => {
@@ -160,11 +156,10 @@ function Cards() {
               (sum, { totalExpense }) => sum + totalExpense,
               0
             )
-            const dayOfWeekIndex = dayjs(date).day()
-
-            const correctedIndex = (dayOfWeekIndex + 6) % 7
-
-            const dayOfWeek = daysOfWeek[correctedIndex]
+            const dayOfWeekIndex = (dayjs(date).day() + 6) % 7
+            // Adding 6 shifts the index so that Monday becomes 0,
+            // and using % 7 ensures the index wraps around correctly for the week (0-6).
+            const dayOfWeek = daysOfWeek[dayOfWeekIndex]
 
             if (acc[dayOfWeek]) {
               acc[dayOfWeek] += totalIncomeForDay
@@ -184,9 +179,7 @@ function Cards() {
 
           setCurrentType(chartDataExpenses)
           setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
-        } catch (error) {
-          console.error('Error fetching expenses by date:', error)
-        }
+        } catch (error) {}
       }
 
       const fetchIncomesByDay = async () => {
@@ -195,11 +188,10 @@ function Cards() {
 
           const incomesData = response.data.reduce((acc, { date, incomes }) => {
             const totalIncomeForDay = incomes.reduce((sum, { totalIncome }) => sum + totalIncome, 0)
-            const dayOfWeekIndex = dayjs(date).day()
-
-            const correctedIndex = (dayOfWeekIndex + 6) % 7
-
-            const dayOfWeek = daysOfWeek[correctedIndex]
+            const dayOfWeekIndex = (dayjs(date).day() + 6) % 7
+            // Adding 6 shifts the index so that Monday becomes 0,
+            // and using % 7 ensures the index wraps around correctly for the week (0-6).
+            const dayOfWeek = daysOfWeek[dayOfWeekIndex]
 
             if (acc[dayOfWeek]) {
               acc[dayOfWeek] += totalIncomeForDay
@@ -217,9 +209,7 @@ function Cards() {
 
           setCurrentType(chartDataIncomes)
           setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
-        } catch (error) {
-          console.error('Error fetching incomes by date:', error)
-        }
+        } catch (error) {}
       }
 
       if (isBarChartVisible) {
@@ -305,6 +295,26 @@ function Cards() {
     if (!showIncomes) {
       setShowIncomes(true)
       setShowExpenses(false)
+    }
+  }
+
+  const onChangeDateStart = (newValue) => {
+    if (newValue) {
+      setStartDate(newValue)
+
+      if (isBarChartVisible) {
+        const startOfWeek = newValue.day(1)
+        setStartDate(startOfWeek)
+
+        const newEndDate = startOfWeek.add(6, 'day')
+        setEndDate(newEndDate)
+      }
+    }
+  }
+
+  const onChangeDateEnd = (newValue) => {
+    if (newValue) {
+      setEndDate(newValue)
     }
   }
 
@@ -396,32 +406,14 @@ function Cards() {
               className='MuiDatePicker-root'
               disableFuture
               value={startDate}
-              onChange={(newValue) => {
-                if (newValue) {
-                  // Сохраняем начальную дату
-                  setStartDate(newValue)
-
-                  if (isBarChartVisible) {
-                    const startOfWeek = newValue.day(1)
-                    setStartDate(startOfWeek)
-
-                    const newEndDate = startOfWeek.add(6, 'day')
-                    setEndDate(newEndDate)
-                  }
-                }
-              }}
+              onChange={onChangeDateStart}
             />
             <span>-</span>
             <DatePicker
               className='MuiDatePicker-root'
               disableFuture
               value={endDate}
-              onChange={(newValue) => {
-                if (newValue) {
-                  // Сохраняем конечную дату
-                  setEndDate(newValue)
-                }
-              }}
+              onChange={onChangeDateEnd}
               readOnly={isBarChartVisible}
             />
           </div>
