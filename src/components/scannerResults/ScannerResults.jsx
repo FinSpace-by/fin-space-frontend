@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { categoryApi } from '@api'
+import { categoryApi, userApi } from '@api'
 import {
   Typography,
   MenuItem,
@@ -24,6 +24,9 @@ function ScannerResults() {
     location.state?.items.map((item) => ({ ...item, category: '' })) || []
   )
   const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [accounts, setAccounts] = useState([])
+  const [selectedAccount, setSelectedAccount] = useState(null)
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -37,6 +40,15 @@ function ScannerResults() {
         setCategories(fetchedCategories)
       } catch (error) {}
     }
+
+    const fetchAccounts = async () => {
+      try {
+        const response = await userApi.getAccounts()
+        setAccounts(response.data)
+      } catch (error) {}
+    }
+
+    fetchAccounts()
     fetchCategories()
   }, [])
 
@@ -44,6 +56,11 @@ function ScannerResults() {
     setItems((prevItems) =>
       prevItems.map((item, i) => (i === index ? { ...item, category: newCategory } : item))
     )
+  }
+
+  const handleAccountSelect = (account) => {
+    setSelectedAccount(account)
+    setIsAccountDropdownOpen(false)
   }
 
   const handleSubmit = async () => {
@@ -59,6 +76,7 @@ function ScannerResults() {
       return {
         amount: item.price,
         categoryId: selectedCategory?.categoryId || null,
+        accountId: selectedAccount.id,
       }
     })
 
@@ -83,6 +101,37 @@ function ScannerResults() {
         </Typography>
       ) : (
         <div className='analitic__tabContent'>
+          <div className='analitic__tabContent__header'>
+            <Typography variant='h5' fontSize={17}>
+              Счёт
+            </Typography>
+          </div>
+          <div
+            className='account-dropdown'
+            onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
+          >
+            <div className='selected-account'>
+              {selectedAccount ? selectedAccount.name : 'Выберите счёт'}
+            </div>
+            <span className='dropdown-arrow'>▼</span>
+            {isAccountDropdownOpen && (
+              <div className='account-dropdown-menu'>
+                {accounts.map((account) => (
+                  <div
+                    key={account.id}
+                    className='account-dropdown-item'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleAccountSelect(account)
+                    }}
+                  >
+                    {account.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {items.map((item, index) => (
             <div key={index} className='analitic__tabContent__block'>
               <div className='analitic__tabContent__header'>
@@ -176,7 +225,7 @@ function ScannerResults() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert severity='warning' onClose={() => setOpenSnackbar(false)}>
-          Пожалуйста, выберите категорию для всех товаров!
+          Пожалуйста, выберите счёт и категории для всех товаров!
         </Alert>
       </Snackbar>
     </div>

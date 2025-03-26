@@ -7,4 +7,6 @@ export const userApi = {
 
   updateBalance: (body) => instance.patch(`${USERS_PATH}/balance`, body),
   getUserBalance: () => instance.get(`${USERS_PATH}/balance`),
+
+  getAccounts: () => instance.get(`/accounts`),
 }
