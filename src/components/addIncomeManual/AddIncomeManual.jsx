@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { ROUTES } from '@constants'
-import { categoryApi, userApi } from '@api'
+import { categoryApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LOCATION_STATES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import BackButton from '@components/backButton/BackButton'
+import AccountDropdown from '@components/accountDropdown/AccountDropdown'
 import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss'
@@ -18,9 +19,7 @@ function AddExpensesManual() {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [amount, setAmount] = useState('')
   const amountInputRef = useRef(null)
-  const [accounts, setAccounts] = useState([])
   const [selectedAccount, setSelectedAccount] = useState(null)
-  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,14 +37,6 @@ function AddExpensesManual() {
       } catch (error) {}
     }
 
-    const fetchAccounts = async () => {
-      try {
-        const response = await userApi.getAccounts()
-        setAccounts(response.data)
-      } catch (error) {}
-    }
-
-    fetchAccounts()
     fetchCategories()
   }, [])
 
@@ -64,11 +55,6 @@ function AddExpensesManual() {
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value)
-  }
-
-  const handleAccountSelect = (account) => {
-    setSelectedAccount(account)
-    setIsAccountDropdownOpen(false)
   }
 
   const handleAdd = async () => {
@@ -114,36 +100,7 @@ function AddExpensesManual() {
           />
           <span className='currency'>BYN</span>
         </div>
-        <div className='analitic__tabContent__header'>
-          <Typography variant='h5' fontSize={17}>
-            Счёт
-          </Typography>
-        </div>
-        <div
-          className='account-dropdown'
-          onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
-        >
-          <div className='selected-account'>
-            {selectedAccount ? selectedAccount.name : 'Выберите счёт'}
-          </div>
-          <span className='dropdown-arrow'>▼</span>
-          {isAccountDropdownOpen && (
-            <div className='account-dropdown-menu'>
-              {accounts.map((account) => (
-                <div
-                  key={account.id}
-                  className='account-dropdown-item'
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleAccountSelect(account)
-                  }}
-                >
-                  {account.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <AccountDropdown selectedAccount={selectedAccount} onAccountSelect={setSelectedAccount} />
         <div className='analitic__tabContent__header'>
           <Typography variant='h5' mt={2} fontSize={17}>
             Категория
