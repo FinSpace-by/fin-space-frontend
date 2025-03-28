@@ -22,6 +22,7 @@ import incomes from '@assets/imgs/incomes_icon.png'
 import incomes_active from '@assets/imgs/incomes_active_icon.png'
 import calendar from '@assets/imgs/calendar_icon.png'
 import pie_chart from '@assets/imgs/pie_chart_icon.png'
+import feedback_icon from '@assets/imgs/feedback_icon.png'
 
 export const ROUTER_ROUTES = {
   NOT_FOUND: '*',
@@ -81,6 +82,7 @@ export const ICONS_MAP = {
   incomes_active,
   calendar,
   pie_chart,
+  feedback_icon,
 }
 
 export const LOCATION_STATES = {
