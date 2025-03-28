@@ -1,0 +1,51 @@
+.account-dropdown {
+  font-family: 'SF Pro Text', bold;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(35, 35, 35, 1);
+  box-shadow: none;
+  outline: none;
+  border: 1px solid rgba(113, 96, 255, 1);
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+  font-size: 17px;
+  margin-bottom: 50px;
+  color: #ffffff;
+
+  .selected-account {
+    color: #ffffff;
+  }
+
+  .dropdown-arrow {
+    font-size: 12px;
+    color: #ffffff;
+  }
+
+  .account-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #111111;
+    border-radius: 8px;
+    z-index: 10;
+    margin-top: 5px;
+
+    .account-dropdown-item {
+      padding: 16px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: rgba(113, 96, 255, 1);
+        border-radius: 8px;
+      }
+    }
+  }
+}

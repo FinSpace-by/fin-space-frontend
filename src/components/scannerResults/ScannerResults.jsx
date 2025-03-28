@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { categoryApi } from '@api'
+import { categoryApi, accountsApi } from '@api'
 import {
   Typography,
   MenuItem,
@@ -13,6 +13,7 @@ import {
 import { ICONS_MAP } from '@constants'
 import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import AccountDropdown from '@components/accountDropdown/AccountDropdown'
 
 import './sass/scanner_results.scss'
 
@@ -24,6 +25,7 @@ function ScannerResults() {
     location.state?.items.map((item) => ({ ...item, category: '' })) || []
   )
   const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [selectedAccount, setSelectedAccount] = useState(null)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -37,6 +39,7 @@ function ScannerResults() {
         setCategories(fetchedCategories)
       } catch (error) {}
     }
+
     fetchCategories()
   }, [])
 
@@ -59,6 +62,7 @@ function ScannerResults() {
       return {
         amount: item.price,
         categoryId: selectedCategory?.categoryId || null,
+        accountId: selectedAccount.id,
       }
     })
 
@@ -83,6 +87,8 @@ function ScannerResults() {
         </Typography>
       ) : (
         <div className='analitic__tabContent'>
+          <AccountDropdown selectedAccount={selectedAccount} onAccountSelect={setSelectedAccount} />
+
           {items.map((item, index) => (
             <div key={index} className='analitic__tabContent__block'>
               <div className='analitic__tabContent__header'>
@@ -176,7 +182,7 @@ function ScannerResults() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert severity='warning' onClose={() => setOpenSnackbar(false)}>
-          Пожалуйста, выберите категорию для всех товаров!
+          Пожалуйста, выберите счёт и категории для всех товаров!
         </Alert>
       </Snackbar>
     </div>

@@ -5,6 +5,7 @@ export * from './auth'
 export * from './user'
 export * from './category'
 export * from './scanner'
+export * from './accounts'
 
 export const instance = axios.create({
   baseURL: REACT_APP_API + `/api`,
