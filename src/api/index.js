@@ -7,11 +7,8 @@ export * from './category'
 export * from './scanner'
 export * from './bills'
 export * from './accounts'
-<<<<<<< HEAD
 export * from './bills'
-=======
 export * from './accounts'
->>>>>>> develop
 
 export const instance = axios.create({
   baseURL: REACT_APP_API + `/api`,
