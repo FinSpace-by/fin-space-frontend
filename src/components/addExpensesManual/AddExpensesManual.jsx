@@ -7,6 +7,7 @@ import { ICONS_MAP } from '@constants'
 import { LOCATION_STATES } from '@constants'
 import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
+import AccountDropdown from '@components/accountDropdown/AccountDropdown'
 import add_custom from '@assets/icons/add_custom.svg'
 
 import './sass/index.scss'
@@ -18,6 +19,7 @@ function AddExpensesManual() {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [amount, setAmount] = useState('')
   const amountInputRef = useRef(null)
+  const [selectedAccount, setSelectedAccount] = useState(null)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -34,6 +36,7 @@ function AddExpensesManual() {
         ])
       } catch (error) {}
     }
+
     fetchCategories()
   }, [])
 
@@ -55,17 +58,21 @@ function AddExpensesManual() {
   }
 
   const handleAdd = async () => {
-    if (!selectedCategory || !amount) return
+    if (!selectedCategory || !amount || !selectedAccount) return
 
     try {
       const body = {
-        amount: amount,
+        amount: Number(amount),
         categoryId: selectedCategory.categoryId,
+        accountId: selectedAccount.id,
       }
 
       await categoryApi.addExpense(body)
+
       setAmount('')
       setSelectedCategory(null)
+      setSelectedAccount(null)
+      setIsAccountDropdownOpen(false)
     } catch (error) {}
   }
 
@@ -93,6 +100,7 @@ function AddExpensesManual() {
           />
           <span className='currency'>BYN</span>
         </div>
+        <AccountDropdown selectedAccount={selectedAccount} onAccountSelect={setSelectedAccount} />
         <div className='analitic__tabContent__header'>
           <Typography variant='h5' mt={2} fontSize={17}>
             Категория
