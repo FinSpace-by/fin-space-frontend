@@ -40,12 +40,13 @@ function Registration() {
       const body = {
         phoneOrEmail: phoneOrEmail,
         password: password,
-        firstName: firstName,
-        lastName: lastName,
       }
 
       try {
-        await authApi.register(body)
+        const response = await authApi.register(body)
+        if (response?.data?.token) {
+          localStorage.setItem('token', response.data.token)
+        }
         navigate(ROUTES.CARDS.PATH)
       } catch (error) {}
     }

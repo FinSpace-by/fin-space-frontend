@@ -86,6 +86,10 @@
       background-image: url('@assets/imgs/home.svg');
     }
 
+    &--bills::before {
+      background-image: url('@assets/imgs/expenses.svg');
+    }
+
     &--analitic::before {
       height: 45px;
       width: 45px;
@@ -114,6 +118,10 @@
 
     &--profile.active::before {
       background-image: url('@assets/imgs/settings_active.svg');
+    }
+
+    &--bills.active::before {
+      background-image: url('@assets/imgs/expenses_active.svg');
     }
 
     &--active {
