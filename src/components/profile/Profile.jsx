@@ -1,27 +1,27 @@
-import React, { useState } from 'react'
-import { Typography } from '@mui/material'
-import member from '@assets/imgs/member.png'
+import React from 'react'
+import { Typography, IconButton } from '@mui/material'
+import { ICONS_MAP } from '@constants'
 
 import './sass/index.scss'
 
 function Profile() {
-  return (
-    <>
-      <img src={member} className='profile__img' />
-      <div className='profile__user-name'>
-        <Typography variant='header'>Иван Иванов</Typography>
-      </div>
+  const handleFeedbackClick = () => {
+    const username = 'Yaroslay'
+    window.open(`tg://resolve?domain=${username}`, '_blank')
+  }
 
-      <div className='profile__menu__container'>
-        <Typography variant='menu'>Личная информация</Typography>
-        <Typography variant='menu'>Безопасность</Typography>
-        <Typography variant='menu'>Программы лояльности</Typography>
-        <Typography variant='menu'>Банки партнёры</Typography>
-        <Typography variant='menu'>Служба поддержки</Typography>
-        <Typography variant='menu'>Настройки</Typography>
-        <Typography variant='menu'>Выйти</Typography>
+  return (
+    <div className='profile'>
+      <div className='profile__container'>
+        <Typography variant='h5' className='header' align='center'>
+          Настройки
+        </Typography>
+        <IconButton className='profile__item' onClick={handleFeedbackClick}>
+          <img src={ICONS_MAP['feedback_icon']} className='profile__item__icon' />
+          <Typography className='profile__item__text'>Обратная связь</Typography>
+        </IconButton>
       </div>
-    </>
+    </div>
   )
 }
 

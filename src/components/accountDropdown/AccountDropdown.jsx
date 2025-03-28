@@ -15,9 +15,7 @@ function AccountDropdown({ selectedAccount, onAccountSelect }) {
         if (response && Array.isArray(response)) {
           setAccounts(response)
         }
-      } catch (error) {
-        console.error('Error fetching accounts:', error)
-      }
+      } catch (error) {}
     }
 
     fetchAccounts()

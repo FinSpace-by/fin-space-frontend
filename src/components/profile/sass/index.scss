@@ -1,24 +1,39 @@
 .profile {
-  &__img {
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 30px;
-  }
+  &__container {
+    margin: 50px 26px;
+    padding: 20px 10px;
+    background-color: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
 
-  &__user-name {
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-  }
+    .header {
+      font-size: 20px;
+      font-family: 'SF Pro Text', normal;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
 
-  &__menu {
-    &__container {
-      margin-top: 30px;
-      margin-bottom: 100px;
-      width: 80%;
-      margin-left: 10%;
+    .profile__item {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: left;
+      gap: 22px;
+      padding: 10px;
+      margin-bottom: 14px;
+
+      .profile__item__text {
+        font-size: 18px;
+        color: #ffffff;
+        font-weight: 400;
+        font-family: 'SF Pro Text', normal;
+      }
+
+      .profile__item__icon {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
