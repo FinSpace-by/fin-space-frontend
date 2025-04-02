@@ -5,9 +5,6 @@ export * from './auth'
 export * from './user'
 export * from './category'
 export * from './scanner'
-export * from './bills'
-export * from './accounts'
-export * from './bills'
 export * from './accounts'
 
 export const instance = axios.create({

@@ -3,26 +3,26 @@ import { useNavigate } from 'react-router-dom'
 import { Typography, Button } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
-import { billsApi } from '@api'
+import { accountsApi } from '@api'
 
 import './sass/index.scss'
 
 function Bills() {
   const navigate = useNavigate()
-  const [bills, setBills] = useState([])
+  const [accounts, setAccounts] = useState([])
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const fetchBills = async () => {
+    const fetchAccounts = async () => {
       try {
-        const response = await billsApi.getBills()
-        setBills(response.data)
+        const response = await accountsApi.getAccounts()
+        setAccounts(response)
       } catch (err) {
         setError(err.message)
       }
     }
 
-    fetchBills()
+    fetchAccounts()
   }, [])
 
   const handleAddBill = () => {
@@ -39,27 +39,27 @@ function Bills() {
       </div>
 
       <div className='bill__content-wrapper'>
-        {bills.map((bill) => (
-          <div className='bill__content' key={bill.id}>
+        {accounts.map((account) => (
+          <div className='bill__content' key={account.id}>
             <div className='bill__item'>
               <div className='bill__top-row'>
                 <Typography variant='caption' className='bill__currency-label'>
-                  {bill.currency.name}
+                  {account.currency.name}
                 </Typography>
                 <img
                   src={ICONS_MAP.editButton}
                   alt='Редактировать'
                   className='bill__edit-icon'
-                  onClick={() => navigate(`/edit-bill/${bill.id}`)}
+                  onClick={() => navigate(`/edit-bill/${account.id}`)}
                 />
               </div>
               <div className='bill__content-row'>
-                <img src={ICONS_MAP.mainBill} alt={bill.name} className='bill__icon' />
+                <img src={ICONS_MAP.mainBill} alt={account.name} className='bill__icon' />
                 <Typography variant='body1' className='bill__title'>
-                  {bill.name}
+                  {account.name}
                 </Typography>
                 <Typography variant='body1' className='bill__amount'>
-                  {bill.balance.toFixed(1)} {bill.currency.name}
+                  {account.balance.toFixed(1)} {account.currency.name}
                 </Typography>
               </div>
             </div>
