@@ -23,7 +23,7 @@ function MobileMenuNav() {
       case ROUTES.INCOME.PATH:
         setActiveItem(ACTIVE_ITEMS.INCOME)
         break
-      case ROUTES.MANUAL.PATH:
+      case ROUTES.PROFILE.PATH:
         setActiveItem(ACTIVE_ITEMS.PROFILE)
         break
     }

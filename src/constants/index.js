@@ -24,6 +24,7 @@ import calendar from '@assets/imgs/calendar_icon.png'
 import pie_chart from '@assets/imgs/pie_chart_icon.png'
 import mainBill from '@assets/icons/main_bill.svg'
 import editButton from '@assets/icons/edit_button.svg'
+import feedback_icon from '@assets/imgs/feedback_icon.png'
 
 export const ROUTER_ROUTES = {
   NOT_FOUND: '*',
@@ -87,6 +88,7 @@ export const ICONS_MAP = {
   pie_chart,
   mainBill,
   editButton,
+  feedback_icon,
 }
 
 export const LOCATION_STATES = {

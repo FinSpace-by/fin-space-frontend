@@ -11,6 +11,7 @@ import Authorization from '@components/authorization/Authorization'
 import Registration from '@components/registration/Registration'
 import Analitic from '@components/analitic/Analitic'
 import Income from '@components/analitic/Income'
+import Profile from '@components/profile/Profile'
 import Manual from '@components/manual/Manual'
 import Scanner from '@components/scanner/Scanner'
 import AddExpensesManual from '@components/addExpensesManual/AddExpensesManual'
@@ -53,6 +54,7 @@ function App() {
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
                   <Route path={ROUTER_ROUTES.INCOME} element={<Income />} />
                   <Route path={ROUTER_ROUTES.BILLS} element={<Bills />} />
+                  <Route path={ROUTER_ROUTES.PROFILE} element={<Profile />} />
                   <Route path={ROUTER_ROUTES.MANUAL} element={<Manual />} />
                   <Route path={ROUTER_ROUTES.SCANNER} element={<Scanner />} />
                   <Route path={ROUTER_ROUTES.SCANNER_RESULTS} element={<ScannerResults />} />
