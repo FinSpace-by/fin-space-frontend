@@ -4,29 +4,40 @@ import { Typography, Button } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { accountsApi } from '@api'
-
+import AddBill from '@components/AddBill/AddBill'
+import clsx from 'clsx'
 import './sass/index.scss'
 
 function Bills() {
   const navigate = useNavigate()
   const [accounts, setAccounts] = useState([])
-  const [error, setError] = useState(null)
+  const [userId, setUserId] = useState(null)
+  const [showAddBill, setShowAddBill] = useState(false)
 
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
         const response = await accountsApi.getAccounts()
         setAccounts(response)
+
+        if (response.length > 0) {
+          setUserId(response[0].userId)
+        }
       } catch (err) {
-        setError(err.message)
+        console.error('Ошибка загрузки счетов:', err)
       }
     }
 
     fetchAccounts()
   }, [])
 
-  const handleAddBill = () => {
-    // Логика добавления нового счёта
+  const handleAddBillClick = () => {
+    setShowAddBill(false)
+    setTimeout(() => setShowAddBill(true), 10)
+  }
+
+  const handleCloseAddBill = () => {
+    setShowAddBill(false)
   }
 
   return (
@@ -68,10 +79,12 @@ function Bills() {
       </div>
 
       <div className='bill__add-button-container'>
-        <Button variant='contained' className='bill__add-button' onClick={handleAddBill}>
+        <Button variant='contained' className='bill__add-button' onClick={handleAddBillClick}>
           + Добавить счёт
         </Button>
       </div>
+
+      <AddBill isOpen={showAddBill} onClose={handleCloseAddBill} userId={userId} />
     </div>
   )
 }

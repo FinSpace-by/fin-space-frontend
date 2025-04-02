@@ -1,5 +1,8 @@
 import { instance } from '.'
 
+const ACCOUNTS_PATH = '/accounts'
+
 export const accountsApi = {
-  getAccounts: () => instance.get(`/accounts`).then((res) => res.data),
+  getAccounts: () => instance.get(ACCOUNTS_PATH).then((res) => res.data),
+  createAccount: (body) => instance.post(ACCOUNTS_PATH, body),
 }
