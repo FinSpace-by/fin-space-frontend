@@ -4,7 +4,7 @@ import { Typography, Button } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { accountsApi } from '@api'
-import AddBill from '@components/AddBill/AddBill'
+import AddBill from '@components/addBill/AddBill'
 import './sass/index.scss'
 
 function Bills() {
