@@ -5,13 +5,11 @@ import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { accountsApi } from '@api'
 import AddBill from '@components/AddBill/AddBill'
-import clsx from 'clsx'
 import './sass/index.scss'
 
 function Bills() {
   const navigate = useNavigate()
   const [accounts, setAccounts] = useState([])
-  const [userId, setUserId] = useState(null)
   const [showAddBill, setShowAddBill] = useState(false)
 
   useEffect(() => {
@@ -19,17 +17,13 @@ function Bills() {
       try {
         const response = await accountsApi.getAccounts()
         setAccounts(response)
-
-        if (response.length > 0) {
-          setUserId(response[0].userId)
-        }
       } catch (err) {
         console.error('Ошибка загрузки счетов:', err)
       }
     }
 
     fetchAccounts()
-  }, [])
+  }, [showAddBill])
 
   const handleAddBillClick = () => {
     setShowAddBill(false)
@@ -84,7 +78,7 @@ function Bills() {
         </Button>
       </div>
 
-      <AddBill isOpen={showAddBill} onClose={handleCloseAddBill} userId={userId} />
+      <AddBill isOpen={showAddBill} onClose={handleCloseAddBill} />
     </div>
   )
 }
