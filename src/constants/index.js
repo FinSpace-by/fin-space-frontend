@@ -22,6 +22,8 @@ import incomes from '@assets/imgs/incomes_icon.png'
 import incomes_active from '@assets/imgs/incomes_active_icon.png'
 import calendar from '@assets/imgs/calendar_icon.png'
 import pie_chart from '@assets/imgs/pie_chart_icon.png'
+import mainBill from '@assets/icons/main_bill.svg'
+import editButton from '@assets/icons/edit_button.svg'
 import feedback_icon from '@assets/imgs/feedback_icon.png'
 
 export const ROUTER_ROUTES = {
@@ -39,6 +41,7 @@ export const ROUTER_ROUTES = {
   ADD_EXPENSES_MANUAL: 'add-expenses-manual',
   ADD_INCOME_MANUAL: 'add-income-manual',
   ADD_CUSTOM: 'add-custom',
+  BILLS: `bills`,
 }
 
 export const ROUTES = {
@@ -55,6 +58,7 @@ export const ROUTES = {
   ADD_EXPENSES_MANUAL: { TITLE: 'Добавить расход', PATH: '/add-expenses-manual' },
   ADD_INCOME_MANUAL: { TITLE: 'Добавить доход', PATH: '/add-income-manual' },
   ADD_CUSTOM: { TITLE: 'Добавить вручную', PATH: '/add-custom' },
+  BILLS: { TITLE: 'Счета', PATH: '/bills' },
 }
 
 export const ICONS_MAP = {
@@ -82,6 +86,8 @@ export const ICONS_MAP = {
   incomes_active,
   calendar,
   pie_chart,
+  mainBill,
+  editButton,
   feedback_icon,
 }
 

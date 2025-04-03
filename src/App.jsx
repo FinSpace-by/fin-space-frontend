@@ -18,6 +18,7 @@ import AddExpensesManual from '@components/addExpensesManual/AddExpensesManual'
 import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual'
 import AddCustom from '@components/addCustom/addCustom'
 import ScannerResults from '@components/scannerResults/ScannerResults'
+import Bills from '@components/bills/Bills'
 
 import './sass/index.scss'
 
@@ -52,6 +53,7 @@ function App() {
                   <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />
                   <Route path={ROUTER_ROUTES.INCOME} element={<Income />} />
+                  <Route path={ROUTER_ROUTES.BILLS} element={<Bills />} />
                   <Route path={ROUTER_ROUTES.PROFILE} element={<Profile />} />
                   <Route path={ROUTER_ROUTES.MANUAL} element={<Manual />} />
                   <Route path={ROUTER_ROUTES.SCANNER} element={<Scanner />} />
