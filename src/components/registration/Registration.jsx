@@ -3,30 +3,33 @@ import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { authApi } from '@api'
-import { TextField, Button, Box, Typography } from '@mui/material'
+import { TextField, Button, Box, Typography, Checkbox, FormControlLabel, Link } from '@mui/material'
 import './sass/index.scss'
 
 function Registration() {
   const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [agreementChecked, setAgreementChecked] = useState(false)
   const [errors, setErrors] = useState({
     phoneOrEmail: false,
     password: false,
-    firstName: false,
-    lastName: false,
+    confirmPassword: false,
+    passwordMismatch: false,
+    agreement: false,
   })
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    const passwordMismatch = password !== confirmPassword
     const hasErrors = {
       phoneOrEmail: phoneOrEmail === '',
       password: password === '',
-      firstName: firstName === '',
-      lastName: lastName === '',
+      confirmPassword: confirmPassword === '',
+      passwordMismatch,
+      agreement: !agreementChecked,
     }
 
     setErrors(hasErrors)
@@ -34,8 +37,9 @@ function Registration() {
     if (
       !hasErrors.phoneOrEmail &&
       !hasErrors.password &&
-      !hasErrors.firstName &&
-      !hasErrors.lastName
+      !hasErrors.confirmPassword &&
+      !passwordMismatch &&
+      !hasErrors.agreement
     ) {
       const body = {
         phoneOrEmail: phoneOrEmail,
@@ -48,7 +52,9 @@ function Registration() {
           localStorage.setItem('token', response.data.token)
         }
         navigate(ROUTES.CARDS.PATH)
-      } catch (error) {}
+      } catch (error) {
+        console.error('Registration error:', error)
+      }
     }
   }
 
@@ -68,7 +74,7 @@ function Registration() {
 
       <form className='registration__form' onSubmit={handleSubmit}>
         <TextField
-          placeholder='Номер телефона'
+          placeholder='Почта'
           variant='outlined'
           fullWidth
           margin='normal'
@@ -79,30 +85,9 @@ function Registration() {
         />
 
         <TextField
-          placeholder='Имя'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          error={errors.firstName}
-          helperText={errors.firstName ? 'Это поле обязательно' : ''}
-        />
-
-        <TextField
-          placeholder='Фамилия'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          error={errors.lastName}
-          helperText={errors.lastName ? 'Это поле обязательно' : ''}
-        />
-
-        <TextField
           placeholder='Пароль'
           variant='outlined'
+          type='password'
           fullWidth
           margin='normal'
           value={password}
@@ -110,6 +95,53 @@ function Registration() {
           error={errors.password}
           helperText={errors.password ? 'Это поле обязательно' : ''}
         />
+
+        <TextField
+          placeholder='Повторите пароль'
+          variant='outlined'
+          type='password'
+          fullWidth
+          margin='normal'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          error={errors.confirmPassword || errors.passwordMismatch}
+          helperText={
+            errors.confirmPassword
+              ? 'Это поле обязательно'
+              : errors.passwordMismatch
+                ? 'Пароли не совпадают'
+                : ''
+          }
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={agreementChecked}
+              onChange={(e) => setAgreementChecked(e.target.checked)}
+              color='primary'
+            />
+          }
+          label={
+            <Typography variant='body2'>
+              Принимаю политику в{' '}
+              <Link
+                href='https://docs.google.com/document/d/1Syy8HOm1B7J1JkabcZ6FSmGgh1Rd-tu5/edit?tab=t.0'
+                target='_blank'
+                rel='noopener noreferrer'
+                underline='always'
+              >
+                обработке персональных данных
+              </Link>
+            </Typography>
+          }
+          sx={{ mt: 1, alignSelf: 'flex-start' }}
+        />
+        {errors.agreement && (
+          <Typography color='error' variant='caption' sx={{ display: 'block', mt: -1, mb: 1 }}>
+            Необходимо принять пользовательское соглашение
+          </Typography>
+        )}
 
         <Button
           type='submit'
@@ -123,7 +155,7 @@ function Registration() {
       </form>
       <div className='registration__no-account'>
         <Typography variant='login_register' onClick={() => navigate(ROUTES.ROOT.PATH)}>
-          Есть аккаунт
+          Уже есть аккаунт? Войти
         </Typography>
       </div>
     </Box>

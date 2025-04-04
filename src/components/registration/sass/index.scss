@@ -33,3 +33,16 @@
     margin-top: 1rem;
   }
 }
+
+.MuiFormControlLabel-root {
+  color: white;
+  margin-left: -9px;
+
+  .MuiCheckbox-root {
+    color: #6054e4;
+
+    &.Mui-checked {
+      color: #6054e4;
+    }
+  }
+}

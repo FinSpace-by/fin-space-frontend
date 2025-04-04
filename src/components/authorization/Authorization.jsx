@@ -78,7 +78,7 @@ function Authorization() {
 
       <form className='authorization__form' onSubmit={handleSubmit}>
         <TextField
-          placeholder='Номер телефона'
+          placeholder='Почта'
           variant='outlined'
           fullWidth
           margin='normal'

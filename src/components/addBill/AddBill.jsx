@@ -4,14 +4,14 @@ import { accountsApi } from '@api'
 import './sass/index.scss'
 
 const currencies = [
-  { code: 'BYN', id: '3fa85f64-5717-4562-b3fc-2c963f66afa6' },
-  { code: 'RUB', id: '3fa85f64-5717-4562-b3fc-2c963f66afa7' },
-  { code: 'CNY', id: '3fa85f64-5717-4562-b3fc-2c963f66afa8' },
-  { code: 'EUR', id: '3fa85f64-5717-4562-b3fc-2c963f66afa9' },
-  { code: 'USD', id: '3fa85f64-5717-4562-b3fc-2c963f66afb0' },
+  { code: 'BYN', id: '5e052a1c-016d-4f20-b665-e579af2a7779' },
+  { code: 'RUB', id: '6330a32e-f38e-4dea-9840-14c9bcd7938b' },
+  { code: 'CNY', id: 'e4080dba-044d-412d-8041-4a664b27e9d9' },
+  { code: 'EUR', id: 'be947657-8b76-4209-9cd1-52148d630f97' },
+  { code: 'USD', id: 'f355f12d-09e2-4378-8bb1-0fd867dc8087' },
 ]
 
-const AddBill = ({ isOpen, onClose, userId }) => {
+const AddBill = ({ isOpen, onClose }) => {
   const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
@@ -20,10 +20,9 @@ const AddBill = ({ isOpen, onClose, userId }) => {
     e.preventDefault()
 
     const body = {
-      userId,
       name,
       currencyId: selectedCurrency.id,
-      balance: parseFloat(amount) || 0,
+      balance: parseFloat(parseFloat(amount || 0).toFixed(2)),
     }
 
     try {
