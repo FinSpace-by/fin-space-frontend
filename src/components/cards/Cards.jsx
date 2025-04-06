@@ -17,7 +17,6 @@ import './sass/index.scss'
 const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
 function Cards() {
-  const [isEditingBalance, setIsEditingBalance] = useState(false)
   const [balance, setBalance] = useState(0)
   const [userExpenses, setUserExpenses] = useState(0)
   const [userIncomes, setUserIncomes] = useState(0)
@@ -256,34 +255,6 @@ function Cards() {
     }
   }
 
-  const handleBalanceChange = (event) => {
-    const value = event.target.value
-    if (/^\d*\.?\d*$/.test(value)) {
-      setBalance(value)
-    }
-  }
-
-  const handleEditClick = () => {
-    setIsEditingBalance(!isEditingBalance)
-  }
-
-  const handleBlur = () => {
-    const numericValue = parseFloat(balance)
-    if (!isNaN(numericValue)) {
-      setBalance(numericValue)
-      updateBalance(numericValue)
-    } else {
-      setBalance(0)
-    }
-    setIsEditingBalance(false)
-  }
-
-  const updateBalance = async (newBalance) => {
-    try {
-      await userApi.updateBalance({ balance: newBalance })
-    } catch (error) {}
-  }
-
   const handleShowExpenses = () => {
     if (!showExpenses) {
       setShowExpenses(true)
@@ -331,32 +302,15 @@ function Cards() {
             <Typography variant='body1' className='balance-label'>
               Общий баланс
             </Typography>
-            {!isEditingBalance && (
-              <IconButton onClick={handleEditClick} className='edit-link'>
-                <img src={ICONS_MAP['edit']} className='edit-icon' alt='Edit' />
-              </IconButton>
-            )}
           </div>
-          {isEditingBalance ? (
-            <input
-              type='text'
-              value={balance}
-              onChange={handleBalanceChange}
-              onBlur={handleBlur}
-              autoFocus
-              step='0.01'
-              className='balance-edit-entry'
-            />
-          ) : (
-            <div className='balance-amount'>
-              <Typography variant='h4' className='balance-numbers' onClick={handleEditClick}>
-                {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : '0.00'}
-              </Typography>
-              <Typography variant='h4' className='balance-currency'>
-                BYN
-              </Typography>
-            </div>
-          )}
+          <div className='balance-amount'>
+            <Typography variant='h4' className='balance-numbers'>
+              {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : '0.00'}
+            </Typography>
+            <Typography variant='h4' className='balance-currency'>
+              BYN
+            </Typography>
+          </div>
         </div>
       </div>
       <div className='expenses-income-sum'>
