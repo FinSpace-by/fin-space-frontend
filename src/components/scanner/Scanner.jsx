@@ -77,39 +77,46 @@ function Scanner() {
   }
 
   return (
-    <div className='analitic__tabs__container'>
-      <div className='analitic__tabs__header'>
-        <Typography variant='h5' align='center' mb={3} fontSize={20}>
-          Сканировать
-        </Typography>
-        <BackButton onClick={stopCamera} />
-      </div>
-
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        className={clsx('camera-feed', { hidden: capturedImage })}
-      />
-
-      <img
-        src={capturedImage}
-        alt='Снимок'
-        className={clsx('captured-image', { hidden: !capturedImage })}
-      />
-
-      <canvas ref={canvasRef} className='hidden' />
-
-      {loading ? (
-        <div className='loading-overlay'>
-          <CircularProgress size={80} thickness={6} />
-          <Typography variant='body1' className='loading-text'>
-            Обработка изображения...
+    <div className='scanner'>
+      <div className='scanner__container'>
+        <div className='scanner__header'>
+          <Typography variant='h5' align='center' mb={3} fontSize={20}>
+            Сканировать
           </Typography>
+          <BackButton onClick={stopCamera} />
         </div>
-      ) : (
-        <AddButtonWrapper onClick={handleAdd} />
-      )}
+
+        <div className='scanner__viewport'>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className={clsx('camera-feed', { hidden: capturedImage })}
+          />
+          <div className='scanner__overlay'>
+            <div className='scanner__frame'></div>
+          </div>
+        </div>
+
+        <img
+          src={capturedImage}
+          alt='Снимок'
+          className={clsx('captured-image', { hidden: !capturedImage })}
+        />
+
+        <canvas ref={canvasRef} className='hidden' />
+
+        {loading ? (
+          <div className='loading-overlay'>
+            <CircularProgress size={80} thickness={6} />
+            <Typography variant='body1' className='loading-text'>
+              Обработка изображения...
+            </Typography>
+          </div>
+        ) : (
+          <AddButtonWrapper onClick={handleAdd} />
+        )}
+      </div>
     </div>
   )
 }
