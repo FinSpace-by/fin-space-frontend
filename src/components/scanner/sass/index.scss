@@ -13,8 +13,8 @@
 
 .arrow {
   position: absolute;
-  right: 90.5%;
-  top: 10%;
+  left: 8%;
+  top: 30%;
   width: 18px;
   height: 18px;
   outline: none;
@@ -38,6 +38,7 @@
 
   &__header {
     padding: 20px;
+    top: 2%;
     display: flex;
     justify-content: center;
     align-items: center;
