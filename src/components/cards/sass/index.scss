@@ -1,18 +1,17 @@
 .cards {
-  background-color: #7160ff !important;
+  position: relative;
   padding-top: env(safe-area-inset-top);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+  background-color: #7160ff !important;
 
-  &:before {
+  &::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: env(safe-area-inset-top);
-    background-color: #7160ff !important;
-    z-index: 1000;
+    background-color: #7160ff;
+    z-index: 999;
   }
 
   &__container {
