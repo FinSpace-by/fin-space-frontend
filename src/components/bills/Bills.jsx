@@ -5,12 +5,14 @@ import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { accountsApi } from '@api'
 import AddBill from '@components/addBill/AddBill'
+import Loader from '@components/loader/Loader'
 import './sass/index.scss'
 
 function Bills() {
   const navigate = useNavigate()
   const [accounts, setAccounts] = useState([])
   const [showAddBill, setShowAddBill] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -19,6 +21,8 @@ function Bills() {
         setAccounts(response)
       } catch (err) {
         console.error('Ошибка загрузки счетов:', err)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -36,6 +40,7 @@ function Bills() {
 
   return (
     <div className='bill__container'>
+      <Loader loading={loading} />
       <div className='bill__header'>
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Счета
