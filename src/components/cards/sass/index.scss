@@ -1,18 +1,5 @@
 .cards {
-  position: relative;
-  padding-top: env(safe-area-inset-top);
   background-color: #7160ff !important;
-
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-top);
-    background-color: #7160ff;
-    z-index: 999;
-  }
 
   &__container {
     width: auto;
