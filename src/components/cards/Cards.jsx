@@ -291,6 +291,10 @@ function Cards() {
 
   return (
     <div className='cards__container'>
+      <Helmet>
+        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
+      </Helmet>
       <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
           {snackbarMessage}

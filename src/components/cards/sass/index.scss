@@ -1,5 +1,20 @@
 .cards {
   background-color: #7160ff !important;
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background-color: #7160ff !important;
+    z-index: 1000;
+  }
+
   &__container {
     width: auto;
     position: relative;
