@@ -7,6 +7,7 @@ import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { Helmet } from 'react-helmet'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/ru'
@@ -291,6 +292,10 @@ function Cards() {
 
   return (
     <div className='cards__container'>
+      <Helmet>
+        <meta name='theme-color' content='#7160ff' />
+        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+      </Helmet>
       <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
           {snackbarMessage}
