@@ -9,6 +9,7 @@ import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import BackButton from '@components/backButton/BackButton'
 import AccountDropdown from '@components/accountDropdown/AccountDropdown'
 import add_custom from '@assets/icons/add_custom.svg'
+import Loader from '@components/Loader'
 
 import './sass/index.scss'
 
@@ -20,6 +21,7 @@ function AddExpensesManual() {
   const [amount, setAmount] = useState('')
   const amountInputRef = useRef(null)
   const [selectedAccount, setSelectedAccount] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -34,7 +36,10 @@ function AddExpensesManual() {
           { icon: add_custom, title: 'Добавить категорию', categoryId: '1' },
           ...fetchedCategories,
         ])
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     fetchCategories()
@@ -78,6 +83,7 @@ function AddExpensesManual() {
 
   return (
     <div className='analitic__tabs__container'>
+      <Loader isLoading={isLoading} />
       <div className='analitic__tabs__header'>
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Добавить доход
