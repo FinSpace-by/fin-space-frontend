@@ -9,7 +9,7 @@ import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import AccountDropdown from '@components/accountDropdown/AccountDropdown'
 import add_custom from '@assets/icons/add_custom.svg'
-import Loader from '@components/loader/Loader'
+import Loader from '@components/Loader'
 
 import './sass/index.scss'
 
@@ -21,7 +21,7 @@ function AddExpensesManual() {
   const [amount, setAmount] = useState('')
   const amountInputRef = useRef(null)
   const [selectedAccount, setSelectedAccount] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,7 +38,7 @@ function AddExpensesManual() {
         ])
       } catch (error) {
       } finally {
-        setLoading(false)
+        setIsLoading(false)
       }
     }
 
@@ -83,7 +83,7 @@ function AddExpensesManual() {
 
   return (
     <div className='analitic__tabs__container'>
-      <Loader loading={loading} />
+      <Loader isLoading={isLoading} />
       <div className='analitic__tabs__header'>
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Добавить расход

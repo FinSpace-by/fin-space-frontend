@@ -3,7 +3,7 @@ import { Typography, IconButton, Snackbar, Alert } from '@mui/material'
 import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
 import BarChart from '@components/barChart/BarChart'
-import Loader from '@components/loader/Loader'
+import Loader from '@components/Loader'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -31,13 +31,14 @@ function Cards() {
   const [isBarChartVisible, setIsBarChartVisible] = useState(true)
   const [startDate, setStartDate] = useState(dayjs().day(1))
   const [endDate, setEndDate] = useState(dayjs().day(7))
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
 
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
+        setIsLoading(false)
         const response = await userApi.getUserBalance()
         setBalance(response.data)
       } catch (error) {}
@@ -211,7 +212,7 @@ function Cards() {
           setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
         } catch (error) {
         } finally {
-          setLoading(false)
+          setIsLoading(false)
         }
       }
 
@@ -300,7 +301,7 @@ function Cards() {
           {snackbarMessage}
         </Alert>
       </Snackbar>
-      <Loader loading={loading} />
+      <Loader isLoading={isLoading} />
       <div className='header-container'>
         <div className='balance'>
           <div className='balance-text-edit-button'>
