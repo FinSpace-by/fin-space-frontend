@@ -239,13 +239,18 @@ function Cards() {
   }, [])
 
   useEffect(() => {
-    const originalThemeColor = '#111111'
-    const originalBodyBg = '#111111'
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]')
 
-    document.body.style.backgroundColor = '#7160ff'
+    const originalThemeColor = themeColorMeta ? themeColorMeta.content : '#111111'
+
+    if (themeColorMeta) {
+      themeColorMeta.content = '#7160ff'
+    }
 
     return () => {
-      document.body.style.backgroundColor = originalBodyBg
+      if (themeColorMeta) {
+        themeColorMeta.content = originalThemeColor
+      }
     }
   }, [])
 
@@ -303,16 +308,6 @@ function Cards() {
 
   return (
     <div className='cards__container'>
-      <Helmet>
-        <meta name='theme-color' content='#7160ff' />
-        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
-        <style>{`
-          body {
-            background-color: #7160ff;
-            
-          }
-        `}</style>
-      </Helmet>
       <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
           {snackbarMessage}
