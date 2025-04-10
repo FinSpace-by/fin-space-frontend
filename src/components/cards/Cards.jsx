@@ -294,7 +294,6 @@ function Cards() {
     <div className='cards__container'>
       <Helmet>
         <meta name='theme-color' content='#7160ff' />
-        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
       </Helmet>
       <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
