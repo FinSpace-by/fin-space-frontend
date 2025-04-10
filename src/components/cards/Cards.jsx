@@ -244,7 +244,7 @@ function Cards() {
     const originalThemeColor = themeColorMeta ? themeColorMeta.content : '#111111'
 
     if (themeColorMeta) {
-      themeColorMeta.content = '#7160ff'
+      themeColorMeta.content = '#6054e4'
     }
 
     return () => {
