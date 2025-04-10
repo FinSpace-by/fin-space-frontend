@@ -240,16 +240,26 @@ function Cards() {
 
   useEffect(() => {
     const themeColorMeta = document.querySelector('meta[name="theme-color"]')
-
-    const originalThemeColor = themeColorMeta ? themeColorMeta.content : '#111111'
+    const originalThemeColor = themeColorMeta?.content || '#111111'
 
     if (themeColorMeta) {
       themeColorMeta.content = '#6054e4'
     }
 
+    const pwaThemeMeta = document.createElement('meta')
+    pwaThemeMeta.name = 'theme-color'
+    pwaThemeMeta.content = '#6054e4'
+    pwaThemeMeta.setAttribute('data-pwa-theme', 'true')
+    document.head.appendChild(pwaThemeMeta)
+
     return () => {
       if (themeColorMeta) {
         themeColorMeta.content = originalThemeColor
+      }
+
+      const addedMeta = document.querySelector('meta[data-pwa-theme="true"]')
+      if (addedMeta) {
+        addedMeta.remove()
       }
     }
   }, [])
