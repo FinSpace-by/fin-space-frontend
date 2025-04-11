@@ -7,9 +7,8 @@ function Loader({ isLoading }) {
 
   useEffect(() => {
     if (isLoading) {
-      setIsShow(true) // Показываем сразу при загрузке
+      setIsShow(true)
     } else {
-      // Скрываем через 500мс после завершения загрузки
       const timer = setTimeout(() => setIsShow(false), 500)
       return () => clearTimeout(timer)
     }
