@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress } from '@mui/material'
+import coin_loader from '@assets/imgs/coin_loader.gif'
 import './sass/index.scss'
 
 function Loader({ isLoading }) {
@@ -7,9 +7,8 @@ function Loader({ isLoading }) {
 
   useEffect(() => {
     if (isLoading) {
-      setIsShow(true) // Показываем сразу при загрузке
+      setIsShow(true)
     } else {
-      // Скрываем через 500мс после завершения загрузки
       const timer = setTimeout(() => setIsShow(false), 500)
       return () => clearTimeout(timer)
     }
@@ -19,7 +18,7 @@ function Loader({ isLoading }) {
 
   return (
     <div className='loader-overlay'>
-      <CircularProgress size={80} thickness={6} />
+      <img src={coin_loader} className='loader-gif' />
     </div>
   )
 }
