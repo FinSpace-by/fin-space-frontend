@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import './sass/index.scss'
 
 function Loader({ isLoading }) {
   const [isShow, setIsShow] = useState(false)
