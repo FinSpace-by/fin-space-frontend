@@ -47,6 +47,7 @@ module.exports = (env) => {
         '@modules': path.resolve(__dirname, 'src', 'modules'),
         '@node_modules': path.resolve(__dirname, 'node_modules'),
         '@config': path.resolve(__dirname, 'src', 'config'),
+        '@hooks': path.resolve(__dirname, 'src', 'hooks'),
       },
       extensions: ['', '.js', '.jsx', '.scss'],
     },
