@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import coin_loader from '@assets/imgs/coin_loader.gif'
+import coin_loader from '@assets/gifs/coin_loader.gif'
 import './sass/index.scss'
 
 function Loader({ isLoading }) {
