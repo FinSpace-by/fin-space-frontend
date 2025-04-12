@@ -54,6 +54,9 @@ module.exports = (env) => {
     plugins: [
       new webpack.DefinePlugin({
         'process.env.REACT_APP_API': JSON.stringify(process.env.REACT_APP_API),
+        'process.env.REACT_APP_GOOGLE_CLIENT_ID': JSON.stringify(
+          process.env.REACT_APP_GOOGLE_CLIENT_ID
+        ),
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({

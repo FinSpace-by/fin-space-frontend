@@ -4,6 +4,9 @@ import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
 import { authApi, userApi } from '@api'
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+import { REACT_APP_GOOGLE_CLIENT_ID } from '@config'
+import GoogleButton from '@components/googleButton/GoogleButton.jsx'
 
 import './sass/index.scss'
 
@@ -62,6 +65,34 @@ function Authorization() {
     setSnackbar({ ...snackbar, open: false })
   }
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await authApi.googleLogin({
+        token: credentialResponse.credential,
+      })
+
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token)
+        navigate(ROUTES.CARDS.PATH)
+      }
+    } catch (error) {
+      console.error('Google login error:', error)
+      setSnackbar({
+        open: true,
+        message: 'Ошибка входа через Google',
+        severity: 'error',
+      })
+    }
+  }
+
+  const handleGoogleError = () => {
+    setSnackbar({
+      open: true,
+      message: 'Не удалось войти через Google',
+      severity: 'error',
+    })
+  }
+
   return (
     <Box className='authorization'>
       <div className='authorization__img-container'>
@@ -98,6 +129,12 @@ function Authorization() {
           onChange={(e) => setPassword(e.target.value)}
           error={errors.password}
           helperText={errors.password ? 'Это поле обязательно' : ''}
+        />
+
+        <GoogleButton
+          onSuccess={handleGoogleSuccess}
+          onError={handleGoogleError}
+          clientId={REACT_APP_GOOGLE_CLIENT_ID}
         />
 
         <Button
