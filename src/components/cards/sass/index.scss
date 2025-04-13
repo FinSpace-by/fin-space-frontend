@@ -1,143 +1,369 @@
 .cards {
+  background-color: #7160ff;
   &__container {
-    width: calc(100vw - 40px);
-    margin-left: 20px;
-    height: calc(100vh - 100px);
+    width: auto;
     position: relative;
-    margin-bottom: 110px;
-  }
+    overflow: hidden;
 
-  &__card {
-    width: 100%;
-    height: calc(62.66vw - 25.06px);
-    border-radius: 5vw;
-    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3);
-    background-image: url('@assets/imgs/card.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transition:
-      transform 0.55s ease,
-      background-image 0.55s ease;
-    color: white;
-    padding: 10px 25px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    &__bank {
-      position: absolute;
-      top: 10px;
-      right: 25px;
-      color: #fff;
-    }
-
-    &__expiration {
-      position: absolute;
-      bottom: 10px;
-      right: 25px;
-    }
-
-    &.active {
-      background-image: url('@assets/imgs/cardActive.png');
-    }
-  }
-
-  &__add-card-button {
-    top: 20px;
-    right: 70px;
-    width: 8%;
-    height: 8vw;
-    border-radius: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #fff;
-    position: absolute;
-  }
-
-  &__planning {
-    &__button {
-      z-index: 999;
-      box-shadow: 0px 10px 40px -3px rgba(0, 0, 0, 0.82);
-      width: calc(100vw - 40px);
-      height: 55px;
-      max-height: 70vh;
-      background: #5c4ce3;
-      position: fixed;
-      margin-left: 20px;
-      bottom: 110px;
-      border-radius: 15vw;
-      transition:
-        height 0.5s ease,
-        border-radius 0.5s ease;
-      overflow: hidden;
-
-      &__text {
-        width: 100%;
-        height: 55px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    &__flexbox {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      // .css-yidbrm-MuiTypography-root {
-      //   margin: 0 !important;
-      //   font-size: 24px !important;
-      // }
-    }
-
-    &__select {
-      width: 100%;
-      margin-bottom: 14px;
-      margin-top: 5px;
-      border-radius: 3vw !important;
-      border: 1px solid #fff;
-    }
-
-    &__flex {
-      display: flex;
-      justify-content: center;
-      align-items: top;
-    }
-
-    &__container {
-      width: 90%;
-      margin-left: 5%;
-      margin-bottom: 24px;
-      height: calc(70vh - 79px);
+    .header-container {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      background: linear-gradient(to bottom, #6054e4, #9284ff);
+      padding: 30px 4% 14px;
+      border-radius: 0 0 30px 30px;
+      transition: 0.3s ease;
     }
 
-    &__limits {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 5px !important;
+    .balance {
+      height: auto;
     }
 
-    &__limit-input {
-      width: 80px;
+    .balance-text-edit-button {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
     }
 
-    &__submit-button {
-      background-color: #fff !important;
-      color: #5c4ce3 !important;
-      width: 100% !important;
-      margin-top: auto !important;
-      padding-top: 10px !important;
-      padding-bottom: 10px !important;
+    .edit-icon {
+      height: 20px;
+      width: 20px;
+      margin-top: 7px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .edit-link {
+      width: 32px;
+      height: 32px;
+      margin-top: -10px;
+    }
+
+    .balance-label {
+      font-size: 16px;
+      color: rgb(255, 255, 255, 0.6);
+      font-family: 'SF Pro Text', normal;
+      font-weight: 500;
+    }
+
+    .balance-edit-entry {
+      margin-top: -2px;
+      width: 70%;
+      height: 59px;
+      font-size: 46px;
+      font-family: 'SF Pro Text', sans-serif;
+      font-weight: 600;
+      color: white;
+      border: 1px solid white;
+      outline: none;
+      background-color: transparent;
+      border-radius: 10px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .balance-edit-entry:focus {
+      border-color: white;
+      outline: none;
+    }
+
+    .balance-amount {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .balance-numbers {
+      font-size: 46px;
+      font-weight: 600;
+      color: rgb(255, 255, 255);
+      font-family: 'SF Pro Text', normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 400px;
+      min-width: 180px;
+      display: inline-block;
+    }
+
+    .balance-currency {
+      font-size: 46px;
+      font-weight: 600;
+      color: rgb(255, 255, 255);
+      font-family: 'SF Pro Text', normal;
+      margin-left: 12px;
+      margin-right: 5px;
+    }
+
+    .expenses-income-sum {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 16px 14px 6px;
+    }
+
+    .expenses-income-sum1,
+    .expenses-income-sum2 {
+      width: 48%;
+      min-width: 140px;
+      display: flex;
+      flex-direction: row;
+      padding: 14px 18px;
+      background: #1c1c1c;
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .expenses-income-sum1 {
+      border-color: #ff6060;
+      color: #ff6060;
+    }
+
+    .expenses-income-sum2 {
+      border-color: #12b730;
+      color: #12b730;
+    }
+
+    .expenses-income-sum1.active {
+      background: #ff6060;
+    }
+
+    .expenses-income-sum2.active {
+      background: #12b730;
+    }
+
+    .expenses-incomes-icon {
+      width: 22px;
+      height: 22px;
+      margin: 3px 3px;
+    }
+
+    .expenses-button-text,
+    .incomes-button-text {
+      font-size: 17px;
+      margin-top: 2px;
+      font-family: 'SF Pro Text', normal;
+      font-weight: 400;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 46px;
+    }
+
+    .expenses-button-text.active {
+      color: #ffffff;
+    }
+
+    .incomes-button-text.active {
+      color: #ffffff;
+    }
+
+    .graphic-name-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2px 16px;
+      flex-wrap: wrap;
+    }
+
+    .graphic-date-selector {
+      display: flex;
+      align-items: center;
+    }
+
+    .page-title1 {
+      font-size: 20px;
+      font-family: 'SF Pro Text', normal;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .graphic-date-selector {
+      width: 30%;
+      font-size: 19px;
+      font-family: 'SF Pro Text', normal;
+      color: #7160ff;
+      margin-right: 10px;
+    }
+
+    .calender-icon {
+      height: 24px;
+      width: 24px;
+      margin: 2px;
+    }
+
+    .analitic-graphic {
+      height: 200px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      background: linear-gradient(to bottom, #8b7dff, #4f42bd);
+      margin: 6px 14px 18px 14px;
+      padding: 26px 10px 12px;
+      border-radius: 20px;
+      gap: 3px;
+      position: relative;
+      transition: transform 0.3s ease;
+      z-index: 0;
+    }
+
+    .chart-type-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+      background-color: #ffffff;
+      border-radius: 12px;
+      z-index: 10000 !important;
+    }
+
+    .pie-chart-icon {
+      display: flex;
+      height: 26px;
+      width: 26px;
+      margin: 4px;
+      align-items: center;
+    }
+
+    .day-column {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.6);
+      width: 30%;
+      min-width: 8px;
+      padding: 14px;
+      padding-bottom: 8px;
+      border-radius: 10px;
+      font-family: 'SF Pro Text', normal;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.7);
+      transition: 0.3s ease;
+    }
+
+    .day-column.active {
+      background: white;
+      color: black;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+    }
+
+    .opacity {
+      opacity: 0.5;
+    }
+
+    .categories-container {
+      padding: 16px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      font-family: 'SF Pro Text', bold;
+      background: #1c1c1c;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 16px 0 100px 0;
+      background: #1c1c1c;
+      border-radius: 28px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .category-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .category-icon {
+      height: 45px;
+      width: 45px;
+    }
+
+    .category-title {
+      font-size: 17px;
+      color: white;
+      font-family: 'SF Pro Text', normal;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20vh;
+    }
+
+    .category-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .price-text {
+      color: grey;
+      font-size: 17px;
+    }
+
+    .price {
+      font-family: 'SF Pro Text', normal;
+      font-size: 17px;
+      color: white;
+      margin-top: 0px;
     }
   }
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.page-header-container {
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.MuiDatePicker-root {
+  margin-right: 8px;
+}
+
+.css-zpey8w-MuiInputBase-root-MuiOutlinedInput-root {
+  border: none !important;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiDatePicker-root input {
+  border: none !important;
+  font-size: 16px;
+  color: #6054e4 !important;
+  text-align: center;
+  padding-block: 10px !important;
+  margin-top: 5px;
+}
+
+.MuiDatePicker-root input::placeholder {
+  font-size: 13.5px;
+  color: #888;
+}
+
+span {
+  color: white;
 }

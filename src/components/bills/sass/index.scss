@@ -1,0 +1,92 @@
+.bill__container {
+  background-color: #111111;
+  .bill__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 30px;
+  }
+
+  .bill__add-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 5%;
+    width: 90%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 150px;
+
+    .bill__add-button {
+      background: linear-gradient(to bottom, #6054e4, #9284ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 20px;
+      text-transform: none;
+      width: 100%;
+    }
+  }
+
+  .bill__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bill__content {
+    background: #1c1c1c;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    width: 80%;
+
+    .bill__item {
+      margin: 12px 0px;
+      font-family: GoghRegular, sans-serif;
+      width: 100%;
+
+      .bill__top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .bill__currency-label {
+          color: #a0a0a0;
+          font-size: 14px;
+        }
+
+        .bill__edit-icon {
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
+
+      .bill__content-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .bill__icon {
+          width: 48px;
+          height: 48px;
+        }
+
+        .bill__title {
+          color: white;
+          font-size: 16px;
+          flex-grow: 1;
+        }
+
+        .bill__amount {
+          color: white;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

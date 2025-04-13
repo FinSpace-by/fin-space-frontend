@@ -1,161 +1,467 @@
-import React, { useState } from 'react';
-import './sass/index.scss';
-import {
-  Typography,
-  CircularProgress,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-} from '@mui/material';
+import React, { useState, useEffect } from 'react'
+import { Typography, IconButton, Snackbar, Alert } from '@mui/material'
+import clsx from 'clsx'
+import PieChart from '@components/pieChart/PieChart'
+import BarChart from '@components/barChart/BarChart'
+import Loader from '@components/Loader'
+import { categoryApi, userApi } from '@api'
+import { ICONS_MAP } from '@constants'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import useDynamicThemeColor from '@hooks/useDynamicThemeColor'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/ru'
+import dayjs from 'dayjs'
+
+import './sass/index.scss'
+
+const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
 function Cards() {
-  const [activeCard, setActiveCard] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [fromCard, setFromCard] = useState('');
-  const [toCard, setToCard] = useState('');
-  const [amount, setAmount] = useState('');
+  const [balance, setBalance] = useState(0)
+  const [userExpenses, setUserExpenses] = useState(0)
+  const [userIncomes, setUserIncomes] = useState(0)
+  const [eCategories, setECategories] = useState([])
+  const [iCategories, setICategories] = useState([])
+  const [showExpenses, setShowExpenses] = useState(true)
+  const [showIncomes, setShowIncomes] = useState(false)
+  const [currentType, setCurrentType] = useState([])
+  const [currentAmount, setCurrentAmount] = useState(0)
+  const [isPieChartVisible, setIsPieChartVisible] = useState(false)
+  const [isBarChartVisible, setIsBarChartVisible] = useState(true)
+  const [startDate, setStartDate] = useState(dayjs().day(1))
+  const [endDate, setEndDate] = useState(dayjs().day(7))
+  const [isLoading, setIsLoading] = useState(true)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
-  const handleClick = (index) => {
-    setActiveCard(index);
-  };
+  useDynamicThemeColor('#6054e4')
 
-  const cardData = [
-    {
-      id: 1,
-      bank: 'Альфа-Банк',
-      number: '4255 19** **** 3212',
-      expiration_date: '06/25',
-    },
-    {
-      id: 2,
-      bank: 'Беларусбанк',
-      number: '4255 19** **** 3124',
-      expiration_date: '06/25',
-    },
-    {
-      id: 3,
-      bank: 'Белагропромбанк',
-      number: '4255 19** **** 1253',
-      expiration_date: '06/25',
-    },
-    {
-      id: 4,
-      bank: 'Паритетбанк',
-      number: '4255 19** **** 5216',
-      expiration_date: '06/25',
-    },
-  ];
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      try {
+        setIsLoading(false)
+        const response = await userApi.getUserBalance()
+        setBalance(response.data)
+      } catch (error) {}
+    }
+
+    const fetchECategories = async () => {
+      try {
+        const response = await categoryApi.getUserExpenses()
+        const totalExpenses = response.data.reduce((acc, expense) => acc + expense.totalExpense, 0)
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalExpense }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalExpense,
+          })
+        )
+        setECategories(fetchedCategories)
+        setUserExpenses(totalExpenses)
+      } catch (error) {}
+    }
+
+    const fetchICategories = async () => {
+      try {
+        const response = await categoryApi.getUserIncomes()
+        const totalIncomes = response.data.reduce((acc, income) => acc + income.totalIncome, 0)
+        const fetchedCategories = response.data.map(
+          ({ categoryName, categoryIconUrl, totalIncome }) => ({
+            title: categoryName,
+            icon: ICONS_MAP[categoryIconUrl] || ICONS_MAP['custom'],
+            amount: totalIncome,
+          })
+        )
+        setICategories(fetchedCategories)
+        setUserIncomes(totalIncomes)
+      } catch (error) {}
+    }
+
+    fetchUserBalance()
+    fetchECategories()
+    fetchICategories()
+  }, [])
+
+  useEffect(() => {
+    if (startDate && endDate && startDate.isAfter(endDate)) {
+      setSnackbarMessage('Начальная дата не может быть позже конечной.')
+      setOpenSnackbar(true)
+      return
+    }
+
+    if ((startDate && endDate && startDate.isBefore(endDate)) || startDate.isSame(endDate)) {
+      const formattedStartDate = startDate.format('YYYY-MM-DD')
+      const formattedEndDate = endDate.format('YYYY-MM-DD')
+
+      const fetchExpensesByDate = async () => {
+        try {
+          const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, expenses }) => {
+            expenses.forEach(({ categoryName, totalExpense }) => {
+              if (acc[categoryName]) {
+                acc[categoryName] += totalExpense
+              } else {
+                acc[categoryName] = totalExpense
+              }
+            })
+            return acc
+          }, {})
+
+          const chartDataExpenses = Object.entries(expensesData).map(
+            ([categoryName, totalExpense]) => ({
+              title: categoryName,
+              amount: totalExpense,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataExpenses)
+          setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {}
+      }
+
+      const fetchIncomesByDate = async () => {
+        try {
+          const response = await categoryApi.getIncomesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, incomes }) => {
+            incomes.forEach(({ categoryName, totalIncome }) => {
+              if (acc[categoryName]) {
+                acc[categoryName] += totalIncome
+              } else {
+                acc[categoryName] = totalIncome
+              }
+            })
+            return acc
+          }, {})
+
+          const chartDataIncomes = Object.entries(expensesData).map(
+            ([categoryName, totalIncome]) => ({
+              title: categoryName,
+              amount: totalIncome,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataIncomes)
+          setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {}
+      }
+
+      const fetchExpensesByDay = async () => {
+        try {
+          const response = await categoryApi.getExpensesByDate(formattedStartDate, formattedEndDate)
+
+          const expensesData = response.data.reduce((acc, { date, expenses }) => {
+            const totalIncomeForDay = expenses.reduce(
+              (sum, { totalExpense }) => sum + totalExpense,
+              0
+            )
+            const dayOfWeekIndex = (dayjs(date).day() + 6) % 7
+            // Adding 6 shifts the index so that Monday becomes 0,
+            // and using % 7 ensures the index wraps around correctly for the week (0-6).
+            const dayOfWeek = daysOfWeek[dayOfWeekIndex]
+
+            if (acc[dayOfWeek]) {
+              acc[dayOfWeek] += totalIncomeForDay
+            } else {
+              acc[dayOfWeek] = totalIncomeForDay
+            }
+            return acc
+          }, {})
+
+          const chartDataExpenses = Object.entries(expensesData).map(
+            ([dayOfWeek, totalExpense]) => ({
+              title: dayOfWeek,
+              amount: totalExpense,
+              icon: ICONS_MAP['custom'],
+            })
+          )
+
+          setCurrentType(chartDataExpenses)
+          setCurrentAmount(chartDataExpenses.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {}
+      }
+
+      const fetchIncomesByDay = async () => {
+        try {
+          const response = await categoryApi.getIncomesByDate(formattedStartDate, formattedEndDate)
+
+          const incomesData = response.data.reduce((acc, { date, incomes }) => {
+            const totalIncomeForDay = incomes.reduce((sum, { totalIncome }) => sum + totalIncome, 0)
+            const dayOfWeekIndex = (dayjs(date).day() + 6) % 7
+            // Adding 6 shifts the index so that Monday becomes 0,
+            // and using % 7 ensures the index wraps around correctly for the week (0-6).
+            const dayOfWeek = daysOfWeek[dayOfWeekIndex]
+
+            if (acc[dayOfWeek]) {
+              acc[dayOfWeek] += totalIncomeForDay
+            } else {
+              acc[dayOfWeek] = totalIncomeForDay
+            }
+            return acc
+          }, {})
+
+          const chartDataIncomes = Object.entries(incomesData).map(([dayOfWeek, totalIncome]) => ({
+            title: dayOfWeek,
+            amount: totalIncome,
+            icon: ICONS_MAP['custom'],
+          }))
+
+          setCurrentType(chartDataIncomes)
+          setCurrentAmount(chartDataIncomes.reduce((acc, { amount }) => acc + amount, 0))
+        } catch (error) {
+        } finally {
+          setIsLoading(false)
+        }
+      }
+
+      if (isBarChartVisible) {
+        if (showExpenses) {
+          fetchExpensesByDay(formattedStartDate, formattedEndDate)
+        } else if (showIncomes) {
+          fetchIncomesByDay(formattedStartDate, formattedEndDate)
+        }
+      } else if (isPieChartVisible) {
+        if (showExpenses) {
+          fetchExpensesByDate(formattedStartDate, formattedEndDate)
+        } else if (showIncomes) {
+          fetchIncomesByDate(formattedStartDate, formattedEndDate)
+        }
+      }
+    }
+  }, [showExpenses, showIncomes, startDate, endDate, isBarChartVisible, isPieChartVisible])
+
+  useEffect(() => {
+    const savedStartDate = sessionStorage.getItem('startDate')
+    const savedEndDate = sessionStorage.getItem('endDate')
+
+    if (savedStartDate && savedEndDate) {
+      setStartDate(dayjs(savedStartDate))
+      setEndDate(dayjs(savedEndDate))
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('startDate', startDate.format('YYYY-MM-DD'))
+    sessionStorage.setItem('endDate', endDate.format('YYYY-MM-DD'))
+  }, [startDate, endDate])
+
+  const handlePieChartClick = () => {
+    setIsPieChartVisible(!isPieChartVisible)
+    setIsBarChartVisible(!isBarChartVisible)
+
+    if (!isBarChartVisible) {
+      const startOfWeek = startDate.day(1)
+      setStartDate(startOfWeek)
+
+      const newEndDate = startOfWeek.add(6, 'day')
+      setEndDate(newEndDate)
+    }
+  }
+
+  const handleShowExpenses = () => {
+    if (!showExpenses) {
+      setShowExpenses(true)
+      setShowIncomes(false)
+    }
+  }
+
+  const handleShowIncomes = () => {
+    if (!showIncomes) {
+      setShowIncomes(true)
+      setShowExpenses(false)
+    }
+  }
+
+  const onChangeDateStart = (newValue) => {
+    if (newValue) {
+      setStartDate(newValue)
+
+      if (isBarChartVisible) {
+        const startOfWeek = newValue.day(1)
+        setStartDate(startOfWeek)
+
+        const newEndDate = startOfWeek.add(6, 'day')
+        setEndDate(newEndDate)
+      }
+    }
+  }
+
+  const onChangeDateEnd = (newValue) => {
+    if (newValue) {
+      setEndDate(newValue)
+    }
+  }
 
   return (
-    <>
-      {isLoading ? (
-        <div className="loader">
-          <CircularProgress />
+    <div className='cards__container'>
+      <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity='error' sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+      <Loader isLoading={isLoading} />
+      <div className='header-container'>
+        <div className='balance'>
+          <div className='balance-text-edit-button'>
+            <Typography variant='body1' className='balance-label'>
+              Общий баланс
+            </Typography>
+          </div>
+          <div className='balance-amount'>
+            <Typography variant='h4' className='balance-numbers'>
+              {typeof balance === 'number' && !isNaN(balance) ? balance.toFixed(2) : '0.00'}
+            </Typography>
+            <Typography variant='h4' className='balance-currency'>
+              BYN
+            </Typography>
+          </div>
         </div>
-      ) : (
-        <>
-          <div className="cards__container">
-            {cardData.map((card, index) => (
-              <div
-                key={card.id}
-                className={`cards__card ${activeCard === index ? 'active' : ''}`}
-                onClick={() => handleClick(index)}
-                style={{
-                  zIndex: cardData.length - index,
-                  transform:
-                    activeCard === index
-                      ? `translateY(calc(-100vh + 50px + 62.66vw + 25.06px))`
-                      : `translateY(${-index * 40}px)`,
-                }}
-              >
-                <Typography variant="cardText">BYN</Typography>
-                <Typography variant="bankName" className="cards__card__bank">
-                  {card.bank}
-                </Typography>
-                <br />
-                <Typography className="cards__card__number" variant="cardText">
-                  {card.number}
-                </Typography>
-                <Typography
-                  className="cards__card__expiration"
-                  variant="cardText"
-                >
-                  {card.expiration_date}
-                </Typography>
+      </div>
+      <div className='expenses-income-sum'>
+        <IconButton
+          onClick={handleShowExpenses}
+          className={clsx('expenses-income-sum1', { active: showExpenses })}
+        >
+          <img
+            src={showExpenses ? ICONS_MAP['expenses_active'] : ICONS_MAP['expenses']}
+            className='expenses-incomes-icon'
+            alt='Expenses'
+          />
+          <Typography className={clsx('expenses-button-text', { active: showExpenses })}>
+            {typeof userExpenses === 'number' && !isNaN(userExpenses)
+              ? userExpenses.toFixed(2)
+              : '0.00'}
+          </Typography>
+          <Typography className={clsx('expenses-button-text', 'opacity', { active: showExpenses })}>
+            BYN
+          </Typography>
+        </IconButton>
+        <IconButton
+          onClick={handleShowIncomes}
+          className={clsx('expenses-income-sum2', { active: showIncomes })}
+        >
+          <img
+            src={showIncomes ? ICONS_MAP['incomes_active'] : ICONS_MAP['incomes']}
+            className='expenses-incomes-icon'
+            alt='Incomes'
+          />
+          <Typography className={clsx('incomes-button-text', { active: showIncomes })}>
+            {typeof userIncomes === 'number' && !isNaN(userIncomes)
+              ? userIncomes.toFixed(2)
+              : '0.00'}
+          </Typography>
+          <Typography className={clsx('incomes-button-text', 'opacity', { active: showIncomes })}>
+            BYN
+          </Typography>
+        </IconButton>
+      </div>
+
+      <div className='page-header-container'>
+        <Typography className='page-title1'>Аналитика</Typography>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+          <div className='date-picker-container'>
+            <DatePicker
+              className='MuiDatePicker-root'
+              disableFuture
+              value={startDate}
+              onChange={onChangeDateStart}
+            />
+            <span>-</span>
+            <DatePicker
+              className='MuiDatePicker-root'
+              disableFuture
+              value={endDate}
+              onChange={onChangeDateEnd}
+              readOnly={isBarChartVisible}
+            />
+          </div>
+        </LocalizationProvider>
+      </div>
+
+      {!isPieChartVisible && (
+        <div className='analitic-graphic'>
+          <div className='chart-type-container'>
+            <IconButton className='pie-chart-icon' onClick={handlePieChartClick}>
+              <img src={ICONS_MAP['pie_chart']} className='pie-chart-icon' alt='Pie Chart' />
+            </IconButton>
+          </div>
+          <div className='chart-container'>
+            <BarChart categories={currentType} />
+          </div>
+        </div>
+      )}
+
+      {isPieChartVisible && (
+        <div className='analitic-graphic'>
+          <div className='chart-type-container'>
+            <IconButton className='pie-chart-icon' onClick={handlePieChartClick}>
+              <img src={ICONS_MAP['grafik_icon']} className='pie-chart-icon' alt='Pie Chart' />
+            </IconButton>
+          </div>
+          <div className='chart-container'>
+            <PieChart categories={currentType} amount={currentAmount} />
+          </div>
+        </div>
+      )}
+
+      {showExpenses && (
+        <div className='categories-container'>
+          <Typography variant='h5' align='center' mb={3} fontSize={20}>
+            Расходы
+          </Typography>
+          <div className='categories-list'>
+            {eCategories.map(({ title, icon, amount }, index) => (
+              <div key={index} className='category-item'>
+                <div className='category-header'>
+                  <img src={icon} alt='icon' className='category-icon' />
+                  <Typography variant='category' className='category-title'>
+                    {title}
+                  </Typography>
+                </div>
+                <div className='category-details'>
+                  <span className='price-text'>BYN</span>
+                  <Typography variant='category' className='price'>
+                    {typeof amount === 'number' && !isNaN(amount) ? amount.toFixed(2) : '0.00'}
+                  </Typography>
+                </div>
               </div>
             ))}
           </div>
-          <div className="cards__add-card-button">
-            <Typography variant="plus">+</Typography>
-          </div>
-
-          <div
-            className="cards__planning__button"
-            style={{
-              height: isOpen ? '70vh' : '55px',
-              borderRadius: isOpen ? '15px' : '15vw',
-            }}
-          >
-            <Typography
-              variant="h5"
-              className="cards__planning__button__text"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? `Перевод ▼` : `Перевод ▲`}
-            </Typography>
-
-            <div class="cards__planning__container">
-              <Typography variant="category">С карты</Typography>
-              <Select
-                value={fromCard}
-                onChange={(e) => setFromCard(e.target.value)}
-                className="cards__planning__select"
-              >
-                {cardData.map((card) => (
-                  <MenuItem key={card.id} value={card.id}>
-                    {card.bank} | {card.number}
-                  </MenuItem>
-                ))}
-              </Select>
-              <Typography variant="category">На карту</Typography>
-              <Select
-                value={toCard}
-                onChange={(e) => setToCard(e.target.value)}
-                className="cards__planning__select"
-              >
-                {cardData.map((card) => (
-                  <MenuItem key={card.id} value={card.id}>
-                    {card.bank} | {card.number}
-                  </MenuItem>
-                ))}
-              </Select>
-
-              <Typography variant="category">Сумма</Typography>
-              <div className="cards__planning__flexbox">
-                <TextField
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="cards__planning__amount-input"
-                />
-                <Typography variant="category">BYN</Typography>
-              </div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setIsOpen(false)}
-                className="cards__planning__submit-button"
-              >
-                Перевести
-              </Button>
-            </div>
-          </div>
-        </>
+        </div>
       )}
-    </>
-  );
+
+      {showIncomes && (
+        <div className='categories-container'>
+          <Typography variant='h5' align='center' mb={3} fontSize={20}>
+            Доходы
+          </Typography>
+          <div className='categories-list'>
+            {iCategories.map(({ title, icon, amount }, index) => (
+              <div key={index} className='category-item'>
+                <div className='category-header'>
+                  <img src={icon} alt='icon' className='category-icon' />
+                  <Typography variant='category' className='category-title'>
+                    {title}
+                  </Typography>
+                </div>
+                <div className='category-details'>
+                  <span className='price-text'>BYN</span>
+                  <Typography variant='category' className='price'>
+                    {typeof amount === 'number' && !isNaN(amount) ? amount.toFixed(2) : '0.00'}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
-export default Cards;
+export default Cards

@@ -1,0 +1,88 @@
+.analitic__tabs__container {
+  .analitic__tabs__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .no-products-message {
+    color: white;
+    font-size: 17px;
+    color: white;
+    font-family: 'SF Pro Text', normal;
+    margin-top: 100px;
+  }
+
+  .analitic__tabContent {
+    background: #1c1c1c;
+    padding: 20px;
+    margin-bottom: 200px;
+
+    .analitic__tabContent__header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 15px;
+
+      h5 {
+        margin-top: 2px;
+        font-size: 17px;
+      }
+    }
+
+    .analitic__tabContent__block {
+      margin-bottom: 70px;
+    }
+
+    .analitic__inputWrapper {
+      position: relative;
+
+      .MuiSelect-nativeInput {
+        position: absolute;
+      }
+
+      input {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        background-color: rgba(35, 35, 35, 1);
+        box-shadow: none;
+        outline: none;
+        border: 1px solid rgba(113, 96, 255, 1);
+        border-radius: 10px;
+        width: 100%;
+        color: white;
+        padding: 20px;
+        font-size: 17px;
+        padding-right: 50px;
+
+        &::placeholder {
+          color: gray;
+          font-size: 17px;
+        }
+      }
+    }
+
+    .currency {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 17px;
+      pointer-events: none;
+      font-family: 'SF Pro Text', bold;
+    }
+
+    .category-select {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+      }
+    }
+  }
+}

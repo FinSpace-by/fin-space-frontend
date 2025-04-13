@@ -1,0 +1,113 @@
+.analitic__tabs__container {
+  background-color: #111111;
+  .analitic__tabs__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.arrow {
+  position: absolute;
+  left: 8%;
+  top: 30%;
+  width: 18px;
+  height: 18px;
+  outline: none;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  background-image: url('@assets/icons/arrow.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent;
+}
+
+.scanner {
+  &__container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #1c1c1c;
+  }
+
+  &__header {
+    padding: 20px;
+    top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  &__viewport {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+
+    .camera-feed {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__frame {
+    width: 70%;
+    height: 70%;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  }
+
+  .captured-image {
+    width: 100%;
+    height: 70vh;
+    object-fit: contain;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+}
+
+.loading-text {
+  margin-top: 15px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}

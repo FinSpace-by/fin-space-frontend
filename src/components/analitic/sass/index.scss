@@ -3,6 +3,29 @@
   .MuiButtonBase-root {
     text-transform: none;
   }
+  .analitic__tabs__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .cross {
+    position: absolute;
+    right: 20px;
+    top: 7%;
+    width: 17px;
+    height: 17px;
+    outline: none;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    background-image: url('@assets/imgs/cross.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: transparent;
+  }
 }
 
 .analitic {
@@ -40,7 +63,7 @@
       margin-right: 10px;
 
       &.active {
-        background: #fff; // Белый цвет для активного элемента
+        background: #fff;
       }
     }
 
@@ -67,19 +90,20 @@
 
   &__tabs {
     &__container {
-      width: 100vw;
-      margin-bottom: 100px;
+      width: 100%;
+      margin-top: 30px;
+      margin-bottom: -15px;
     }
   }
 
   &__tab {
     &__category {
       margin: 12px 0px;
-      font-family: GoghRegular, sans-serif;
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: 'SF Pro Text', bold;
     }
   }
 
@@ -89,25 +113,6 @@
       gap: 12px;
     }
   }
-
-  //   &__all {
-  //     display: inline-block !important;
-  //     border: 1px dashed gray !important;
-  //     border-radius: 30px !important;
-  //     padding: 0 20px !important;
-  //     height: 45px !important;
-  //     background: none !important;
-
-  //     &::before {
-  //         margin-bottom: -6px;
-  //         margin-right: 10px;
-  //         display: inline-block !important;
-  //         width: 25px;
-  //         height: 25px;
-  //         content: '';
-  //         background-image: url('@assets/icons/allCards.svg');
-  //     }
-  //   }
 
   &__notActive {
     display: inline-block !important;
@@ -229,7 +234,7 @@
   padding: 16px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-family: GoghRegular, sans-serif;
+  font-family: 'SF Pro Text', bold;
   background: #1c1c1c;
   display: flex;
   flex-direction: column;
@@ -293,4 +298,37 @@
   &_positive {
     color: #3bff69;
   }
+}
+
+.analitic__tab__category > .category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analitic__tab__category > .category-header .category-title {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.analitic__tab__category > .category-header .category-icon {
+  margin-top: 0;
+  height: 45px;
+}
+
+.analitic__tab__category > .category-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.analitic__tab__category > .category-details .price {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.price-text {
+  color: grey;
+  font-size: 17px;
 }

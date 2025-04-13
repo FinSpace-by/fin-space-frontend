@@ -1,19 +1,9 @@
 .mobile-menu {
   z-index: 999;
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 20px;
-
-    &__img {
-      width: 35px;
-      height: auto;
-    }
-  }
 
   &__nav {
     z-index: 999;
-    background: #111111;
+    background: rgba(17, 17, 17, 0.95);
     margin: 0;
     width: 100%;
     position: fixed;
@@ -27,7 +17,7 @@
       display: flex;
       justify-content: space-around;
       margin: 0;
-      padding: 8px 5% 0 5%;
+      padding: 0 5% 0 5%;
     }
 
     &__item {
@@ -37,15 +27,35 @@
       color: #fff;
       flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
+      font-family: 'SFProText-Regular', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .icon-container {
+      width: 66px;
+      height: 66px;
+      background-color: #7268e5;
+      background-image: url('@assets/imgs/plus_icon.png');
+      background-size: 40px;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-top: -34px;
+      border-radius: 38px;
     }
   }
 
   &__link {
-    display: block;
-    width: 50px;
-    height: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    width: 42px;
+    height: 60px;
     margin: 0 auto;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
@@ -54,6 +64,8 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    color: #808080;
+    transition: color 0.1s ease;
 
     &:focus {
       outline: none;
@@ -61,47 +73,59 @@
 
     &::before {
       content: '';
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      margin-bottom: 0;
+      padding-bottom: 8px;
     }
 
     &--cards::before {
-      background-image: url('@assets/imgs/cards.png');
+      background-image: url('@assets/imgs/home.svg');
+    }
+
+    &--bills::before {
+      background-image: url('@assets/imgs/expenses.svg');
     }
 
     &--analitic::before {
-      background-image: url('@assets/imgs/analitic.png');
+      height: 45px;
+      width: 45px;
+      background-image: url('@assets/imgs/icon_plus2.svg');
     }
 
-    &--family::before {
-      background-image: url('@assets/imgs/family.png');
+    &--income::before {
+      background-image: url('@assets/imgs/expenses.svg');
     }
 
     &--profile::before {
-      background-image: url('@assets/imgs/profile.png');
+      background-image: url('@assets/imgs/settings.svg');
     }
 
     &--cards.active::before {
-      background-image: url('@assets/imgs/cardsActive.png');
+      background-image: url('@assets/imgs/home_page_active.png');
     }
 
     &--analitic.active::before {
-      background-image: url('@assets/imgs/analiticActive.png');
+      background-image: url('@assets/imgs/icon_plus2.svg');
     }
 
-    &--family.active::before {
-      background-image: url('@assets/imgs/familyActive.png');
+    &--income.active::before {
+      background-image: url('@assets/imgs/expenses_active.svg');
     }
 
     &--profile.active::before {
-      background-image: url('@assets/imgs/profileActive.png');
+      background-image: url('@assets/imgs/settings_active.svg');
+    }
+
+    &--bills.active::before {
+      background-image: url('@assets/imgs/expenses_active.svg');
+    }
+
+    &--active {
+      color: #7268e5;
     }
   }
 }

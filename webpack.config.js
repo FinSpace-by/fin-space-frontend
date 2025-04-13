@@ -1,8 +1,11 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config()
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env) => {
   return {
@@ -43,10 +46,18 @@ module.exports = (env) => {
         '@sass': path.resolve(__dirname, 'src', 'sass'),
         '@modules': path.resolve(__dirname, 'src', 'modules'),
         '@node_modules': path.resolve(__dirname, 'node_modules'),
+        '@config': path.resolve(__dirname, 'src', 'config'),
+        '@hooks': path.resolve(__dirname, 'src', 'hooks'),
       },
       extensions: ['', '.js', '.jsx', '.scss'],
     },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env.REACT_APP_API': JSON.stringify(process.env.REACT_APP_API),
+        'process.env.REACT_APP_GOOGLE_CLIENT_ID': JSON.stringify(
+          process.env.REACT_APP_GOOGLE_CLIENT_ID
+        ),
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './public/index.html',
@@ -76,5 +87,5 @@ module.exports = (env) => {
       hot: true,
       historyApiFallback: true,
     },
-  };
-};
+  }
+}

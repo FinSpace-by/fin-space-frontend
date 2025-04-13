@@ -21,7 +21,7 @@
     margin-top: 2rem;
 
     &__button {
-      margin-top: 6rem !important;
+      margin-top: 3rem !important;
       height: 56px;
     }
   }
@@ -31,5 +31,19 @@
     text-align: center;
     font-size: 1.2rem;
     margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.MuiFormControlLabel-root {
+  color: white;
+  margin-left: -9px;
+
+  .MuiCheckbox-root {
+    color: #6054e4;
+
+    &.Mui-checked {
+      color: #6054e4;
+    }
   }
 }
