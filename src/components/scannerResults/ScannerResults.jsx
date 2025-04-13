@@ -21,11 +21,20 @@ function ScannerResults() {
   const location = useLocation()
   const navigate = useNavigate()
   const [categories, setCategories] = useState([])
-  const [items, setItems] = useState(
-    location.state?.items.map((item) => ({ ...item, category: '' })) || []
-  )
-  const [openSnackbar, setOpenSnackbar] = useState(false)
   const [selectedAccount, setSelectedAccount] = useState(null)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [items, setItems] = useState(() => {
+    if (location.state?.isTutorial) {
+      return [
+        {
+          product: 'Бананы',
+          price: '12.12',
+          category: '',
+        },
+      ]
+    }
+    return location.state?.items?.map((item) => ({ ...item, category: '' })) || []
+  })
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -57,12 +66,17 @@ function ScannerResults() {
       return
     }
 
+    if (location.state?.isTutorial) {
+      navigate('/cards')
+      return
+    }
+
     const body = items.map((item) => {
       const selectedCategory = categories.find((c) => c.title === item.category)
       return {
         amount: item.price,
         categoryId: selectedCategory?.categoryId || null,
-        accountId: selectedAccount.id,
+        accountId: selectedAccount?.id,
       }
     })
 
