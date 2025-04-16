@@ -188,7 +188,7 @@
   height: 45px;
   background-image: url('@assets/imgs/Vector3.svg');
   z-index: 2;
-  animation: coin-flip 10000ms ease-in infinite;
+  animation: coin-flip 1000ms ease-in infinite;
 }
 
 .finger {
@@ -196,11 +196,11 @@
   height: 41px;
   background-image: url('@assets/imgs/Vector1.svg');
   z-index: 1;
-  animation: finger 10000ms ease-in infinite;
+  animation: finger 1000ms ease-in infinite;
 }
 
 .hand {
-  animation: hand 10000ms ease-in infinite;
+  animation: hand 1000ms ease-in infinite;
 }
 
 .hand .hand1 {

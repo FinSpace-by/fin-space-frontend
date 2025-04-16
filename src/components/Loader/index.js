@@ -9,7 +9,7 @@ function Loader({ isLoading }) {
     if (isLoading) {
       setIsShow(true)
     } else {
-      const timer = setTimeout(() => setIsShow(false), 100000)
+      const timer = setTimeout(() => setIsShow(false), 500)
       return () => clearTimeout(timer)
     }
   }, [isLoading])
