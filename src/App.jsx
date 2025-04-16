@@ -19,6 +19,7 @@ import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual'
 import AddCustom from '@components/addCustom/addCustom'
 import ScannerResults from '@components/scannerResults/ScannerResults'
 import Bills from '@components/bills/Bills'
+import YandexMetrica from '@components/yandexMetrica/YandexMetrica'
 
 import './sass/index.scss'
 
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <YandexMetrica />
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           {isMobile ? (

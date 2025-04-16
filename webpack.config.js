@@ -57,6 +57,9 @@ module.exports = (env) => {
         'process.env.REACT_APP_GOOGLE_CLIENT_ID': JSON.stringify(
           process.env.REACT_APP_GOOGLE_CLIENT_ID
         ),
+        'process.env.REACT_APP_API_YANDEX_METRICA_ID': JSON.stringify(
+          process.env.REACT_APP_API_YANDEX_METRICA_ID
+        ),
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
