@@ -131,11 +131,11 @@ function Authorization() {
           helperText={errors.password ? 'Это поле обязательно' : ''}
         />
 
-        <GoogleButton
+        {/* <GoogleButton
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleError}
           clientId={REACT_APP_GOOGLE_CLIENT_ID}
-        />
+        /> */}
 
         <Button
           type='submit'
