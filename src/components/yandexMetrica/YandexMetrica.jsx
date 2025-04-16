@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { REACT_APP_YANDEX_METRICA_ID } from '@config/index.js'
+import { REACT_APP_API_YANDEX_METRICA_ID } from '@config/index.js'
 
 const YandexMetrica = () => {
   return (
@@ -17,7 +17,7 @@ const YandexMetrica = () => {
           k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
           })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-          ym(${REACT_APP_YANDEX_METRICA_ID}, "init", {
+          ym(${REACT_APP_API_YANDEX_METRICA_ID}, "init", {
             clickmap:true,
             trackLinks:true,
             accurateTrackBounce:true
@@ -28,7 +28,7 @@ const YandexMetrica = () => {
         {`
           <div>
             <img 
-              src="https://mc.yandex.ru/watch/${REACT_APP_YANDEX_METRICA_ID}" 
+              src="https://mc.yandex.ru/watch/${REACT_APP_API_YANDEX_METRICA_ID}" 
               style="position: absolute; left: -9999px;" 
               alt=""
             />
