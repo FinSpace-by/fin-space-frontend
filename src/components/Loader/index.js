@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import coin_loader from '@assets/gifs/coin_loader.gif'
+
 import './sass/index.scss'
 
 function Loader({ isLoading }) {
@@ -18,7 +18,14 @@ function Loader({ isLoading }) {
 
   return (
     <div className='loader-overlay'>
-      <img src={coin_loader} className='loader-gif' />
+      <div className='animation'>
+        <div className='coin'></div>
+        <div className='finger'></div>
+        <div className='hand'>
+          <div className='hand1'></div>
+          <div className='hand2'></div>
+        </div>
+      </div>
     </div>
   )
 }
