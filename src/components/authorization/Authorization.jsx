@@ -68,7 +68,7 @@ function Authorization() {
     try {
       const response = await authApi.googleLogin({
         token: credentialResponse.credential,
-        // timestamp: Date.now(),
+        timestamp: Date.now(),
       })
 
       if (response.data.token) {
