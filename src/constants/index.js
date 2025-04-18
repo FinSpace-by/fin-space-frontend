@@ -100,3 +100,10 @@ export const REDIRECT_TYPES = {
   MANUAL: 'manual',
   SCANNER: 'scanner',
 }
+
+export const HTTP_STATUSES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+}

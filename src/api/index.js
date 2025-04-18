@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { REACT_APP_API } from '@config'
-import { ROUTES } from '@constants'
+import { ROUTES, HTTP_STATUSES } from '@constants'
 
 export * from './auth'
 export * from './user'
@@ -34,7 +34,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === HTTP_STATUSES.UNAUTHORIZED) {
       handleUnauthorized()
     }
     return Promise.reject(error)
