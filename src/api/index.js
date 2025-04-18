@@ -51,7 +51,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if ([401, 403].includes(error.response?.status)) {
+    if (error.response?.status === 401) {
       handleUnauthorized()
     }
     return Promise.reject(error)
