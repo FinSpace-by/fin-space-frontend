@@ -8,19 +8,6 @@ export * from './category'
 export * from './scanner'
 export * from './accounts'
 
-const decodeJWT = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]))
-  } catch {
-    return null
-  }
-}
-
-const isTokenExpired = (token) => {
-  const decoded = decodeJWT(token)
-  return decoded?.exp && decoded.exp * 1000 < Date.now()
-}
-
 const handleUnauthorized = () => {
   localStorage.removeItem('token')
   window.location.assign(ROUTES.ROOT.PATH)
@@ -36,10 +23,6 @@ instance.interceptors.request.use(
     const token = localStorage.getItem('token')
 
     if (token && !config.url?.includes('/auth/')) {
-      if (isTokenExpired(token)) {
-        handleUnauthorized()
-        return Promise.reject(new Error('Session expired'))
-      }
       config.headers.Authorization = `Bearer ${token}`
     }
 
