@@ -65,21 +65,21 @@
 
 :global {
   .react-joyride__overlay {
-    transition: all 1s ease-in-out !important;
-    background-color: rgba(0, 0, 0, 0.8) !important;
-    z-index: 2000 !important;
+    transition: all 1s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
   }
 
   .react-joyride__spotlight {
-    transition: all 1s ease-in-out !important;
-    z-index: 2001 !important;
-    pointer-events: auto !important;
+    transition: all 1s ease-in-out;
+    z-index: 1001;
+    pointer-events: auto;
   }
 
   .react-joyride__tooltip {
-    transition: transform 1s ease-in-out !important;
+    transition: transform 1s ease-in-out;
     animation: fadeIn 1s ease-in-out;
-    z-index: 2002 !important;
+    z-index: 1002;
   }
 }
 

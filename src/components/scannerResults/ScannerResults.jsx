@@ -23,18 +23,6 @@ function ScannerResults() {
   const [categories, setCategories] = useState([])
   const [selectedAccount, setSelectedAccount] = useState(null)
   const [openSnackbar, setOpenSnackbar] = useState(false)
-  const [items, setItems] = useState(() => {
-    if (location.state?.isTutorial) {
-      return [
-        {
-          product: 'Бананы',
-          price: '12.12',
-          category: '',
-        },
-      ]
-    }
-    return location.state?.items?.map((item) => ({ ...item, category: '' })) || []
-  })
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -52,6 +40,14 @@ function ScannerResults() {
     fetchCategories()
   }, [])
 
+  const config = {
+    isTutorial: location.state?.isTutorial,
+    initialItems: location.state?.isTutorial
+      ? [{ product: 'Бананы', price: '12.12', category: '' }]
+      : location.state?.items?.map((item) => ({ ...item, category: '' })) || [],
+  }
+  const [items, setItems] = useState(config.initialItems)
+
   const handleCategoryChange = (index, newCategory) => {
     setItems((prevItems) =>
       prevItems.map((item, i) => (i === index ? { ...item, category: newCategory } : item))
@@ -66,7 +62,7 @@ function ScannerResults() {
       return
     }
 
-    if (location.state?.isTutorial) {
+    if (config.isTutorial) {
       navigate('/cards')
       return
     }
