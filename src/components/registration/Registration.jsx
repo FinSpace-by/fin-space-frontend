@@ -4,6 +4,7 @@ import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { authApi } from '@api'
 import { TextField, Button, Box, Typography, Checkbox, FormControlLabel, Link } from '@mui/material'
+
 import './sass/index.scss'
 
 function Registration() {
@@ -50,7 +51,9 @@ function Registration() {
         const response = await authApi.register(body)
         if (response?.data?.token) {
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('isNewUser', 'true')
         }
+
         navigate(ROUTES.CARDS.PATH)
       } catch (error) {
         console.error('Registration error:', error)
