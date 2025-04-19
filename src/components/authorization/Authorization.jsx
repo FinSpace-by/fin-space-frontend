@@ -4,7 +4,6 @@ import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
 import { authApi, userApi } from '@api'
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { REACT_APP_GOOGLE_CLIENT_ID } from '@config'
 import GoogleButton from '@components/googleButton/GoogleButton.jsx'
 
@@ -69,6 +68,7 @@ function Authorization() {
     try {
       const response = await authApi.googleLogin({
         token: credentialResponse.credential,
+        timestamp: Date.now(),
       })
 
       if (response.data.token) {
@@ -76,10 +76,9 @@ function Authorization() {
         navigate(ROUTES.CARDS.PATH)
       }
     } catch (error) {
-      console.error('Google login error:', error)
       setSnackbar({
         open: true,
-        message: 'Ошибка входа через Google',
+        message,
         severity: 'error',
       })
     }
@@ -131,11 +130,11 @@ function Authorization() {
           helperText={errors.password ? 'Это поле обязательно' : ''}
         />
 
-        {/* <GoogleButton
+        <GoogleButton
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleError}
           clientId={REACT_APP_GOOGLE_CLIENT_ID}
-        /> */}
+        />
 
         <Button
           type='submit'
