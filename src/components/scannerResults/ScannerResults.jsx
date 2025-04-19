@@ -14,6 +14,7 @@ import { ICONS_MAP } from '@constants'
 import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import AccountDropdown from '@components/accountDropdown/AccountDropdown'
+import { ROUTES } from '@constants'
 
 import './sass/scanner_results.scss'
 
@@ -63,7 +64,7 @@ function ScannerResults() {
     }
 
     if (config.isTutorial) {
-      navigate('/cards')
+      navigate(ROUTES.CARDS.PATH)
       return
     }
 
@@ -78,7 +79,7 @@ function ScannerResults() {
 
     try {
       await categoryApi.addExpenses(body)
-      navigate('/cards')
+      navigate(ROUTES.CARDS.PATH)
     } catch (error) {}
   }
 

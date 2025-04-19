@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Joyride from 'react-joyride'
+import { ROUTES } from '@constants'
 
 import './sass/index.scss'
 
@@ -11,8 +12,12 @@ const AppTutorial = ({
   onSwitchToExpenses,
   onSwitchToPieChart,
 }) => {
-  const [runTutorial, setRunTutorial] = useState(true)
+  const [isStartTutorial, setIsStartTutorial] = useState(true)
   const navigate = useNavigate()
+  const TUTORIAL_STATUS = {
+    FINISHED: 'finished',
+    SKIPPED: 'skipped',
+  }
 
   const steps = [
     {
@@ -22,17 +27,15 @@ const AppTutorial = ({
           <p className='tutorial__welcome-text'>
             Это приложение поможет тебе контролировать свои финансы
           </p>
-          <div style={{ width: '100%' }}></div>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -46,7 +49,7 @@ const AppTutorial = ({
           overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1001,
+          zIndex: 1001, // higher than nav menu
         },
         buttonNext: {
           display: 'none',
@@ -60,14 +63,13 @@ const AppTutorial = ({
           <p className='tutorial__step-text'>Это данные о твоём балансе</p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -96,14 +98,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -132,21 +133,17 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
       ),
-      target: '.expenses-income-sum1',
-      placement: 'bottom',
-      spotlightPadding: 0,
       target: '.expenses-income-sum2',
       placement: 'bottom',
       spotlightPadding: 0,
@@ -172,14 +169,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -212,14 +208,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -248,14 +243,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -284,14 +278,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -320,14 +313,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -355,14 +347,13 @@ const AppTutorial = ({
           <p className='tutorial__step-text'>Добавить можно вручную или через сканирование чека</p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -396,14 +387,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -433,14 +423,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -470,14 +459,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -507,14 +495,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -545,14 +532,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -583,14 +569,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -618,14 +603,13 @@ const AppTutorial = ({
           <p className='tutorial__step-text'>Тут находятся все твои счета</p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -655,14 +639,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -692,14 +675,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -713,7 +695,7 @@ const AppTutorial = ({
           overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1500,
+          zIndex: 1001,
         },
         buttonNext: {
           display: 'none',
@@ -727,14 +709,13 @@ const AppTutorial = ({
           <p className='tutorial__step-text'>При нажатии на эту кнопку ты переходишь в настройки</p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -748,7 +729,7 @@ const AppTutorial = ({
           overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1500,
+          zIndex: 1001,
         },
         buttonNext: {
           display: 'none',
@@ -765,14 +746,13 @@ const AppTutorial = ({
           </p>
           <button
             onClick={() => {
-              setRunTutorial(false)
+              setIsStartTutorial(false)
               onFinish?.()
             }}
             className='tutorial__styles-skip'
-            style={{ marginTop: '20px' }}
           >
             <span>
-              Пропустить <span style={{ marginLeft: '8px' }}>→</span>
+              Пропустить <span className='tutorial__styles-skip-arrow'>→</span>
             </span>
           </button>
         </div>
@@ -786,7 +766,7 @@ const AppTutorial = ({
           overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1500,
+          zIndex: 1001,
         },
         buttonNext: {
           display: 'none',
@@ -798,7 +778,7 @@ const AppTutorial = ({
 
   useEffect(() => {
     if (isNewUser) {
-      setRunTutorial(true)
+      setIsStartTutorial(true)
     }
   }, [isNewUser])
 
@@ -807,7 +787,7 @@ const AppTutorial = ({
   return (
     <Joyride
       steps={steps}
-      run={runTutorial}
+      run={isStartTutorial}
       continuous={true}
       showSkipButton={true}
       autoStart={true}
@@ -817,8 +797,8 @@ const AppTutorial = ({
       spotlightClicks={false}
       stepIndex={stepIndex}
       callback={(data) => {
-        if (data.status === 'finished' || data.status === 'skipped') {
-          setRunTutorial(false)
+        if (data.status === TUTORIAL_STATUS.FINISHED || data.status === TUTORIAL_STATUS.SKIPPED) {
+          setIsStartTutorial(false)
           onFinish?.()
         } else if (data.index === 0 && data.action === 'update') {
           setTimeout(() => {
@@ -873,7 +853,7 @@ const AppTutorial = ({
             if (analyticButton) {
               analyticButton.click()
               setTimeout(() => {
-                navigate('/scanner-results', {
+                navigate(ROUTES.SCANNER_RESULTS.PATH, {
                   state: {
                     isTutorial: true,
                   },
@@ -884,7 +864,7 @@ const AppTutorial = ({
           }, 3000)
         } else if (data.index === 10 && data.action === 'update') {
           setTimeout(() => {
-            navigate('/manual', {
+            navigate(ROUTES.MANUAL.PATH, {
               state: {
                 isTutorial: true,
               },
@@ -893,7 +873,7 @@ const AppTutorial = ({
           }, 3000)
         } else if (data.index === 11 && data.action === 'update') {
           setTimeout(() => {
-            navigate('/add-expenses-manual', {
+            navigate(ROUTES.ADD_EXPENSES_MANUAL.PATH, {
               state: {
                 isTutorial: true,
               },
@@ -966,12 +946,16 @@ const AppTutorial = ({
           textColor: '#333',
           overlayColor: 'rgba(0, 0, 0, 0.8)',
           zIndex: 1000,
+          animation: 'fadeIn 0.3s ease-in-out',
         },
         tooltip: {
           borderRadius: 12,
+          animation: 'fadeIn 0.5s ease-in-out',
         },
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          animation: 'fadeOut 1s ease-in-out',
+          animation: 'fadeIn 0.3s ease-in-out',
         },
       }}
     />
