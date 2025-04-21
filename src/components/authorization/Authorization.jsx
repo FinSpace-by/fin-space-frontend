@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
@@ -10,6 +10,7 @@ import GoogleButton from '@components/googleButton/GoogleButton.jsx'
 import './sass/index.scss'
 
 function Authorization() {
+  const [searchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState(true)
   const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
@@ -20,6 +21,29 @@ function Authorization() {
     severity: 'info',
   })
   const navigate = useNavigate()
+  const demoAccounts = [
+    { phoneOrEmail: '+375339999991', password: '1111' },
+    { phoneOrEmail: '+375339999992', password: '2222' },
+    { phoneOrEmail: '+375339999993', password: '3333' },
+    { phoneOrEmail: '+375339999994', password: '4444' },
+    { phoneOrEmail: '+375339999995', password: '5555' },
+  ]
+
+  useEffect(() => {
+    if (searchParams.get('auto')) {
+      const randomAccount = demoAccounts[Math.floor(Math.random() * demoAccounts.length)]
+
+      authApi
+        .setLogin({
+          phoneOrEmail: randomAccount.phoneOrEmail,
+          password: randomAccount.password,
+        })
+        .then((response) => {
+          localStorage.setItem('token', response.data.token)
+          navigate(ROUTES.CARDS.PATH)
+        })
+    }
+  }, [searchParams])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
