@@ -476,9 +476,9 @@ function Cards() {
         <AppTutorial
           isNewUser={true}
           onFinish={handleTutorialFinish}
-          onSwitchToIncomes={handleSwitchToIncomes}
-          onSwitchToExpenses={handleSwitchToExpenses}
-          onSwitchToPieChart={handleSwitchToPieChart}
+          onSwitchToIncomes={handleShowIncomes}
+          onSwitchToExpenses={handleShowExpenses}
+          onSwitchToPieChart={handlePieChartClick}
         />
       )}
     </div>
