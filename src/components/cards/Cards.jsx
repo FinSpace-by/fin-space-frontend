@@ -472,15 +472,7 @@ function Cards() {
           </div>
         </div>
       )}
-      {showTutorial && (
-        <AppTutorial
-          isNewUser={true}
-          onFinish={handleTutorialFinish}
-          onSwitchToIncomes={handleShowIncomes}
-          onSwitchToExpenses={handleShowExpenses}
-          onSwitchToPieChart={handlePieChartClick}
-        />
-      )}
+      {showTutorial && <AppTutorial isNewUser={true} onFinish={handleTutorialFinish} />}
     </div>
   )
 }
