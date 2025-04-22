@@ -15,9 +15,17 @@ function ConfirmLogin() {
   const [canResend, setCanResend] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [email, setEmail] = useState('')
   const inputsRef = useRef([])
 
-  const email = localStorage.getItem('verificationEmail') || ''
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('verificationEmail') || ''
+    setEmail(storedEmail)
+
+    if (!storedEmail) {
+      navigate(ROUTES.LOGIN.PATH)
+    }
+  }, [])
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -117,11 +125,7 @@ function ConfirmLogin() {
         Для подтверждения входа введите 4-значный код, который был отправлен на почту
       </Typography>
 
-      {error && (
-        <Typography color='error' align='center' style={{ marginTop: '10px' }}>
-          {error}
-        </Typography>
-      )}
+      {error && <Typography className='confirm__error-message'>{error}</Typography>}
 
       <div className='confirm__add-button-container'>
         <Button
