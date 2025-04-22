@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
 import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
-import { authApi, userApi } from '@api'
+import { authApi, userApi, verificationApi } from '@api'
 import { REACT_APP_GOOGLE_CLIENT_ID } from '@config'
 import GoogleButton from '@components/googleButton/GoogleButton.jsx'
 
@@ -59,12 +59,14 @@ function Authorization() {
       try {
         const body = { phoneOrEmail, password }
         const response = await authApi.setLogin(body)
+        localStorage.setItem('verificationEmail', phoneOrEmail)
+        verificationApi.sendCode(phoneOrEmail)
 
         if (response?.data?.token) {
           localStorage.setItem('token', response.data.token)
         }
 
-        navigate(ROUTES.CARDS.PATH)
+        navigate(ROUTES.CONFIRM_LOGIN.PATH)
       } catch {
         setSnackbar({
           open: true,

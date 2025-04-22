@@ -7,6 +7,7 @@ export * from './user'
 export * from './category'
 export * from './scanner'
 export * from './accounts'
+export * from './verification'
 
 const handleUnauthorized = () => {
   localStorage.removeItem('token')
