@@ -109,3 +109,8 @@ export const HTTP_STATUSES = {
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 }
+
+export const SCAN_TYPES = {
+  RECEIPT: 'receipt',
+  QR: 'qr',
+}

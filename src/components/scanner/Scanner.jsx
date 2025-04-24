@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography, CircularProgress } from '@mui/material'
 import clsx from 'clsx'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import BackButton from '@components/backButton/BackButton'
-import { ROUTES } from '@constants'
+import { ROUTES, SCAN_TYPES } from '@constants'
 import { scannerApi } from '@api'
 
 import './sass/index.scss'
 
 function Scanner() {
+  const location = useLocation()
+  const scanType = location.state?.scanType || SCAN_TYPES.RECEIPT
   const navigate = useNavigate()
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
@@ -53,15 +55,47 @@ function Scanner() {
 
     const imageBase64 = canvas.toDataURL('image/png')
     setCapturedImage(imageBase64)
-    stopCamera()
 
+    const formData = await new Promise((resolve) => {
+      canvas.toBlob(
+        (blob) => {
+          const fd = new FormData()
+          fd.append('file', blob, 'scan.jpg')
+          resolve(fd)
+        },
+        'image/jpeg',
+        0.9
+      )
+    })
+
+    stopCamera()
     setLoading(true)
 
     try {
-      const body = { image: imageBase64 }
-      const response = await scannerApi.sendImage(body)
+      let response
+      if (scanType === SCAN_TYPES.QR) {
+        try {
+          response = await scannerApi.sendCode(formData)
+          const qrResponse = response.data.choices[0]?.message?.content
+          if (qrResponse) {
+            try {
+              const parsedData = JSON.parse(qrResponse)
+              response.data = parsedData
+            } catch (e) {
+              console.error('Ошибка парсинга QR ответа:', e)
+              response.data = { products: [] }
+            }
+          } else {
+            response.data = { products: [] }
+          }
+        } catch (error) {
+          response = { data: { products: [] } }
+        }
+      } else {
+        response = await scannerApi.sendImage({ image: imageBase64 })
+      }
 
-      const productsList = Object.values(response.data).find((value) => Array.isArray(value)) || []
+      const productsList = response.data.products || []
 
       setProducts(productsList)
 
@@ -71,6 +105,7 @@ function Scanner() {
         },
       })
     } catch (error) {
+      console.error('Ошибка обработки:', error)
     } finally {
       setLoading(false)
     }
