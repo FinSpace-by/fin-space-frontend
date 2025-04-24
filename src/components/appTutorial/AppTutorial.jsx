@@ -172,6 +172,9 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
           arrowColor: 'transparent',
           zIndex: 1001,
         },
+        tooltip: {
+          bottom: '80px',
+        },
         buttonNext: {
           display: 'none',
         },
@@ -187,7 +190,7 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
         </div>
       ),
       target: '.analitic-graphic',
-      placement: 'top',
+      placement: 'bottom',
       spotlightPadding: 0,
       styles: {
         options: {
@@ -195,6 +198,9 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
+        },
+        tooltip: {
+          bottom: '80px',
         },
         buttonNext: {
           display: 'none',
@@ -572,12 +578,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
     },
   ]
 
-  useEffect(() => {
-    if (isNewUser) {
-      setIsStartTutorial(true)
-    }
-  }, [isNewUser])
-
   const [stepIndex, setStepIndex] = useState(0)
 
   return (
@@ -753,7 +753,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
           },
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            animation: 'fadeOut 1s ease-in-out',
             animation: 'fadeIn 0.3s ease-in-out',
           },
         }}
