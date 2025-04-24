@@ -4,6 +4,8 @@
   &__nav {
     z-index: 999;
     background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     margin: 0;
     width: 100%;
     position: fixed;

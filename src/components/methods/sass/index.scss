@@ -85,6 +85,17 @@ h2 {
   background-position: center;
 }
 
+.card__icon__qr {
+  margin-top: 30px;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  background-image: url('@assets/icons/qr.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .card__title {
   font-size: 17px;
   font-weight: bold;
