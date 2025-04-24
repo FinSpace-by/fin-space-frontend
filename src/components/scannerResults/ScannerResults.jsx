@@ -45,7 +45,11 @@ function ScannerResults() {
     isTutorial: location.state?.isTutorial,
     initialItems: location.state?.isTutorial
       ? [{ product: 'Бананы', price: '12.12', category: '' }]
-      : location.state?.items?.map((item) => ({ ...item, category: '' })) || [],
+      : location.state?.items?.map((item) => ({
+          product: item.product,
+          price: item.price,
+          category: item.category || '',
+        })) || [],
   }
   const [items, setItems] = useState(config.initialItems)
 
