@@ -41,7 +41,7 @@ const Methods = ({ isOpen, onClose }) => {
           </div>
           <div className='card' onClick={() => handleRedirect(REDIRECT_TYPES.QR)}>
             <div className='card__icon__qr' />
-            <p className='card__title'>QR код</p>
+            <p className='card__title'>Электронный чек</p>
           </div>
         </div>
       </div>
