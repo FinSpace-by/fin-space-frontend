@@ -42,10 +42,9 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightPadding: 0,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1001, // higher than nav menu
+          zIndex: 1004, // higher than nav menu
         },
         buttonNext: {
           display: 'none',
@@ -64,10 +63,9 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightPadding: 0,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
-          zIndex: 1001,
+          zIndex: 1004,
         },
         buttonNext: {
           display: 'none',
@@ -89,7 +87,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
 
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -114,7 +111,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightClicks: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -139,7 +135,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightClicks: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -154,7 +149,7 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       content: (
         <div>
           <p className='tutorial__step-text'>
-            Это диаграмма показывает, как много ты потратил или заработал в сравнении с другими
+            Эта диаграмма показывает, как много ты потратил или заработал в сравнении с другими
             днями
           </p>
           <p className='tutorial__step-text' style={{ marginTop: '10px' }}>
@@ -167,7 +162,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightPadding: 0,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -194,7 +188,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightPadding: 0,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -221,7 +214,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       spotlightPadding: 0,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -246,7 +238,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -264,7 +255,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -287,7 +277,28 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: 'transparent',
+          arrowColor: 'transparent',
+          zIndex: 1001,
+        },
+        buttonNext: {
+          display: 'none',
+        },
+        buttonSkip: { display: 'none' },
+      },
+    },
+    {
+      content: (
+        <div>
+          <p className='tutorial__step-text'>Сканировать можно бумажные и электронные чеки</p>
+        </div>
+      ),
+      target: '.grid',
+      placement: 'top',
+      spotlightPadding: 0,
+      disableBeacon: true,
+      styles: {
+        options: {
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -316,7 +327,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -341,7 +351,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -366,7 +375,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -392,7 +400,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       multiple: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -418,7 +425,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       multiple: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -443,7 +449,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -466,7 +471,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -491,7 +495,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -516,7 +519,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -539,7 +541,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -565,7 +566,6 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
       disableBeacon: true,
       styles: {
         options: {
-          overlayColor: 'rgba(0, 0, 0, 0.8)',
           backgroundColor: 'transparent',
           arrowColor: 'transparent',
           zIndex: 1001,
@@ -597,56 +597,80 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
           if (data.status === TUTORIAL_STATUS.FINISHED || data.status === TUTORIAL_STATUS.SKIPPED) {
             setIsStartTutorial(false)
             onFinish?.()
-          } else if (data.index === 0 && data.action === 'update') {
+          }
+          // Welcome
+          else if (data.index === 0 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(1)
-            }, 3000)
-          } else if (data.index === 1 && data.action === 'update') {
+            }, 3600)
+          }
+          // Balance
+          else if (data.index === 1 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(2)
             }, 3000)
-          } else if (data.index === 2 && data.action === 'update') {
+          }
+          // Income/expense
+          else if (data.index === 2 && data.action === 'update') {
             setTimeout(() => {
               const incomeButton = document.querySelector('.expenses-income-sum2')
               incomeButton.click()
               setStepIndex(3)
-            }, 1000)
+            }, 1200)
           } else if (data.index === 3 && data.action === 'update') {
             setTimeout(() => {
               const expensesButton = document.querySelector('.expenses-income-sum1')
               expensesButton.click()
               setStepIndex(4)
-            }, 1000)
+            }, 1200)
           } else if (data.index === 4 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(5)
-            }, 1000)
-          } else if (data.index === 5 && data.action === 'update') {
+            }, 1200)
+          }
+          // Chart explanation
+          else if (data.index === 5 && data.action === 'update') {
             setTimeout(() => {
               const changeChart = document.querySelector('.pie-chart-icon')
               changeChart.click()
               setStepIndex(6)
-            }, 4000)
-          } else if (data.index === 6 && data.action === 'update') {
+            }, 4600)
+          }
+          // Pie chart
+          else if (data.index === 6 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(7)
-            }, 3000)
-          } else if (data.index === 7 && data.action === 'update') {
+            }, 3600)
+          }
+          // Categories
+          else if (data.index === 7 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(8)
-            }, 3000)
-          } else if (data.index === 8 && data.action === 'update') {
+            }, 3600)
+          }
+          // Add transaction button
+          else if (data.index === 8 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(9)
               const analyticButton = document.querySelector('.mobile-menu__link--analitic')
               analyticButton.click()
-            }, 3000)
-          } else if (data.index === 9 && data.action === 'update') {
+            }, 3800)
+          }
+          // Transition
+          else if (data.index === 9 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(10)
             }, 350)
-          } else if (data.index === 10 && data.action === 'update') {
-            localStorage.setItem('tutorialStep', '10')
+          }
+          // Add method selection
+          else if (data.index === 10 && data.action === 'update') {
+            setTimeout(() => {
+              setStepIndex(11)
+            }, 3800)
+          }
+          // Scan receipt options
+          else if (data.index === 11 && data.action === 'update') {
+            localStorage.setItem('tutorialStep', '11')
             setTimeout(() => {
               const analyticButton = document.querySelector('.modal__close')
               if (analyticButton) {
@@ -657,67 +681,83 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
                       isTutorial: true,
                     },
                   })
-                  setStepIndex(11)
+                  setStepIndex(12)
                 }, 1000)
               }
-            }, 3000)
-          } else if (data.index === 11 && data.action === 'update') {
+            }, 4000)
+          }
+          // Scan results
+          else if (data.index === 12 && data.action === 'update') {
             setTimeout(() => {
               navigate(ROUTES.MANUAL.PATH, {
                 state: {
                   isTutorial: true,
                 },
               })
-              setStepIndex(12)
-            }, 3000)
-          } else if (data.index === 12 && data.action === 'update') {
+              setStepIndex(13)
+            }, 5000)
+          }
+          // Manual add options
+          else if (data.index === 13 && data.action === 'update') {
             setTimeout(() => {
               navigate(ROUTES.ADD_EXPENSES_MANUAL.PATH, {
                 state: {
                   isTutorial: true,
                 },
               })
-              setStepIndex(13)
-            }, 3000)
-          } else if (data.index === 13 && data.action === 'update') {
-            setTimeout(() => {
               setStepIndex(14)
-            }, 3000)
-          } else if (data.index === 14 && data.action === 'update') {
+            }, 3800)
+          }
+          // Manual add expense
+          else if (data.index === 14 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(15)
-            }, 3000)
-          } else if (data.index === 15 && data.action === 'update') {
+            }, 3800)
+          }
+          // Category selection
+          else if (data.index === 15 && data.action === 'update') {
+            setTimeout(() => {
+              setStepIndex(16)
+            }, 3600)
+          }
+          // Custom category
+          else if (data.index === 16 && data.action === 'update') {
             setTimeout(() => {
               const billsButton = document.querySelector('.mobile-menu__link--bills')
               if (billsButton) {
                 billsButton.click()
                 setTimeout(() => {
-                  setStepIndex(16)
+                  setStepIndex(17)
                 }, 1000)
               }
-              setStepIndex(16)
-            }, 3000)
-          } else if (data.index === 16 && data.action === 'update') {
-            setTimeout(() => {
-              setStepIndex(17)
-            }, 3000)
-          } else if (data.index === 17 && data.action === 'update') {
+            }, 3600)
+          }
+          // Bills
+          else if (data.index === 17 && data.action === 'update') {
             setTimeout(() => {
               setStepIndex(18)
-            }, 3000)
-          } else if (data.index === 18 && data.action === 'update') {
+            }, 3600)
+          }
+          // Bill list
+          else if (data.index === 18 && data.action === 'update') {
+            setTimeout(() => {
+              setStepIndex(19)
+            }, 3800)
+          }
+          // Add new bill
+          else if (data.index === 19 && data.action === 'update') {
             setTimeout(() => {
               const addButton = document.querySelector('.bill__add-button')
               if (addButton) {
                 addButton.click()
                 setTimeout(() => {
-                  setStepIndex(19)
+                  setStepIndex(20)
                 }, 1000)
               }
-              setStepIndex(19)
-            }, 3000)
-          } else if (data.index === 19 && data.action === 'update') {
+            }, 3800)
+          }
+          // Bill creation form
+          else if (data.index === 20 && data.action === 'update') {
             setTimeout(() => {
               const closeButton = document.querySelector('.add-bill-modal__close')
               if (closeButton) {
@@ -726,34 +766,36 @@ const AppTutorial = ({ isNewUser, onFinish }) => {
                   const profileButton = document.querySelector('.mobile-menu__link--profile')
                   if (profileButton) {
                     profileButton.click()
-                    setStepIndex(20)
+                    setStepIndex(21)
                   }
                 }, 1000)
               }
-            }, 3000)
-          } else if (data.index === 20 && data.action === 'update') {
+            }, 3600)
+          }
+          // Profile
+          else if (data.index === 21 && data.action === 'update') {
             setTimeout(() => {
-              setStepIndex(21)
+              setStepIndex(22)
+            }, 3000)
+          }
+          // Feedback
+          else if (data.index === 21 && data.action === 'update') {
+            setTimeout(() => {
+              setStepIndex(22)
             }, 3000)
           }
         }}
         styles={{
           options: {
-            arrowColor: '#6054e4',
-            backgroundColor: '#fff',
-            primaryColor: '#6054e4',
             textColor: '#333',
             overlayColor: 'rgba(0, 0, 0, 0.8)',
             zIndex: 1000,
-            animation: 'fadeIn 0.3s ease-in-out',
           },
           tooltip: {
             borderRadius: 12,
-            animation: 'fadeIn 0.5s ease-in-out',
           },
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            animation: 'fadeIn 0.3s ease-in-out',
+          spotlight: {
+            zIndex: 1005,
           },
         }}
       />
