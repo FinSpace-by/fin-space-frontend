@@ -472,7 +472,7 @@ function Cards() {
           </div>
         </div>
       )}
-      {showTutorial && <AppTutorial isNewUser={true} onFinish={handleTutorialFinish} />}
+      {/* {showTutorial && <AppTutorial isNewUser={true} onFinish={handleTutorialFinish} />} */}
     </div>
   )
 }
