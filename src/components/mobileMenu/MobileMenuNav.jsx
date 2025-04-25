@@ -71,7 +71,7 @@ function MobileMenuNav() {
           </li>
         ))}
       </ul>
-      <AppTutorial onOpenModal={() => setIsModalOpen(true)} />
+      {/* <AppTutorial onOpenModal={() => setIsModalOpen(true)} /> */}
       {!isScannerPage && <Methods isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </nav>
   )
