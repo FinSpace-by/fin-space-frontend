@@ -383,7 +383,7 @@ function Cards() {
               value={startDate}
               onChange={onChangeDateStart}
             />
-            <span>-</span>
+            <p>-</p>
             <DatePicker
               className='MuiDatePicker-root'
               disableFuture
