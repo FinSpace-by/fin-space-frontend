@@ -4,10 +4,12 @@ import clsx from 'clsx'
 import PieChart from '@components/pieChart/PieChart'
 import BarChart from '@components/barChart/BarChart'
 import Loader from '@components/Loader'
+import AppTutorial from '@components/appTutorial/AppTutorial'
 import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import useDynamicThemeColor from '@hooks/useDynamicThemeColor'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/ru'
@@ -34,6 +36,9 @@ function Cards() {
   const [isLoading, setIsLoading] = useState(true)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [showTutorial, setShowTutorial] = useState(false)
+
+  useDynamicThemeColor('#6054e4')
 
   useEffect(() => {
     const fetchUserBalance = async () => {
@@ -247,6 +252,16 @@ function Cards() {
     sessionStorage.setItem('endDate', endDate.format('YYYY-MM-DD'))
   }, [startDate, endDate])
 
+  useEffect(() => {
+    const isNewUser = localStorage.getItem('isNewUser') === 'true'
+    setShowTutorial(isNewUser)
+  }, [])
+
+  const handleTutorialFinish = () => {
+    localStorage.removeItem('isNewUser')
+    setShowTutorial(false)
+  }
+
   const handlePieChartClick = () => {
     setIsPieChartVisible(!isPieChartVisible)
     setIsBarChartVisible(!isBarChartVisible)
@@ -457,6 +472,7 @@ function Cards() {
           </div>
         </div>
       )}
+      {/* {showTutorial && <AppTutorial isNewUser={true} onFinish={handleTutorialFinish} />} */}
     </div>
   )
 }

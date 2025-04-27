@@ -14,6 +14,7 @@ import { ICONS_MAP } from '@constants'
 import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import AccountDropdown from '@components/accountDropdown/AccountDropdown'
+import { ROUTES } from '@constants'
 
 import './sass/scanner_results.scss'
 
@@ -21,11 +22,8 @@ function ScannerResults() {
   const location = useLocation()
   const navigate = useNavigate()
   const [categories, setCategories] = useState([])
-  const [items, setItems] = useState(
-    location.state?.items.map((item) => ({ ...item, category: '' })) || []
-  )
-  const [openSnackbar, setOpenSnackbar] = useState(false)
   const [selectedAccount, setSelectedAccount] = useState(null)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -43,6 +41,18 @@ function ScannerResults() {
     fetchCategories()
   }, [])
 
+  const config = {
+    isTutorial: location.state?.isTutorial,
+    initialItems: location.state?.isTutorial
+      ? [{ product: 'Бананы', price: '12.12', category: '' }]
+      : location.state?.items?.map((item) => ({
+          product: item.product,
+          price: item.price,
+          category: item.category || '',
+        })) || [],
+  }
+  const [items, setItems] = useState(config.initialItems)
+
   const handleCategoryChange = (index, newCategory) => {
     setItems((prevItems) =>
       prevItems.map((item, i) => (i === index ? { ...item, category: newCategory } : item))
@@ -57,18 +67,23 @@ function ScannerResults() {
       return
     }
 
+    if (config.isTutorial) {
+      navigate(ROUTES.CARDS.PATH)
+      return
+    }
+
     const body = items.map((item) => {
       const selectedCategory = categories.find((c) => c.title === item.category)
       return {
         amount: item.price,
         categoryId: selectedCategory?.categoryId || null,
-        accountId: selectedAccount.id,
+        accountId: selectedAccount?.id,
       }
     })
 
     try {
       await categoryApi.addExpenses(body)
-      navigate('/cards')
+      navigate(ROUTES.CARDS.PATH)
     } catch (error) {}
   }
 

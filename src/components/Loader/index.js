@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress } from '@mui/material'
+
 import './sass/index.scss'
 
 function Loader({ isLoading }) {
@@ -7,9 +7,8 @@ function Loader({ isLoading }) {
 
   useEffect(() => {
     if (isLoading) {
-      setIsShow(true) // Показываем сразу при загрузке
+      setIsShow(true)
     } else {
-      // Скрываем через 500мс после завершения загрузки
       const timer = setTimeout(() => setIsShow(false), 500)
       return () => clearTimeout(timer)
     }
@@ -19,7 +18,14 @@ function Loader({ isLoading }) {
 
   return (
     <div className='loader-overlay'>
-      <CircularProgress size={80} thickness={6} />
+      <div className='animation'>
+        <div className='coin'></div>
+        <div className='finger'></div>
+        <div className='hand'>
+          <div className='hand1'></div>
+          <div className='hand2'></div>
+        </div>
+      </div>
     </div>
   )
 }

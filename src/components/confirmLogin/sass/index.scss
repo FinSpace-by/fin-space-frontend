@@ -1,0 +1,188 @@
+.confirm__container {
+  background-color: #111111;
+
+  .confirm__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 40px;
+  }
+
+  .confirm__error-message {
+    color: #f44336;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .confirm__title {
+    font-size: 20px;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+  .confirm__instruction {
+    color: #aaa;
+    margin-top: 20px;
+    padding: 0 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .confirm__code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 130px;
+
+    .confirm__code-input {
+      width: 50px;
+      height: 60px;
+      text-align: center;
+      font-size: 24px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background-color: #222;
+      color: white;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: #6054e4;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(96, 84, 228, 0.3);
+      }
+    }
+  }
+
+  .confirm__add-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+    padding: 0 5%;
+    width: 90%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .confirm__add-button {
+      background: linear-gradient(to bottom, #6054e4, #9284ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 17px;
+      text-transform: none;
+      width: 100%;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, #9284ff, #6054e4);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(96, 84, 228, 0.3);
+
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(1px);
+        box-shadow: 0 2px 6px rgba(96, 84, 228, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        background: #2b2b2b;
+        cursor: not-allowed;
+        transition: all 0.4s ease;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .confirm__resend {
+    text-align: center;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .confirm__timer {
+      color: #777;
+      transition: color 0.3s ease;
+      padding: 0px 20px;
+
+      &:hover {
+        color: #aaa;
+      }
+    }
+
+    .confirm__resend-button {
+      background: linear-gradient(to bottom, #6054e4, #9284ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 17px;
+      text-transform: none;
+      width: 90%;
+      max-width: 600px;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, #9284ff, #6054e4);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(96, 84, 228, 0.3);
+
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 6px rgba(96, 84, 228, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        background: #2b2b2b;
+        cursor: not-allowed;
+        transition: all 0.4s ease;
+        box-shadow: none;
+      }
+    }
+  }
+}

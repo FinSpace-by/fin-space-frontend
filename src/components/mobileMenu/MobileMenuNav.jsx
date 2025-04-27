@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import { ACTIVE_ITEMS, menuItems } from './MobileMenuNav.const.js'
 import Methods from '../methods/Methods.jsx'
+import AppTutorial from '@components/appTutorial/AppTutorial'
 import clsx from 'clsx'
 
 function MobileMenuNav() {
@@ -70,7 +71,7 @@ function MobileMenuNav() {
           </li>
         ))}
       </ul>
-
+      {/* <AppTutorial onOpenModal={() => setIsModalOpen(true)} /> */}
       {!isScannerPage && <Methods isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </nav>
   )

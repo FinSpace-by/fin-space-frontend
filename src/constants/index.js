@@ -42,6 +42,7 @@ export const ROUTER_ROUTES = {
   ADD_INCOME_MANUAL: 'add-income-manual',
   ADD_CUSTOM: 'add-custom',
   BILLS: `bills`,
+  CONFIRM_LOGIN: 'confirm-login',
 }
 
 export const ROUTES = {
@@ -59,6 +60,7 @@ export const ROUTES = {
   ADD_INCOME_MANUAL: { TITLE: 'Добавить доход', PATH: '/add-income-manual' },
   ADD_CUSTOM: { TITLE: 'Добавить вручную', PATH: '/add-custom' },
   BILLS: { TITLE: 'Счета', PATH: '/bills' },
+  CONFIRM_LOGIN: { TITLE: 'Подтвержение входа', PATH: '/confirm-login' },
 }
 
 export const ICONS_MAP = {
@@ -99,4 +101,16 @@ export const LOCATION_STATES = {
 export const REDIRECT_TYPES = {
   MANUAL: 'manual',
   SCANNER: 'scanner',
+}
+
+export const HTTP_STATUSES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+}
+
+export const SCAN_TYPES = {
+  RECEIPT: 'receipt',
+  QR: 'qr',
 }

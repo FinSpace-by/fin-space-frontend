@@ -12,5 +12,5 @@ export const menuItems = [
   { path: ROUTES.ANALITIC.PATH, label: '', key: 'analitic' },
   { path: ROUTES.CARDS.PATH, label: 'Главная', key: 'cards' },
   { path: ROUTES.BILLS.PATH, label: 'Счета', key: 'bills' },
-  { path: ROUTES.NOT_FOUND.PATH, label: 'Профиль', key: 'profile' },
+  { path: ROUTES.PROFILE.PATH, label: 'Профиль', key: 'profile' },
 ]

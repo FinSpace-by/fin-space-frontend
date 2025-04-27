@@ -19,6 +19,8 @@ import AddIncomeManual from '@components/addIncomeManual/AddIncomeManual'
 import AddCustom from '@components/addCustom/addCustom'
 import ScannerResults from '@components/scannerResults/ScannerResults'
 import Bills from '@components/bills/Bills'
+import ConfirmLogin from '@components/confirmLogin/ConfirmLogin'
+import YandexMetrica from '@components/yandexMetrica/YandexMetrica'
 
 import './sass/index.scss'
 
@@ -41,6 +43,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <YandexMetrica />
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           {isMobile ? (
@@ -49,6 +52,7 @@ function App() {
               <Route path={ROUTER_ROUTES.ROOT}>
                 <Route index element={<Authorization />} />
                 <Route path={ROUTER_ROUTES.REGISTRATION} element={<Registration />} />
+                <Route path={ROUTER_ROUTES.CONFIRM_LOGIN} element={<ConfirmLogin />} />
                 <Route path={ROUTER_ROUTES.MOBILE_MENU} element={<MobileMenu />}>
                   <Route path={ROUTER_ROUTES.CARDS} element={<Cards />} />
                   <Route path={ROUTER_ROUTES.ANALITIC} element={<Analitic />} />

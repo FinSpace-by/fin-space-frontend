@@ -1,0 +1,218 @@
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1001;
+}
+
+.animation {
+  position: relative;
+  width: 156px;
+  height: 200px;
+  transform-origin: center;
+
+  @media (min-height: 750px) {
+    transform: scale(1.2);
+  }
+
+  @media (max-height: 480px) {
+    transform: scale(0.8);
+  }
+}
+
+@keyframes coin-flip {
+  0% {
+    left: 72px;
+    bottom: 60px;
+    transform: rotate(0deg);
+  }
+  12.5% {
+    left: 90px;
+    bottom: 90px;
+    transform: rotate(12deg);
+  }
+  25% {
+    left: 90px;
+    bottom: 150px;
+    transform: rotate(36deg);
+  }
+  37.5% {
+    left: 90px;
+    bottom: 230px;
+    transform: rotate(98deg);
+  }
+  50% {
+    left: 82px;
+    bottom: 280px;
+    transform: rotate(160deg);
+  }
+  62.5% {
+    left: 82px;
+    bottom: 220px;
+    transform: rotate(240deg);
+  }
+  75% {
+    left: 86px;
+    bottom: 182px;
+    transform: rotate(310deg);
+  }
+  87.5% {
+    left: 84px;
+    bottom: 136px;
+    transform: rotate(346deg);
+  }
+  100% {
+    left: 74px;
+    bottom: 83px;
+    transform: rotate(358deg);
+  }
+}
+
+@keyframes finger {
+  0% {
+    bottom: 38px;
+    left: 40px;
+    transform: rotate(0deg);
+  }
+  12.5% {
+    bottom: 52px;
+    left: 48px;
+    transform: rotate(-5deg);
+  }
+  25% {
+    bottom: 74px;
+    left: 32px;
+    transform: rotate(-38deg);
+  }
+  37.5% {
+    bottom: 78px;
+    left: 38px;
+    transform: rotate(-50deg);
+  }
+  50% {
+    bottom: 92px;
+    left: 40px;
+    transform: rotate(-68deg);
+  }
+  62.5% {
+    bottom: 91px;
+    left: 38px;
+    transform: rotate(-55deg);
+  }
+  75% {
+    bottom: 91px;
+    left: 36px;
+    transform: rotate(-40deg);
+  }
+  87.5% {
+    bottom: 68px;
+    left: 44px;
+    transform: rotate(-16deg);
+  }
+  100% {
+    bottom: 60px;
+    left: 42px;
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes hand {
+  0% {
+    bottom: 2px;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  12.5% {
+    bottom: 20px;
+    left: 0px;
+    transform: rotate(5deg);
+  }
+  25% {
+    bottom: 20px;
+    left: 0px;
+    transform: rotate(-5deg);
+  }
+  37.5% {
+    bottom: 10px;
+    left: 24px;
+    transform: rotate(-18deg);
+  }
+  50% {
+    bottom: 10px;
+    left: 54px;
+    transform: rotate(-36deg);
+  }
+  62.5% {
+    bottom: 18px;
+    left: 32px;
+    transform: rotate(-24deg);
+  }
+  75% {
+    bottom: 32px;
+    left: 4px;
+    transform: rotate(-8deg);
+  }
+  87.5% {
+    bottom: 24px;
+    left: 2px;
+    transform: rotate(-2deg);
+  }
+  100% {
+    bottom: 22px;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+}
+
+.coin,
+.finger,
+.hand1,
+.hand2,
+.hand {
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+}
+
+.coin {
+  width: 56px;
+  height: 45px;
+  background-image: url('@assets/imgs/Vector3.svg');
+  z-index: 2;
+  animation: coin-flip 1000ms ease-in infinite;
+}
+
+.finger {
+  width: 74px;
+  height: 41px;
+  background-image: url('@assets/imgs/Vector1.svg');
+  z-index: 1;
+  animation: finger 1000ms ease-in infinite;
+}
+
+.hand {
+  animation: hand 1000ms ease-in infinite;
+}
+
+.hand .hand1 {
+  width: 93px;
+  height: 68px;
+  background-image: url('@assets/imgs/Vector0.svg');
+  left: 36px;
+}
+
+.hand .hand2 {
+  width: 32px;
+  height: 54px;
+  background-image: url('@assets/imgs/Vector2.svg');
+  bottom: 10px;
+}

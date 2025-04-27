@@ -47,12 +47,19 @@ module.exports = (env) => {
         '@modules': path.resolve(__dirname, 'src', 'modules'),
         '@node_modules': path.resolve(__dirname, 'node_modules'),
         '@config': path.resolve(__dirname, 'src', 'config'),
+        '@hooks': path.resolve(__dirname, 'src', 'hooks'),
       },
       extensions: ['', '.js', '.jsx', '.scss'],
     },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.REACT_APP_API': JSON.stringify(process.env.REACT_APP_API),
+        'process.env.REACT_APP_GOOGLE_CLIENT_ID': JSON.stringify(
+          process.env.REACT_APP_GOOGLE_CLIENT_ID
+        ),
+        'process.env.REACT_APP_API_YANDEX_METRICA_ID': JSON.stringify(
+          process.env.REACT_APP_API_YANDEX_METRICA_ID
+        ),
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
