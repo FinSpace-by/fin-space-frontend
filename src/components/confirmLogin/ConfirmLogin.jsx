@@ -56,11 +56,19 @@ function ConfirmLogin() {
     const verificationCode = code.join('')
     if (verificationCode.length !== 4) return
 
+    const body = {
+      phoneOrEmail: email,
+      password: password,
+    }
+
     try {
       setLoading(true)
       await verificationApi.confirmCode(email, verificationCode)
-      await authApi.register(email, password)
-      navigate(ROUTES.CARDS.PATH)
+      const response = await authApi.register(body)
+      if (response?.data?.token) {
+        localStorage.setItem('token', response.data.token)
+        navigate(ROUTES.CARDS.PATH)
+      }
       localStorage.removeItem('verificationEmail')
       localStorage.removeItem('verificationPassword')
     } catch (err) {

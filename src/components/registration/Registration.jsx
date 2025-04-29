@@ -42,11 +42,6 @@ function Registration() {
       !passwordMismatch &&
       !hasErrors.agreement
     ) {
-      const body = {
-        phoneOrEmail: phoneOrEmail,
-        password: password,
-      }
-
       try {
         localStorage.setItem('verificationEmail', phoneOrEmail)
         localStorage.setItem('verificationPassword', password)
