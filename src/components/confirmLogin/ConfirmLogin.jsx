@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography, Button, CircularProgress } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
-import { verificationApi } from '@api'
+import { verificationApi, authApi } from '@api'
 import { ROUTES } from '@constants'
 
 import './sass/index.scss'
@@ -16,14 +16,17 @@ function ConfirmLogin() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState(null)
   const inputsRef = useRef([])
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('verificationEmail') || ''
+    const storedPassword = localStorage.getItem('verificationPassword') || ''
     setEmail(storedEmail)
+    setPassword(storedPassword)
 
-    if (!storedEmail) {
-      navigate(ROUTES.LOGIN.PATH)
+    if (!storedEmail || !storedPassword) {
+      navigate(ROUTES.REGISTRATION.PATH)
     }
   }, [])
 
@@ -53,11 +56,21 @@ function ConfirmLogin() {
     const verificationCode = code.join('')
     if (verificationCode.length !== 4) return
 
+    const body = {
+      phoneOrEmail: email,
+      password: password,
+    }
+
     try {
       setLoading(true)
       await verificationApi.confirmCode(email, verificationCode)
-      navigate(ROUTES.CARDS.PATH)
+      const response = await authApi.register(body)
+      if (response?.data?.token) {
+        localStorage.setItem('token', response.data.token)
+        navigate(ROUTES.CARDS.PATH)
+      }
       localStorage.removeItem('verificationEmail')
+      localStorage.removeItem('verificationPassword')
     } catch (err) {
       setError('Неверный код подтверждения')
       setCode(['', '', '', ''])

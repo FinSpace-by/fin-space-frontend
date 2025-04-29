@@ -112,7 +112,7 @@ function ScannerResults() {
                 </Typography>
               </div>
               <div className='analitic__inputWrapper'>
-                <input type='text' value={item.product} readOnly />
+                <input type='text' value={item.product} />
               </div>
 
               <div className='analitic__tabContent__header'>
@@ -121,7 +121,7 @@ function ScannerResults() {
                 </Typography>
               </div>
               <div className='analitic__inputWrapper'>
-                <input type='text' value={item.price} readOnly />
+                <input type='text' value={item.price} />
                 <span className='currency'>BYN</span>
               </div>
 
