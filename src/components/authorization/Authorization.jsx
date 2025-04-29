@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
-import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  Alert,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material'
 import { authApi, userApi, verificationApi } from '@api'
 import { REACT_APP_GOOGLE_CLIENT_ID } from '@config'
 import GoogleButton from '@components/googleButton/GoogleButton.jsx'
@@ -14,6 +23,7 @@ function Authorization() {
   const [isLoading, setIsLoading] = useState(true)
   const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState({ phoneOrEmail: false, password: false })
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -28,6 +38,22 @@ function Authorization() {
     { phoneOrEmail: '+375339999994', password: '4444' },
     { phoneOrEmail: '+375339999995', password: '5555' },
   ]
+
+  useEffect(() => {
+    const savedCredentials = localStorage.getItem('rememberedCredentials')
+    if (savedCredentials) {
+      try {
+        const { phoneOrEmail: savedPhoneOrEmail, password: savedPassword } =
+          JSON.parse(savedCredentials)
+        setPhone(savedPhoneOrEmail)
+        setPassword(savedPassword)
+        setRememberMe(true)
+      } catch (e) {
+        console.error('Failed to parse saved credentials', e)
+      }
+    }
+    setIsLoading(false)
+  }, [])
 
   useEffect(() => {
     if (searchParams.get('auto')) {
@@ -59,14 +85,20 @@ function Authorization() {
       try {
         const body = { phoneOrEmail, password }
         const response = await authApi.setLogin(body)
-        localStorage.setItem('verificationEmail', phoneOrEmail)
-        verificationApi.sendCode(phoneOrEmail)
-
         if (response?.data?.token) {
           localStorage.setItem('token', response.data.token)
-        }
 
-        navigate(ROUTES.CONFIRM_LOGIN.PATH)
+          if (rememberMe) {
+            localStorage.setItem(
+              'rememberedCredentials',
+              JSON.stringify({ phoneOrEmail, password })
+            )
+          } else {
+            localStorage.removeItem('rememberedCredentials')
+          }
+
+          navigate(ROUTES.CARDS.PATH)
+        }
       } catch {
         setSnackbar({
           open: true,
@@ -154,6 +186,18 @@ function Authorization() {
           onChange={(e) => setPassword(e.target.value)}
           error={errors.password}
           helperText={errors.password ? 'Это поле обязательно' : ''}
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              color='primary'
+            />
+          }
+          label='Запомнить меня'
+          sx={{ alignSelf: 'flex-start', mt: 1 }}
         />
 
         {/* <GoogleButton
