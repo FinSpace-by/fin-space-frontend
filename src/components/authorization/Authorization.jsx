@@ -59,14 +59,10 @@ function Authorization() {
       try {
         const body = { phoneOrEmail, password }
         const response = await authApi.setLogin(body)
-        localStorage.setItem('verificationEmail', phoneOrEmail)
-        verificationApi.sendCode(phoneOrEmail)
-
         if (response?.data?.token) {
           localStorage.setItem('token', response.data.token)
+          navigate(ROUTES.CARDS.PATH)
         }
-
-        navigate(ROUTES.CONFIRM_LOGIN.PATH)
       } catch {
         setSnackbar({
           open: true,

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
-import { authApi } from '@api'
+import { authApi, verificationApi } from '@api'
 import { TextField, Button, Box, Typography, Checkbox, FormControlLabel, Link } from '@mui/material'
 
 import './sass/index.scss'
@@ -50,11 +50,10 @@ function Registration() {
       try {
         const response = await authApi.register(body)
         if (response?.data?.token) {
-          localStorage.setItem('token', response.data.token)
-          localStorage.setItem('isNewUser', 'true')
+          localStorage.setItem('verificationEmail', phoneOrEmail)
+          verificationApi.sendCode(phoneOrEmail)
+          navigate(ROUTES.CONFIRM_LOGIN.PATH)
         }
-
-        navigate(ROUTES.CARDS.PATH)
       } catch (error) {
         console.error('Registration error:', error)
       }
