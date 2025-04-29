@@ -6,7 +6,6 @@ import { verificationApi, authApi } from '@api'
 import { ROUTES } from '@constants'
 
 import './sass/index.scss'
-import { authApi } from '../../api'
 
 function ConfirmLogin() {
   const navigate = useNavigate()
