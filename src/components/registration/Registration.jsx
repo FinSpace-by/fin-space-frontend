@@ -48,12 +48,10 @@ function Registration() {
       }
 
       try {
-        const response = await authApi.register(body)
-        if (response?.data?.token) {
-          localStorage.setItem('verificationEmail', phoneOrEmail)
-          verificationApi.sendCode(phoneOrEmail)
-          navigate(ROUTES.CONFIRM_LOGIN.PATH)
-        }
+        localStorage.setItem('verificationEmail', phoneOrEmail)
+        localStorage.setItem('verificationPassword', password)
+        verificationApi.sendCode(phoneOrEmail)
+        navigate(ROUTES.CONFIRM_LOGIN.PATH)
       } catch (error) {
         console.error('Registration error:', error)
       }

@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography, Button, CircularProgress } from '@mui/material'
 import BackButton from '@components/backButton/BackButton'
-import { verificationApi } from '@api'
+import { verificationApi, authApi } from '@api'
 import { ROUTES } from '@constants'
 
 import './sass/index.scss'
+import { authApi } from '../../api'
 
 function ConfirmLogin() {
   const navigate = useNavigate()
@@ -16,14 +17,17 @@ function ConfirmLogin() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState(null)
   const inputsRef = useRef([])
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('verificationEmail') || ''
+    const storedPassword = localStorage.getItem('verificationPassword') || ''
     setEmail(storedEmail)
+    setPassword(storedPassword)
 
-    if (!storedEmail) {
-      navigate(ROUTES.LOGIN.PATH)
+    if (!storedEmail || !storedPassword) {
+      navigate(ROUTES.REGISTRATION.PATH)
     }
   }, [])
 
@@ -56,8 +60,10 @@ function ConfirmLogin() {
     try {
       setLoading(true)
       await verificationApi.confirmCode(email, verificationCode)
+      await authApi.register(email, password)
       navigate(ROUTES.CARDS.PATH)
       localStorage.removeItem('verificationEmail')
+      localStorage.removeItem('verificationPassword')
     } catch (err) {
       setError('Неверный код подтверждения')
       setCode(['', '', '', ''])
