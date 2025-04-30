@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import clsx from 'clsx'
 import { Typography } from '@mui/material'
 import { accountsApi } from '@api'
 
@@ -35,7 +36,7 @@ function AccountDropdown({ selectedAccount, onAccountSelect, error }) {
         </Typography>
       </div>
       <div
-        className={`account-dropdown ${error ? 'error' : ''}`}
+        className={clsx('account-dropdown', { error: error })}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         <div className='selected-account'>
