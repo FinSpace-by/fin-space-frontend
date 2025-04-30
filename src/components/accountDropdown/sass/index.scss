@@ -13,7 +13,7 @@
   width: 100%;
   padding: 20px;
   font-size: 17px;
-  margin-bottom: 50px;
+  margin-bottom: 14px;
   color: #ffffff;
 
   .selected-account {
@@ -46,6 +46,18 @@
         background-color: rgba(113, 96, 255, 1);
         border-radius: 8px;
       }
+    }
+  }
+
+  &.error {
+    border-color: #ff6060;
+
+    .selected-account {
+      color: #ff6060;
+    }
+
+    .dropdown-arrow {
+      color: #ff6060;
     }
   }
 }

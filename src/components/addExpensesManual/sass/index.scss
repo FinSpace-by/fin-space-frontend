@@ -65,6 +65,17 @@
   display: inline-block;
   width: 100%;
   margin-bottom: 10px;
+
+  &.error {
+    input {
+      border: 1px solid #ff6060 !important;
+      color: #ff6060 !important;
+    }
+
+    .currency {
+      color: #ff6060 !important;
+    }
+  }
 }
 
 .analitic__inputWrapper input {
@@ -98,4 +109,63 @@
   font-size: 17px;
   pointer-events: none;
   font-family: 'SF Pro Text', bold;
+}
+
+.error-message {
+  margin: 4px 0 4px 0 !important;
+  color: #ff6060;
+  font-family: 'SF Pro Text', sans-serif !important;
+  font-size: 15px !important;
+}
+
+.alert-container {
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.category-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 80px;
+  background-color: #2e2e2e;
+  color: #ff6060;
+  border-radius: 20px;
+  font-family: 'SF Pro Text', sans-serif;
+  font-size: 16px;
+  padding: 0 20px;
+  animation:
+    slideUp 0.3s ease-out,
+    fadeOut 0.3s ease-out 2.7s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100px);
+    opacity: 0;
+  }
 }
