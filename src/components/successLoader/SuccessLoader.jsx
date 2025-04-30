@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import './sass/index.scss'
 
 function SuccessLoader({ isSuccess }) {
@@ -7,7 +8,7 @@ function SuccessLoader({ isSuccess }) {
   useEffect(() => {
     if (isSuccess) {
       setIsShow(true)
-      const timer = setTimeout(() => setIsShow(false), 1500) // Автоматически скрываем через 2 секунды
+      const timer = setTimeout(() => setIsShow(false), 1500)
       return () => clearTimeout(timer)
     }
   }, [isSuccess])

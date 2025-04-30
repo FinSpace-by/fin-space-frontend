@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
+import clsx from 'clsx'
 import { ROUTES } from '@constants'
 import { categoryApi } from '@api'
 import { ICONS_MAP } from '@constants'
@@ -132,7 +133,7 @@ function AddExpensesManual() {
             Сумма
           </Typography>
         </div>
-        <div className={`analitic__inputWrapper ${amountError ? 'error' : ''}`}>
+        <div className={clsx('analitic__inputWrapper', { error: amountError })}>
           <input
             type='text'
             placeholder='0'
