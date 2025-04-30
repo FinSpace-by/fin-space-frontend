@@ -32,12 +32,12 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// instance.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === HTTP_STATUSES.UNAUTHORIZED) {
-//       handleUnauthorized()
-//     }
-//     return Promise.reject(error)
-//   }
-// )
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === HTTP_STATUSES.UNAUTHORIZED) {
+      handleUnauthorized()
+    }
+    return Promise.reject(error)
+  }
+)
