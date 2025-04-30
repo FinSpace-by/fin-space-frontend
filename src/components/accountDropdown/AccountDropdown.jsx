@@ -4,7 +4,7 @@ import { accountsApi } from '@api'
 
 import './sass/index.scss'
 
-function AccountDropdown({ selectedAccount, onAccountSelect }) {
+function AccountDropdown({ selectedAccount, onAccountSelect, error }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [accounts, setAccounts] = useState([])
 
@@ -34,7 +34,10 @@ function AccountDropdown({ selectedAccount, onAccountSelect }) {
           Счёт
         </Typography>
       </div>
-      <div className='account-dropdown' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+      <div
+        className={`account-dropdown ${error ? 'error' : ''}`}
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      >
         <div className='selected-account'>
           {selectedAccount ? selectedAccount.name : 'Выберите счёт'}
         </div>
@@ -53,6 +56,11 @@ function AccountDropdown({ selectedAccount, onAccountSelect }) {
           </div>
         )}
       </div>
+      {error && (
+        <Typography variant='body2' className='error-message'>
+          {error}
+        </Typography>
+      )}
     </>
   )
 }
