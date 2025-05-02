@@ -462,8 +462,6 @@ function Cards() {
       return
     }
 
-    console.log(newStartDate)
-    console.log(newEndDate)
     setStartDate(newStartDate)
     setEndDate(newEndDate)
     setSelectedPeriod('За период')
@@ -482,8 +480,6 @@ function Cards() {
       case 'Эта неделя':
         setStartDate(today.startOf('week'))
         setEndDate(today.endOf('week'))
-        console.log(startDate)
-        console.log(endDate)
         break
       case 'Этот месяц':
         setStartDate(today.startOf('month'))
