@@ -87,6 +87,20 @@ function ScannerResults() {
     } catch (error) {}
   }
 
+  const handleProductChange = (index, newValue) => {
+    setItems((prevItems) =>
+      prevItems.map((item, i) => (i === index ? { ...item, product: newValue } : item))
+    )
+  }
+
+  const handlePriceChange = (index, newValue) => {
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setItems((prevItems) =>
+        prevItems.map((item, i) => (i === index ? { ...item, price: newValue } : item))
+      )
+    }
+  }
+
   return (
     <div className='analitic__tabs__container'>
       <div className='analitic__tabs__header'>
@@ -112,7 +126,11 @@ function ScannerResults() {
                 </Typography>
               </div>
               <div className='analitic__inputWrapper'>
-                <input type='text' value={item.product} />
+                <input
+                  type='text'
+                  value={item.product}
+                  onChange={(e) => handleProductChange(index, e.target.value)}
+                />
               </div>
 
               <div className='analitic__tabContent__header'>
@@ -121,7 +139,11 @@ function ScannerResults() {
                 </Typography>
               </div>
               <div className='analitic__inputWrapper'>
-                <input type='text' value={item.price} />
+                <input
+                  type='text'
+                  value={item.price}
+                  onChange={(e) => handlePriceChange(index, e.target.value)}
+                />
                 <span className='currency'>BYN</span>
               </div>
 
