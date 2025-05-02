@@ -1,47 +1,41 @@
 import React from 'react'
-import { Bar } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const chartOptions = {
   responsive: false,
-  barThickness: 40,
   scales: {
     x: {
-      grid: {
-        display: false,
-      },
+      grid: { display: false },
       ticks: {
         font: {
           family: 'SF Pro Text',
-          size: 18,
+          size: 14,
           weight: 600,
         },
         color: 'rgba(255, 255, 255, 0.7)',
+        maxRotation: 0,
+        autoSkip: true,
       },
     },
     y: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: false,
-      },
+      grid: { display: false },
+      ticks: { display: false },
     },
   },
   plugins: {
-    legend: {
-      position: '',
-    },
+    legend: { display: false },
     tooltip: {
       multiKeyBackground: 'rgba(0, 0, 0, 0)',
       titleFont: {
@@ -58,21 +52,30 @@ const chartOptions = {
   },
 }
 
-const BarChart = ({ categories }) => {
+const LineChart = ({ categories, isExpenses }) => {
+  const labels = categories.map((item) => item.title)
+  const dataValues = categories.map((item) => item.amount)
+
+  const lineColor = isExpenses ? '#ff6060' : '#15d638'
+
   const data = {
-    labels: categories.map((category) => category.title),
+    labels,
     datasets: [
       {
-        label: ' ',
-        data: categories.map((category) => category.amount),
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
-        borderRadius: 10,
-        hoverBackgroundColor: 'rgb(255, 255, 255)',
+        label: '',
+        data: dataValues,
+        borderColor: lineColor,
+        backgroundColor: lineColor,
+        tension: 0.4,
+        fill: false,
+        pointRadius: 3,
+        pointBackgroundColor: lineColor,
+        borderWidth: 5,
       },
     ],
   }
 
-  return <Bar data={data} options={chartOptions} width={370} height={190} />
+  return <Line data={data} options={chartOptions} width={370} height={190} />
 }
 
-export default BarChart
+export default LineChart
