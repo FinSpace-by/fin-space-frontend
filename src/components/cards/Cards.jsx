@@ -221,15 +221,35 @@ function Cards() {
 
       const fetchData = async () => {
         try {
-          setIsLoading(true)
-
-          if (selectedPeriod === 'Сегодня') {
+          if (isPieChartVisible) {
             if (showExpenses) {
               const response = await categoryApi.getExpensesByDate(
                 formattedStartDate,
                 formattedEndDate
               )
-              const chartData = groupDataByHours(response.data, 'expenses')
+
+              const expensesData = response.data.reduce((acc, { date, expenses }) => {
+                expenses.forEach(({ categoryName, totalExpense, categoryIconUrl }) => {
+                  if (acc[categoryName]) {
+                    acc[categoryName].amount += totalExpense
+                  } else {
+                    acc[categoryName] = {
+                      amount: totalExpense,
+                      icon: categoryIconUrl,
+                    }
+                  }
+                })
+                return acc
+              }, {})
+
+              const chartData = Object.entries(expensesData).map(
+                ([categoryName, { amount, icon }]) => ({
+                  title: categoryName,
+                  amount,
+                  icon: ICONS_MAP[icon] || ICONS_MAP['custom'],
+                })
+              )
+
               setCurrentType(chartData)
               setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
             } else if (showIncomes) {
@@ -237,163 +257,201 @@ function Cards() {
                 formattedStartDate,
                 formattedEndDate
               )
-              const chartData = groupDataByHours(response.data, 'incomes')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            }
-          } else if (selectedPeriod === 'Эта неделя') {
-            if (showExpenses) {
-              const response = await categoryApi.getExpensesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByWeekDays(response.data, 'expenses')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            } else if (showIncomes) {
-              const response = await categoryApi.getIncomesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByWeekDays(response.data, 'incomes')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            }
-          } else if (selectedPeriod === 'Этот месяц') {
-            if (showExpenses) {
-              const response = await categoryApi.getExpensesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByMonthDays(response.data, 'expenses')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            } else if (showIncomes) {
-              const response = await categoryApi.getIncomesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByMonthDays(response.data, 'incomes')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            }
-          } else if (selectedPeriod === 'Этот год') {
-            if (showExpenses) {
-              const response = await categoryApi.getExpensesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByYearMonths(response.data, 'expenses')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            } else if (showIncomes) {
-              const response = await categoryApi.getIncomesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
-              const chartData = groupDataByYearMonths(response.data, 'incomes')
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
-            }
-          } else if (selectedPeriod === 'За период') {
-            const allDates = []
-            let currentDate = dayjs(startDate)
-            const endDateObj = dayjs(endDate)
 
-            while (currentDate.isBefore(endDateObj) || currentDate.isSame(endDateObj, 'day')) {
-              allDates.push(currentDate.format('YYYY-MM-DD'))
-              currentDate = currentDate.add(1, 'day')
-            }
+              const incomesData = response.data.reduce((acc, { date, incomes }) => {
+                incomes.forEach(({ categoryName, totalIncome, categoryIconUrl }) => {
+                  if (acc[categoryName]) {
+                    acc[categoryName].amount += totalIncome
+                  } else {
+                    acc[categoryName] = {
+                      amount: totalIncome,
+                      icon: categoryIconUrl,
+                    }
+                  }
+                })
+                return acc
+              }, {})
 
-            if (showExpenses) {
-              const response = await categoryApi.getExpensesByDate(
-                formattedStartDate,
-                formattedEndDate
+              const chartData = Object.entries(incomesData).map(
+                ([categoryName, { amount, icon }]) => ({
+                  title: categoryName,
+                  amount,
+                  icon: ICONS_MAP[icon] || ICONS_MAP['custom'],
+                })
               )
-
-              const dataByDate = new Map()
-              response.data.forEach((dayData) => {
-                dataByDate.set(dayData.date, dayData.expenses)
-              })
-
-              const chartData = allDates.flatMap((date) => {
-                const dayjsDate = dayjs(date)
-                const dayOfWeek = DAYS_OF_WEEK[(dayjsDate.day() + 6) % 7]
-                const dayOfMonth = dayjsDate.date()
-                const month = MONTHS[dayjsDate.month()]
-
-                const expenses = dataByDate.get(date) || []
-                if (expenses.length === 0) {
-                  return [
-                    {
-                      title: `${dayOfMonth} ${month}`,
-                      dayOfWeek,
-                      amount: 0,
-                      icon: ICONS_MAP['custom'],
-                      fullDate: date,
-                    },
-                  ]
-                }
-                return expenses.map((expense) => ({
-                  title: `${dayOfMonth} ${month}`,
-                  dayOfWeek,
-                  amount: expense.totalExpense,
-                  icon: ICONS_MAP[expense.categoryIconUrl] || ICONS_MAP['custom'],
-                  fullDate: date,
-                }))
-              })
 
               setCurrentType(chartData)
               setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
             }
+          } else if (isBarChartVisible) {
+            if (selectedPeriod === 'Сегодня') {
+              if (showExpenses) {
+                const response = await categoryApi.getExpensesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByHours(response.data, 'expenses')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              } else if (showIncomes) {
+                const response = await categoryApi.getIncomesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByHours(response.data, 'incomes')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
+            } else if (selectedPeriod === 'Эта неделя') {
+              if (showExpenses) {
+                const response = await categoryApi.getExpensesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByWeekDays(response.data, 'expenses')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              } else if (showIncomes) {
+                const response = await categoryApi.getIncomesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByWeekDays(response.data, 'incomes')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
+            } else if (selectedPeriod === 'Этот месяц') {
+              if (showExpenses) {
+                const response = await categoryApi.getExpensesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByMonthDays(response.data, 'expenses')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              } else if (showIncomes) {
+                const response = await categoryApi.getIncomesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByMonthDays(response.data, 'incomes')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
+            } else if (selectedPeriod === 'Этот год') {
+              if (showExpenses) {
+                const response = await categoryApi.getExpensesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByYearMonths(response.data, 'expenses')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              } else if (showIncomes) {
+                const response = await categoryApi.getIncomesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+                const chartData = groupDataByYearMonths(response.data, 'incomes')
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
+            } else if (selectedPeriod === 'За период') {
+              const allDates = []
+              let currentDate = dayjs(startDate)
+              const endDateObj = dayjs(endDate)
 
-            if (showIncomes) {
-              const response = await categoryApi.getIncomesByDate(
-                formattedStartDate,
-                formattedEndDate
-              )
+              while (currentDate.isBefore(endDateObj) || currentDate.isSame(endDateObj, 'day')) {
+                allDates.push(currentDate.format('YYYY-MM-DD'))
+                currentDate = currentDate.add(1, 'day')
+              }
 
-              const dataByDate = new Map()
-              response.data.forEach((dayData) => {
-                dataByDate.set(dayData.date, dayData.incomes)
-              })
+              if (showExpenses) {
+                const response = await categoryApi.getExpensesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
 
-              const chartData = allDates.flatMap((date) => {
-                const dayjsDate = dayjs(date)
-                const dayOfWeek = DAYS_OF_WEEK[(dayjsDate.day() + 6) % 7]
-                const dayOfMonth = dayjsDate.date()
-                const month = MONTHS[dayjsDate.month()]
+                const dataByDate = new Map()
+                response.data.forEach((dayData) => {
+                  dataByDate.set(dayData.date, dayData.expenses)
+                })
 
-                const incomes = dataByDate.get(date) || []
-                if (incomes.length === 0) {
-                  return [
-                    {
-                      title: `${dayOfMonth} ${month}`,
-                      dayOfWeek,
-                      amount: 0,
-                      icon: ICONS_MAP['custom'],
-                      fullDate: date,
-                    },
-                  ]
-                }
-                return incomes.map((income) => ({
-                  title: `${dayOfMonth} ${month}`,
-                  dayOfWeek,
-                  amount: income.totalIncome,
-                  icon: ICONS_MAP[income.categoryIconUrl] || ICONS_MAP['custom'],
-                  fullDate: date,
-                }))
-              })
+                const chartData = allDates.flatMap((date) => {
+                  const dayjsDate = dayjs(date)
+                  const dayOfWeek = DAYS_OF_WEEK[(dayjsDate.day() + 6) % 7]
+                  const dayOfMonth = dayjsDate.date()
+                  const month = MONTHS[dayjsDate.month()]
 
-              setCurrentType(chartData)
-              setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+                  const expenses = dataByDate.get(date) || []
+                  if (expenses.length === 0) {
+                    return [
+                      {
+                        title: `${dayOfMonth} ${month}`,
+                        dayOfWeek,
+                        amount: 0,
+                        icon: ICONS_MAP['custom'],
+                        fullDate: date,
+                      },
+                    ]
+                  }
+                  return expenses.map((expense) => ({
+                    title: `${dayOfMonth} ${month}`,
+                    dayOfWeek,
+                    amount: expense.totalExpense,
+                    icon: ICONS_MAP[expense.categoryIconUrl] || ICONS_MAP['custom'],
+                    fullDate: date,
+                  }))
+                })
+
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
+
+              if (showIncomes) {
+                const response = await categoryApi.getIncomesByDate(
+                  formattedStartDate,
+                  formattedEndDate
+                )
+
+                const dataByDate = new Map()
+                response.data.forEach((dayData) => {
+                  dataByDate.set(dayData.date, dayData.incomes)
+                })
+
+                const chartData = allDates.flatMap((date) => {
+                  const dayjsDate = dayjs(date)
+                  const dayOfWeek = DAYS_OF_WEEK[(dayjsDate.day() + 6) % 7]
+                  const dayOfMonth = dayjsDate.date()
+                  const month = MONTHS[dayjsDate.month()]
+
+                  const incomes = dataByDate.get(date) || []
+                  if (incomes.length === 0) {
+                    return [
+                      {
+                        title: `${dayOfMonth} ${month}`,
+                        dayOfWeek,
+                        amount: 0,
+                        icon: ICONS_MAP['custom'],
+                        fullDate: date,
+                      },
+                    ]
+                  }
+                  return incomes.map((income) => ({
+                    title: `${dayOfMonth} ${month}`,
+                    dayOfWeek,
+                    amount: income.totalIncome,
+                    icon: ICONS_MAP[income.categoryIconUrl] || ICONS_MAP['custom'],
+                    fullDate: date,
+                  }))
+                })
+
+                setCurrentType(chartData)
+                setCurrentAmount(chartData.reduce((acc, { amount }) => acc + amount, 0))
+              }
             }
           }
-        } catch (error) {
-          console.error('Error fetching data:', error)
-        } finally {
-          setIsLoading(false)
-        }
+        } catch (error) {}
       }
 
       fetchData()
