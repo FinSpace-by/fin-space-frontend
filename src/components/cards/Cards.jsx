@@ -54,14 +54,8 @@ function Cards() {
   const [endDay, setEndDay] = useState(dayjs().date())
   const [endMonth, setEndMonth] = useState(dayjs().month())
   const [endYear, setEndYear] = useState(dayjs().year())
-  const [showExpenses, setShowExpenses] = useState(() => {
-    const saved = sessionStorage.getItem('showExpenses')
-    return saved !== null ? JSON.parse(saved) : true
-  })
-  const [showIncomes, setShowIncomes] = useState(() => {
-    const saved = sessionStorage.getItem('showIncomes')
-    return saved !== null ? JSON.parse(saved) : false
-  })
+  const [showExpenses, setShowExpenses] = useState(true)
+  const [showIncomes, setShowIncomes] = useState(false)
 
   const years = Array.from({ length: 10 }, (_, i) => dayjs().year() - 5 + i)
   const generateDays = (year, month) => {
@@ -521,12 +515,27 @@ function Cards() {
     }
   }
 
+  useEffect(() => {
+    const savedShowExpenses = sessionStorage.getItem('showExpenses')
+    const savedShowIncomes = sessionStorage.getItem('showIncomes')
+
+    if (savedShowExpenses !== null) {
+      setShowExpenses(savedShowExpenses === 'true')
+    }
+    if (savedShowIncomes !== null) {
+      setShowIncomes(savedShowIncomes === 'true')
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('showExpenses', showExpenses.toString())
+    sessionStorage.setItem('showIncomes', showIncomes.toString())
+  }, [showExpenses, showIncomes])
+
   const handleShowExpenses = () => {
     if (!showExpenses) {
       setShowExpenses(true)
       setShowIncomes(false)
-      sessionStorage.setItem('showExpenses', 'true')
-      sessionStorage.setItem('showIncomes', 'false')
     }
   }
 
@@ -534,8 +543,6 @@ function Cards() {
     if (!showIncomes) {
       setShowIncomes(true)
       setShowExpenses(false)
-      sessionStorage.setItem('showIncomes', 'true')
-      sessionStorage.setItem('showExpenses', 'false')
     }
   }
 
