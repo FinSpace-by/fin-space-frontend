@@ -21,6 +21,7 @@ import expenses_active from '@assets/imgs/expenses_active_icon.png'
 import incomes from '@assets/imgs/incomes_icon.png'
 import incomes_active from '@assets/imgs/incomes_active_icon.png'
 import calendar from '@assets/imgs/calendar_icon.png'
+import calendar1 from '@assets/imgs/calendar_icon1.png'
 import pie_chart from '@assets/imgs/pie_chart_icon.png'
 import mainBill from '@assets/icons/main_bill.svg'
 import editButton from '@assets/icons/edit_button.svg'
@@ -87,6 +88,7 @@ export const ICONS_MAP = {
   incomes,
   incomes_active,
   calendar,
+  calendar1,
   pie_chart,
   mainBill,
   editButton,
