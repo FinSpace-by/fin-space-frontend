@@ -15,7 +15,8 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
   const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     if (account) {
@@ -28,7 +29,7 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    setIsSaving(true)
 
     const body = {
       name,
@@ -43,14 +44,39 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
       onClose()
     } catch (error) {
     } finally {
-      setIsLoading(false)
+      setIsSaving(false)
+    }
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    setIsDeleting(true)
+
+    const body = {
+      name,
+      currencyId: selectedCurrency.id,
+      balance: parseFloat(parseFloat(amount || 0).toFixed(2)),
+    }
+
+    try {
+      if (account && account.id) {
+        await accountsApi.deleteAccount(account.id, body)
+      }
+      onClose()
+    } catch (error) {
+    } finally {
+      setIsDeleting(false)
     }
   }
 
   return (
     <div className={clsx('add-bill-modal', { open: isOpen })}>
       <div className='add-bill-modal__content'>
-        <button className='add-bill-modal__close' onClick={onClose} disabled={isLoading}></button>
+        <button
+          className='add-bill-modal__close'
+          onClick={onClose}
+          disabled={isSaving || isDeleting}
+        ></button>
 
         <form onSubmit={handleSubmit} className='add-bill-modal__form'>
           <div className='add-bill-modal__input-group'>
@@ -61,7 +87,7 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
               onChange={(e) => setName(e.target.value)}
               className='add-bill-modal__name-input'
               required
-              disabled={isLoading}
+              disabled={isSaving || isDeleting}
             />
           </div>
 
@@ -74,7 +100,7 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
                   selectedCurrency.id === currency.id ? 'add-bill-modal__currency-btn--active' : ''
                 }`}
                 onClick={() => setSelectedCurrency(currency)}
-                disabled={isLoading}
+                disabled={isSaving || isDeleting}
               >
                 <span>{currency.code}</span>
               </button>
@@ -90,12 +116,24 @@ const ChangeBill = ({ isOpen, onClose, account }) => {
               className='add-bill-modal__amount-input'
               step='0.01'
               required
-              disabled={isLoading}
+              disabled={isSaving || isDeleting}
             />
           </div>
 
-          <button type='submit' className='add-bill-modal__submit-btn' disabled={isLoading}>
-            {isLoading ? 'Сохранение...' : 'Сохранить изменения'}
+          <button
+            type='submit'
+            className='add-bill-modal__submit-btn'
+            disabled={isSaving || isDeleting}
+          >
+            {isSaving ? 'Сохранение...' : 'Сохранить изменения'}
+          </button>
+          <button
+            type='button'
+            onClick={handleDelete}
+            className='add-bill-modal__delete-btn'
+            disabled={isSaving || isDeleting}
+          >
+            {isDeleting ? 'Удаление...' : 'Удалить'}
           </button>
         </form>
       </div>
