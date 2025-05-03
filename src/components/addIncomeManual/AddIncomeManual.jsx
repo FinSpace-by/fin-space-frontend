@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import clsx from 'clsx'
 import { ROUTES } from '@constants'
 import { categoryApi } from '@api'
-import { ICONS_MAP } from '@constants'
+import { ICONS_MAP, AMOUNT_REGEX } from '@constants'
 import { LOCATION_STATES } from '@constants'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import BackButton from '@components/backButton/BackButton'
@@ -87,7 +87,7 @@ function AddExpensesManual() {
       return
     }
 
-    if (!/^[0-9]+([.,][0-9]{1,2})?$/.test(amount)) {
+    if (!AMOUNT_REGEX.test(amount)) {
       setAmountError('Введите корректную сумму')
       if (amountInputRef.current) {
         amountInputRef.current.focus()
