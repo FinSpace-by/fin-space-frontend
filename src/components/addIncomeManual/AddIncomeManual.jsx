@@ -87,6 +87,14 @@ function AddExpensesManual() {
       return
     }
 
+    if (!/^[0-9]+([.,][0-9]{1,2})?$/.test(amount)) {
+      setAmountError('Введите корректную сумму')
+      if (amountInputRef.current) {
+        amountInputRef.current.focus()
+      }
+      return
+    }
+
     if (!selectedAccount) {
       setAccountError('Выберите счёт')
       return
