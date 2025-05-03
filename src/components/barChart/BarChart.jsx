@@ -56,21 +56,23 @@ const LineChart = ({ categories, isExpenses }) => {
   const labels = categories.map((item) => item.title)
   const dataValues = categories.map((item) => item.amount)
 
+  const pointRadii = dataValues.map((value) => (value > 0 ? 3 : 0))
+
   const lineColor = isExpenses ? '#ff6060' : '#15d638'
 
   const data = {
     labels,
     datasets: [
       {
-        label: '',
+        label: 'BYN',
         data: dataValues,
         borderColor: lineColor,
         backgroundColor: lineColor,
         tension: 0.4,
         fill: false,
-        pointRadius: 3,
-        pointBackgroundColor: lineColor,
         borderWidth: 5,
+        pointRadius: pointRadii,
+        pointHoverRadius: pointRadii.map((r) => (r > 0 ? 4 : 0)),
       },
     ],
   }
