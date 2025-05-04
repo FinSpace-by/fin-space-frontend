@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { categoryApi, accountsApi } from '@api'
-import {
-  Typography,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
-  Snackbar,
-  Alert,
-} from '@mui/material'
+import clsx from 'clsx'
+import { Typography, MenuItem, Select, FormControl } from '@mui/material'
 import { ICONS_MAP } from '@constants'
 import BackButton from '@components/backButton/BackButton'
 import AddButtonWrapper from '@components/addButtonWrapper/AddButtonWrapper'
 import AccountDropdown from '@components/accountDropdown/AccountDropdown'
+import SuccessLoader from '@components/successLoader/SuccessLoader'
 import { ROUTES } from '@constants'
 
 import './sass/scanner_results.scss'
@@ -23,7 +17,11 @@ function ScannerResults() {
   const navigate = useNavigate()
   const [categories, setCategories] = useState([])
   const [selectedAccount, setSelectedAccount] = useState(null)
-  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [amountError, setAmountError] = useState(null)
+  const [nameError, setNameError] = useState(null)
+  const [accountError, setAccountError] = useState(null)
+  const [categoryError, setCategoryError] = useState(null)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -57,13 +55,45 @@ function ScannerResults() {
     setItems((prevItems) =>
       prevItems.map((item, i) => (i === index ? { ...item, category: newCategory } : item))
     )
+    if (categoryError) setCategoryError(null)
+  }
+
+  const validateItems = () => {
+    let isValid = true
+
+    if (!selectedAccount) {
+      setAccountError('Выберите счёт')
+      isValid = false
+    }
+
+    items.forEach((item) => {
+      const selectedCategory = categories.find((c) => c.title === item.category)
+      if (!item.product) {
+        setNameError(`Введите название`)
+        isValid = false
+      }
+
+      if (!item.price) {
+        setAmountError(`Введите сумму расходов`)
+        isValid = false
+      }
+
+      if (!selectedCategory) {
+        setCategoryError(`Выберите категорию`)
+        isValid = false
+      }
+    })
+
+    return isValid
   }
 
   const handleSubmit = async () => {
-    const allCategoriesSelected = items.every((item) => item.category)
+    setAmountError(null)
+    setNameError(null)
+    setAccountError(null)
+    setCategoryError(null)
 
-    if (!allCategoriesSelected) {
-      setOpenSnackbar(true)
+    if (!validateItems()) {
       return
     }
 
@@ -83,7 +113,10 @@ function ScannerResults() {
 
     try {
       await categoryApi.addExpenses(body)
-      navigate(ROUTES.CARDS.PATH)
+      setIsSuccess(true)
+      setTimeout(() => {
+        navigate(ROUTES.CARDS.PATH)
+      }, 1500)
     } catch (error) {}
   }
 
@@ -91,6 +124,9 @@ function ScannerResults() {
     setItems((prevItems) =>
       prevItems.map((item, i) => (i === index ? { ...item, product: newValue } : item))
     )
+    if (nameError) {
+      setNameError(null)
+    }
   }
 
   const handlePriceChange = (index, newValue) => {
@@ -98,11 +134,20 @@ function ScannerResults() {
       setItems((prevItems) =>
         prevItems.map((item, i) => (i === index ? { ...item, price: newValue } : item))
       )
+      if (amountError) {
+        setAmountError(null)
+      }
     }
+  }
+
+  const handleAccountSelect = (account) => {
+    setSelectedAccount(account)
+    if (accountError) setAccountError(null)
   }
 
   return (
     <div className='analitic__tabs__container'>
+      <SuccessLoader isSuccess={isSuccess} />
       <div className='analitic__tabs__header'>
         <Typography variant='h5' align='center' mb={3} fontSize={20}>
           Результаты сканирования
@@ -116,7 +161,11 @@ function ScannerResults() {
         </Typography>
       ) : (
         <div className='analitic__tabContent'>
-          <AccountDropdown selectedAccount={selectedAccount} onAccountSelect={setSelectedAccount} />
+          <AccountDropdown
+            selectedAccount={selectedAccount}
+            onAccountSelect={handleAccountSelect}
+            error={accountError}
+          />
 
           {items.map((item, index) => (
             <div key={index} className='analitic__tabContent__block'>
@@ -125,20 +174,25 @@ function ScannerResults() {
                   Название
                 </Typography>
               </div>
-              <div className='analitic__inputWrapper'>
+              <div className={clsx('analitic__inputWrapper', { error: nameError })}>
                 <input
                   type='text'
                   value={item.product}
                   onChange={(e) => handleProductChange(index, e.target.value)}
                 />
               </div>
+              {nameError && index === 0 && (
+                <Typography variant='body2' className='error-message'>
+                  {nameError}
+                </Typography>
+              )}
 
               <div className='analitic__tabContent__header'>
                 <Typography variant='h5' mt={2} fontSize={17}>
                   Сумма
                 </Typography>
               </div>
-              <div className='analitic__inputWrapper'>
+              <div className={clsx('analitic__inputWrapper', { error: amountError })}>
                 <input
                   type='text'
                   value={item.price}
@@ -146,13 +200,18 @@ function ScannerResults() {
                 />
                 <span className='currency'>BYN</span>
               </div>
+              {amountError && index === 0 && (
+                <Typography variant='body2' className='error-message'>
+                  {amountError}
+                </Typography>
+              )}
 
               <div className='analitic__tabContent__header'>
                 <Typography variant='h5' mt={2} fontSize={17}>
                   Категория
                 </Typography>
               </div>
-              <div className='analitic__inputWrapper'>
+              <div className={clsx('analitic__inputWrapper', { error: categoryError })}>
                 <FormControl fullWidth>
                   <Select
                     value={item.category}
@@ -205,23 +264,17 @@ function ScannerResults() {
                   </Select>
                 </FormControl>
               </div>
+              {categoryError && (
+                <Typography variant='body2' className='error-message'>
+                  {categoryError}
+                </Typography>
+              )}
             </div>
           ))}
         </div>
       )}
 
       <AddButtonWrapper onClick={handleSubmit} />
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert severity='warning' onClose={() => setOpenSnackbar(false)}>
-          Пожалуйста, выберите счёт и категории для всех товаров!
-        </Alert>
-      </Snackbar>
     </div>
   )
 }
