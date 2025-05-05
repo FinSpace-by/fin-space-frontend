@@ -22,12 +22,14 @@ import { categoryApi, userApi } from '@api'
 import { ICONS_MAP } from '@constants'
 import 'dayjs/locale/ru'
 import dayjs from 'dayjs'
+import isoWeek from 'dayjs/plugin/isoWeek'
 
 import './sass/index.scss'
 
 const DAYS_OF_WEEK = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 const MONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 const PERIOD_OPTIONS = ['Сегодня', 'Эта неделя', 'Этот месяц', 'Этот год', 'За период']
+dayjs.extend(isoWeek)
 
 function Cards() {
   const [balance, setBalance] = useState(0)
@@ -536,8 +538,8 @@ function Cards() {
         setEndDate(today.endOf('day'))
         break
       case 'Эта неделя':
-        setStartDate(today.startOf('week'))
-        setEndDate(today.endOf('week'))
+        setStartDate(today.startOf('isoWeek'))
+        setEndDate(today.endOf('isoWeek'))
         break
       case 'Этот месяц':
         setStartDate(today.startOf('month'))
@@ -565,7 +567,7 @@ function Cards() {
     setIsBarChartVisible(!isBarChartVisible)
 
     if (!isBarChartVisible) {
-      const startOfWeek = startDate.day(1)
+      const startOfWeek = startDate.startOf('isoWeek')
       setStartDate(startOfWeek)
 
       const newEndDate = startOfWeek.add(6, 'day')
