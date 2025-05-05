@@ -57,8 +57,22 @@ const LineChart = ({ categories, isExpenses }) => {
   const dataValues = categories.map((item) => item.amount)
 
   const pointRadii = dataValues.map((value) => (value > 0 ? 3 : 0))
-
   const lineColor = isExpenses ? '#ff6060' : '#15d638'
+
+  const hasNonZero = dataValues.some((val) => val > 0)
+  const maxY = hasNonZero ? Math.max(...dataValues) * 1.2 : 10
+
+  const dynamicOptions = {
+    ...chartOptions,
+    scales: {
+      ...chartOptions.scales,
+      y: {
+        ...chartOptions.scales.y,
+        min: 0,
+        max: maxY,
+      },
+    },
+  }
 
   const data = {
     labels,
@@ -77,7 +91,7 @@ const LineChart = ({ categories, isExpenses }) => {
     ],
   }
 
-  return <Line data={data} options={chartOptions} width={370} height={190} />
+  return <Line data={data} options={dynamicOptions} width={370} height={190} />
 }
 
 export default LineChart
