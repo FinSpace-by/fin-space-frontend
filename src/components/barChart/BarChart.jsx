@@ -14,7 +14,8 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const chartOptions = {
-  responsive: false,
+  responsive: true,
+  maintainAspectRatio: false,
   scales: {
     x: {
       grid: { display: false },
