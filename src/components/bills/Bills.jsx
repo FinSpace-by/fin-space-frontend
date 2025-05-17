@@ -5,6 +5,7 @@ import BackButton from '@components/backButton/BackButton'
 import { ICONS_MAP } from '@constants'
 import { accountsApi } from '@api'
 import AddBill from '@components/addBill/AddBill'
+import ChangeBill from '@components/changeBill/ChangeBill'
 import Loader from '@components/Loader'
 import './sass/index.scss'
 
@@ -12,6 +13,8 @@ function Bills() {
   const navigate = useNavigate()
   const [accounts, setAccounts] = useState([])
   const [showAddBill, setShowAddBill] = useState(false)
+  const [showChangeBill, setShowChangeBill] = useState(false)
+  const [selectedAccount, setSelectedAccount] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -27,7 +30,7 @@ function Bills() {
     }
 
     fetchAccounts()
-  }, [showAddBill])
+  }, [showAddBill, showChangeBill])
 
   const handleAddBillClick = () => {
     setShowAddBill(false)
@@ -36,6 +39,16 @@ function Bills() {
 
   const handleCloseAddBill = () => {
     setShowAddBill(false)
+  }
+
+  const handleChangeBillClick = (account) => {
+    setSelectedAccount(account)
+    setShowChangeBill(false)
+    setTimeout(() => setShowChangeBill(true), 10)
+  }
+
+  const handleCloseChangeBill = () => {
+    setShowChangeBill(false)
   }
 
   return (
@@ -60,7 +73,7 @@ function Bills() {
                   src={ICONS_MAP.editButton}
                   alt='Редактировать'
                   className='bill__edit-icon'
-                  onClick={() => navigate(`/edit-bill/${account.id}`)}
+                  onClick={() => handleChangeBillClick(account)}
                 />
               </div>
               <div className='bill__content-row'>
@@ -84,6 +97,11 @@ function Bills() {
       </div>
 
       <AddBill isOpen={showAddBill} onClose={handleCloseAddBill} />
+      <ChangeBill
+        isOpen={showChangeBill}
+        onClose={handleCloseChangeBill}
+        account={selectedAccount}
+      />
     </div>
   )
 }

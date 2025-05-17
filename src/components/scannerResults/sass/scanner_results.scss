@@ -37,6 +37,11 @@
     .analitic__inputWrapper {
       position: relative;
 
+      .MuiOutlinedInput-root {
+        font-family: 'SF Pro Text', normal;
+        font-size: 17px;
+      }
+
       .MuiSelect-nativeInput {
         position: absolute;
       }
@@ -55,10 +60,42 @@
         padding: 20px;
         font-size: 17px;
         padding-right: 50px;
+        font-family: 'SF Pro Text', normal;
 
         &::placeholder {
           color: gray;
           font-size: 17px;
+        }
+      }
+
+      &.error {
+        input {
+          border-color: #ff6060;
+          color: #ff6060;
+        }
+
+        .MuiOutlinedInput-root {
+          border: none;
+
+          .MuiInputBase-input {
+            border: none;
+          }
+
+          .MuiOutlinedInput-notchedOutline {
+            border-color: #ff6060;
+          }
+
+          .MuiSelect-select {
+            color: #ff6060 !important;
+          }
+
+          .MuiSvgIcon-root {
+            color: #ff6060;
+          }
+        }
+
+        .category-select {
+          color: #ff6060;
         }
       }
     }
@@ -77,6 +114,8 @@
     .category-select {
       display: flex;
       align-items: center;
+      font-family: 'SF Pro Text', normal;
+      font-size: 17px;
 
       img {
         width: 24px;

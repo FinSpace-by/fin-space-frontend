@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { REDIRECT_TYPES, ROUTES } from '@constants'
+import { REDIRECT_TYPES, ROUTES, SCAN_TYPES } from '@constants'
 import clsx from 'clsx'
+
 import './sass/index.scss'
 
 const IS_MODAL_DISABLED_PATHS = [ROUTES.ADD_INCOME_MANUAL.PATH, ROUTES.ADD_EXPENSES_MANUAL.PATH]
@@ -16,7 +17,9 @@ const Methods = ({ isOpen, onClose }) => {
     if (type === REDIRECT_TYPES.MANUAL) {
       navigate(ROUTES.MANUAL.PATH)
     } else if (type === REDIRECT_TYPES.SCANNER) {
-      navigate(ROUTES.SCANNER.PATH)
+      navigate(ROUTES.SCANNER.PATH, { state: { scanType: SCAN_TYPES.RECEIPT } })
+    } else if (type === REDIRECT_TYPES.QR) {
+      navigate(ROUTES.SCANNER.PATH, { state: { scanType: SCAN_TYPES.QR } })
     }
     onClose()
   }
@@ -34,7 +37,11 @@ const Methods = ({ isOpen, onClose }) => {
           </div>
           <div className='card' onClick={() => handleRedirect(REDIRECT_TYPES.SCANNER)}>
             <div className='card__icon__scanner' />
-            <p className='card__title'>Сканировать</p>
+            <p className='card__title'>Физический чек</p>
+          </div>
+          <div className='card' onClick={() => handleRedirect(REDIRECT_TYPES.QR)}>
+            <div className='card__icon__qr' />
+            <p className='card__title'>Электронный чек</p>
           </div>
         </div>
       </div>

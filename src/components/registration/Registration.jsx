@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
-import { authApi } from '@api'
+import { authApi, verificationApi } from '@api'
 import { TextField, Button, Box, Typography, Checkbox, FormControlLabel, Link } from '@mui/material'
+
 import './sass/index.scss'
 
 function Registration() {
@@ -41,17 +42,11 @@ function Registration() {
       !passwordMismatch &&
       !hasErrors.agreement
     ) {
-      const body = {
-        phoneOrEmail: phoneOrEmail,
-        password: password,
-      }
-
       try {
-        const response = await authApi.register(body)
-        if (response?.data?.token) {
-          localStorage.setItem('token', response.data.token)
-        }
-        navigate(ROUTES.CARDS.PATH)
+        localStorage.setItem('verificationEmail', phoneOrEmail)
+        localStorage.setItem('verificationPassword', password)
+        verificationApi.sendCode(phoneOrEmail)
+        navigate(ROUTES.CONFIRM_LOGIN.PATH)
       } catch (error) {
         console.error('Registration error:', error)
       }

@@ -21,6 +21,7 @@ import expenses_active from '@assets/imgs/expenses_active_icon.png'
 import incomes from '@assets/imgs/incomes_icon.png'
 import incomes_active from '@assets/imgs/incomes_active_icon.png'
 import calendar from '@assets/imgs/calendar_icon.png'
+import calendar1 from '@assets/imgs/calendar_icon1.png'
 import pie_chart from '@assets/imgs/pie_chart_icon.png'
 import mainBill from '@assets/icons/main_bill.svg'
 import editButton from '@assets/icons/edit_button.svg'
@@ -42,6 +43,7 @@ export const ROUTER_ROUTES = {
   ADD_INCOME_MANUAL: 'add-income-manual',
   ADD_CUSTOM: 'add-custom',
   BILLS: `bills`,
+  CONFIRM_LOGIN: 'confirm-login',
 }
 
 export const ROUTES = {
@@ -59,6 +61,7 @@ export const ROUTES = {
   ADD_INCOME_MANUAL: { TITLE: 'Добавить доход', PATH: '/add-income-manual' },
   ADD_CUSTOM: { TITLE: 'Добавить вручную', PATH: '/add-custom' },
   BILLS: { TITLE: 'Счета', PATH: '/bills' },
+  CONFIRM_LOGIN: { TITLE: 'Подтвержение входа', PATH: '/confirm-login' },
 }
 
 export const ICONS_MAP = {
@@ -85,6 +88,7 @@ export const ICONS_MAP = {
   incomes,
   incomes_active,
   calendar,
+  calendar1,
   pie_chart,
   mainBill,
   editButton,
@@ -100,3 +104,17 @@ export const REDIRECT_TYPES = {
   MANUAL: 'manual',
   SCANNER: 'scanner',
 }
+
+export const HTTP_STATUSES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+}
+
+export const SCAN_TYPES = {
+  RECEIPT: 'receipt',
+  QR: 'qr',
+}
+
+export const AMOUNT_REGEX = /^[0-9]+([.,][0-9]{1,2})?$/

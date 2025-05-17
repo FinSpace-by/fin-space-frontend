@@ -16,6 +16,14 @@ const AddBill = ({ isOpen, onClose }) => {
   const [amount, setAmount] = useState('')
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
+  useEffect(() => {
+    if (!isOpen) {
+      setName('')
+      setAmount('')
+      setSelectedCurrency(currencies[0])
+    }
+  }, [isOpen])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 

@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ROUTES } from '@constants'
 import logo from '@assets/imgs/logo.png'
-import { TextField, Button, Box, Typography, Snackbar, Alert } from '@mui/material'
-import { authApi, userApi } from '@api'
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  Alert,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material'
+import { authApi, userApi, verificationApi } from '@api'
+import { REACT_APP_GOOGLE_CLIENT_ID } from '@config'
+import GoogleButton from '@components/googleButton/GoogleButton.jsx'
 
 import './sass/index.scss'
 
 function Authorization() {
+  const [searchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState(true)
   const [phoneOrEmail, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState({ phoneOrEmail: false, password: false })
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -18,6 +31,45 @@ function Authorization() {
     severity: 'info',
   })
   const navigate = useNavigate()
+  const demoAccounts = [
+    { phoneOrEmail: '+375339999991', password: '1111' },
+    { phoneOrEmail: '+375339999992', password: '2222' },
+    { phoneOrEmail: '+375339999993', password: '3333' },
+    { phoneOrEmail: '+375339999994', password: '4444' },
+    { phoneOrEmail: '+375339999995', password: '5555' },
+  ]
+
+  useEffect(() => {
+    const savedCredentials = localStorage.getItem('rememberedCredentials')
+    if (savedCredentials) {
+      try {
+        const { phoneOrEmail: savedPhoneOrEmail, password: savedPassword } =
+          JSON.parse(savedCredentials)
+        setPhone(savedPhoneOrEmail)
+        setPassword(savedPassword)
+        setRememberMe(true)
+      } catch (e) {
+        console.error('Failed to parse saved credentials', e)
+      }
+    }
+    setIsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (searchParams.get('auto')) {
+      const randomAccount = demoAccounts[Math.floor(Math.random() * demoAccounts.length)]
+
+      authApi
+        .setLogin({
+          phoneOrEmail: randomAccount.phoneOrEmail,
+          password: randomAccount.password,
+        })
+        .then((response) => {
+          localStorage.setItem('token', response.data.token)
+          navigate(ROUTES.CARDS.PATH)
+        })
+    }
+  }, [searchParams])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,12 +85,20 @@ function Authorization() {
       try {
         const body = { phoneOrEmail, password }
         const response = await authApi.setLogin(body)
-
         if (response?.data?.token) {
           localStorage.setItem('token', response.data.token)
-        }
 
-        navigate(ROUTES.CARDS.PATH)
+          if (rememberMe) {
+            localStorage.setItem(
+              'rememberedCredentials',
+              JSON.stringify({ phoneOrEmail, password })
+            )
+          } else {
+            localStorage.removeItem('rememberedCredentials')
+          }
+
+          navigate(ROUTES.CARDS.PATH)
+        }
       } catch {
         setSnackbar({
           open: true,
@@ -60,6 +120,34 @@ function Authorization() {
       return
     }
     setSnackbar({ ...snackbar, open: false })
+  }
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await authApi.googleLogin({
+        token: credentialResponse.credential,
+        timestamp: Date.now(),
+      })
+
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token)
+        navigate(ROUTES.CARDS.PATH)
+      }
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message,
+        severity: 'error',
+      })
+    }
+  }
+
+  const handleGoogleError = () => {
+    setSnackbar({
+      open: true,
+      message: 'Не удалось войти через Google',
+      severity: 'error',
+    })
   }
 
   return (
@@ -99,6 +187,24 @@ function Authorization() {
           error={errors.password}
           helperText={errors.password ? 'Это поле обязательно' : ''}
         />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              color='primary'
+            />
+          }
+          label='Запомнить меня'
+          sx={{ alignSelf: 'flex-start', mt: 1 }}
+        />
+
+        {/* <GoogleButton
+          onSuccess={handleGoogleSuccess}
+          onError={handleGoogleError}
+          clientId={REACT_APP_GOOGLE_CLIENT_ID}
+        /> */}
 
         <Button
           type='submit'

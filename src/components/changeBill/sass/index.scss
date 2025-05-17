@@ -1,0 +1,169 @@
+.add-bill-modal {
+  border-radius: 30px 30px 0 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60vh;
+  max-height: 90vh;
+  background-color: #181818;
+  color: white;
+  z-index: 1000;
+  transform: translateY(100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+  will-change: transform, opacity, visibility;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease,
+    visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.add-bill-modal.open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.add-bill-modal__content {
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.add-bill-modal__header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 22px;
+  width: 100%;
+}
+
+.add-bill-modal__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 25px;
+}
+
+.add-bill-modal__input-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-bill-modal__name-input,
+.add-bill-modal__amount-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 25px 15px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: #232323;
+  font-size: 16px;
+  color: white;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #6054e4;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #666;
+  }
+}
+
+.add-bill-modal__currencies {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.add-bill-modal__currency-btn {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  border-radius: 50%;
+  background-color: #232323;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+
+  span {
+    font-size: 16px;
+  }
+}
+
+.add-bill-modal__currency-btn--active {
+  border: 1px solid #6054e4;
+}
+
+.add-bill-modal__submit-btn {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(to bottom, #6054e4, #9284ff);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #4a3fd1;
+  }
+}
+
+.add-bill-modal__delete-btn {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: #232323;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #202020;
+  }
+}
+
+.add-bill-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  background-image: url('@assets/imgs/cross4.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 10;
+}
